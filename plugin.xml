@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="y_edit.editor.YEdit"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            default="false"
+            extensions="yaml"
+            id="y-edit.editor.YAMLEditor"
+            name="Y-Edit YAML Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="y_edit.preferences.YEditPreferences"
+            id="y_edit.preferences.YEditPreferences"
+            name="Y-Edit Preferences">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="y_edit.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+
+</plugin>
