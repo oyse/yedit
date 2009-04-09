@@ -6,7 +6,14 @@ import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.Token;
 
-
+/**
+ * IRule implementation that trues to match the character stream against
+ * a regular expression pattern.
+ * 
+ * For reason of efficiency the regex pattern cannot span newlines.
+ * @author oysteto
+ *
+ */
 public class RegexRule implements IRule {
 
 	IToken token;
