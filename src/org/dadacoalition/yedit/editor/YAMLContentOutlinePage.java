@@ -13,7 +13,6 @@ import org.eclipse.jface.text.Position;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -123,37 +122,7 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 					child.key = key;
 					this.children.add(child);
 				}
-			}
-			
-//			if( data instanceof List ){
-//								
-//				List<Object> sequence = (List<Object>) data;
-//				for( Object o : sequence ){
-//					YAMLSegment child = new YAMLSegment( o, this, SEQUENCEITEM );
-//					this.children.add(child);
-//									
-//				}				
-//			} else if( data instanceof Map ){			
-//											
-//				Map<String,Object> map = (Map<String,Object>) data;
-//				for ( String key : map.keySet() ){
-//					Object o = map.get(key);
-//					YAMLSegment child = new YAMLSegment( o, this, MAPPINGITEM );
-//					child.key = key;
-//					this.children.add(child);
-//					
-//				}				
-//			} else {	
-//
-//				//this item has no children to change the type to an element that
-//				//has no children
-//				if( this.type == SEQUENCEITEM ){
-//					this.type = SCALAR;
-//				} else if( this.type == MAPPINGITEM ){
-//					this.type = MAPPINGSCALAR;
-//				}
-//				 
-//			}
+			}		
 			
 		}
 		
