@@ -1,5 +1,6 @@
 package org.dadacoalition.yedit.editor;
 
+import org.dadacoalition.yedit.YEditLog;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -39,7 +40,7 @@ public class YEdit extends TextEditor {
 
 			super.dispose();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			YEditLog.logException(e);
 		}
 	}
 
@@ -47,7 +48,8 @@ public class YEdit extends TextEditor {
 		if (idleTimer != null) {
 			idleTimer.addListener(listener);
 		} else {
-			System.out.println("Null for faen!");
+			YEditLog.logError( "Failed adding listener for idle document since listener is null" );
+			YEditLog.logger.severe( "listener is null" );
 		}
 	}
 
@@ -73,6 +75,7 @@ public class YEdit extends TextEditor {
 	}
 	
 	public Object getAdapter(Class required) {
+		
 		if (IContentOutlinePage.class.equals(required)) {
 			if (contentOutline == null) {
 				contentOutline = new YAMLContentOutlinePage(getDocumentProvider(), this);
@@ -117,7 +120,7 @@ public class YEdit extends TextEditor {
 		
 		} catch ( YAMLException ex ) {
 			parserError = ex;
-			System.out.println( ex.toString() );
+			YEditLog.logger.info( "Encountered YAML syntax error:" + ex.toString() );
 		}		
 
 		return parserError;
@@ -131,6 +134,8 @@ public class YEdit extends TextEditor {
 		//if the file is not part of a workspace it does not seems that it is a IFileEditorInput
 		//but instead a FileStoreEditorInput. Unclear if markers are valid for such files.
 		if( !( editorInput instanceof IFileEditorInput ) ){
+			YEditLog.logError("Marking errors not supported for files outside of a project." );
+			YEditLog.logger.info("editorInput is not a part of a project." );
 			return;
 		}
 
@@ -141,12 +146,14 @@ public class YEdit extends TextEditor {
 		try {
 			file.deleteMarkers(IMarker.PROBLEM, true, depth);
 		} catch (CoreException e) {
-			System.out.println( e );
+			YEditLog.logException(e);
+			YEditLog.logger.warning("Failed to delete markers:\n" + e.toString() );
 		}		
 
 		YAMLException syntaxError = checkForErrors();
 		
 		if( syntaxError == null ){
+			YEditLog.logger.fine("No syntax errors");
 			return;
 		}		
 		
@@ -163,7 +170,9 @@ public class YEdit extends TextEditor {
 			}
 
 		} catch (CoreException e) {
-			e.printStackTrace();
+			YEditLog.logException(e);
+			YEditLog.logger.warning("Failed to create marker for syntax error: \n" + e.toString() );
+		
 		}
 	}
 	
