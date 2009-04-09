@@ -1,4 +1,4 @@
-package y_edit.editor;
+package org.dadacoalition.yedit.editor;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;

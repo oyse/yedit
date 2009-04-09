@@ -23,7 +23,7 @@
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="y_edit.preferences.PreferenceInitializer">
+            class="org.dadacoalition.yedit.preferences.PreferenceInitializer">
       </initializer>
    </extension>
 

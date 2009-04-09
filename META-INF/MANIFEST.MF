@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Y-Edit Plug-in
-Bundle-SymbolicName: y_edit;singleton:=true
-Bundle-Version: 0.0.4
-Bundle-Activator: y_edit.Activator
+Bundle-Name: YEdit YAML editor
+Bundle-SymbolicName: org.dadacoalition.yedit;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-Activator: org.dadacoalition.yedit.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.ui.editors,

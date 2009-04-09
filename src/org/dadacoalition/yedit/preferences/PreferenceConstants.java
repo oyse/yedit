@@ -1,4 +1,4 @@
-package y_edit.preferences;
+package org.dadacoalition.yedit.preferences;
 
 /**
  * Constant definitions for plug-in preferences

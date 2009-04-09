@@ -1,7 +1,9 @@
-package y_edit.editor;
+package org.dadacoalition.yedit.editor;
 
 import java.net.URL;
 
+import org.dadacoalition.yedit.Activator;
+import org.dadacoalition.yedit.editor.YAMLContentOutlinePage.YAMLSegment;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
@@ -9,8 +11,6 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.osgi.framework.Bundle;
 
-import y_edit.Activator;
-import y_edit.editor.YAMLContentOutlinePage.YAMLSegment;
 
 public class YAMLContentOutlineLabelProvided extends LabelProvider {
 

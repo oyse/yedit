@@ -1,13 +1,13 @@
-package y_edit.editor;
+package org.dadacoalition.yedit.editor;
 
+import org.dadacoalition.yedit.Activator;
+import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.text.TextAttribute;
 import org.eclipse.jface.text.rules.*;
 import org.eclipse.swt.graphics.RGB;
 
-import y_edit.Activator;
-import y_edit.preferences.PreferenceConstants;
 
 public class YAMLScanner extends RuleBasedScanner {
 

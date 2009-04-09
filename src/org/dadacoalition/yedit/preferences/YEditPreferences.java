@@ -1,9 +1,9 @@
-package y_edit.preferences;
+package org.dadacoalition.yedit.preferences;
 
+import org.dadacoalition.yedit.Activator;
 import org.eclipse.jface.preference.*;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.IWorkbench;
-import y_edit.Activator;
 
 /**
  * The UI for setting the Y-Edit preferences

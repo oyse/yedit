@@ -1,4 +1,4 @@
-package y_edit.editor;
+package org.dadacoalition.yedit.editor;
 
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;

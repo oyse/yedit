@@ -1,11 +1,11 @@
-package y_edit.preferences;
+package org.dadacoalition.yedit.preferences;
 
+import org.dadacoalition.yedit.Activator;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.RGB;
 
-import y_edit.Activator;
 
 /**
  * Class used to initialize default preference values.

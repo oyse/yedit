@@ -2,7 +2,7 @@
  * Created on 05.12.2003
  *
  */
-package y_edit.editor;
+package org.dadacoalition.yedit.editor;
 
 import org.eclipse.jface.text.source.ISourceViewer;
 

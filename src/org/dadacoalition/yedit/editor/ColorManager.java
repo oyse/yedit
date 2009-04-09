@@ -1,4 +1,4 @@
-package y_edit.editor;
+package org.dadacoalition.yedit.editor;
 
 import java.util.HashMap;
 import java.util.Iterator;
