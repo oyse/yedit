@@ -4,20 +4,20 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="y_edit.editor.YEdit"
+            class="org.dadacoalition.yedit.editor.YEdit"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             default="false"
             extensions="yaml"
-            id="y-edit.editor.YAMLEditor"
-            name="Y-Edit YAML Editor">
+            id="org.dadacoalition.yedit.editor.YEdit"
+            name="YEdit YAML Editor">
       </editor>
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="y_edit.preferences.YEditPreferences"
-            id="y_edit.preferences.YEditPreferences"
-            name="Y-Edit Preferences">
+            class="org.dadacoalition.yedit.preferences.YEditPreferences"
+            id="org.dadacoalition.yedit.preferences.YEditPreferences"
+            name="YEdit YAML Editor Preferences">
       </page>
    </extension>
    <extension
