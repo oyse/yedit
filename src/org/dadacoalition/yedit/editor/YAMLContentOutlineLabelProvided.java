@@ -3,7 +3,6 @@ package org.dadacoalition.yedit.editor;
 import java.net.URL;
 
 import org.dadacoalition.yedit.Activator;
-import org.dadacoalition.yedit.editor.YAMLContentOutlinePage.YAMLSegment;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
@@ -28,18 +27,18 @@ public class YAMLContentOutlineLabelProvided extends LabelProvider {
 
 	public Image getImage(Object element) {
 
-		if( element instanceof YAMLSegment ){
+		if( element instanceof YAMLOutlineElement ){
 			
-			YAMLSegment segment = ( YAMLSegment ) element;
-			if( segment.type == YAMLSegment.DOCUMENT ){
+			YAMLOutlineElement segment = ( YAMLOutlineElement ) element;
+			if( segment.type == YAMLOutlineElement.DOCUMENT ){
 				return get( IMG_DOCUMENT );
-			} else if( segment.type == YAMLSegment.MAPPINGITEM ){
+			} else if( segment.type == YAMLOutlineElement.MAPPINGITEM ){
 				return get( IMG_MAPPING );
-			} else if( segment.type == YAMLSegment.SEQUENCEITEM ){
+			} else if( segment.type == YAMLOutlineElement.SEQUENCEITEM ){
 				return get( IMG_SEQUENCE );
-			} else if( segment.type == YAMLSegment.SCALAR ){
+			} else if( segment.type == YAMLOutlineElement.SCALAR ){
 				return get( IMG_SCALAR );
-			} else if( segment.type == YAMLSegment.MAPPINGSCALAR ){
+			} else if( segment.type == YAMLOutlineElement.MAPPINGSCALAR ){
 				return get( IMG_MAPPINGSCALAR );
 			}			
 		} 

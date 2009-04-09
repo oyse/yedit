@@ -4,12 +4,10 @@ package org.dadacoalition.yedit.editor;
 import java.io.StringReader;
 import java.util.*;
 
-import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.BadPositionCategoryException;
 import org.eclipse.jface.text.DefaultPositionUpdater;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IPositionUpdater;
-import org.eclipse.jface.text.Position;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -34,121 +32,10 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 	
 	public static final String YAMLSEGMENT = "_____YAML_Element";
 	
-	protected class YAMLSegment {
-		
-		public static final int SCALAR = 1;
-		public static final int MAPPINGITEM = 2;
-		public static final int SEQUENCEITEM = 3;
-		public static final int DOCUMENT = 4;
-		public static final int MAPPINGSCALAR = 5;
-	
-		protected Node node;
-		protected String key;
-		protected String value;
-		protected YAMLSegment parent;
-		protected List<YAMLSegment> children = new ArrayList<YAMLSegment>();
-		protected Position position;
-		protected IDocument document;
-		protected int type;
-		
-		protected YAMLSegment( Node node, IDocument document ){
-			this( node, null, DOCUMENT, document );		
-		}		
-		
-		protected YAMLSegment( Node node, YAMLSegment parent, int type, IDocument document ){
-			this.node = node;
-			this.parent = parent;
-			this.type = type;
-			this.document = document;
-			
-			parseData( node );
-			position = getPosition( node );
-			try {
-				document.addPosition(YAMLSEGMENT, position);
-			} catch (BadLocationException e) {
-				e.printStackTrace();
-			} catch (BadPositionCategoryException e) {
-				e.printStackTrace();
-			}			
-
-		}
-		
-		private Position getPosition( Node node ){
-			
-			int startLine = node.getStartMark().getLine();
-			int startColumn = node.getStartMark().getColumn();
-			int endLine = node.getEndMark().getLine();
-			int endColumn = node.getEndMark().getColumn();
-			Position p = null;
-			try {
-				int offset = document.getLineOffset(startLine);
-				offset += startColumn;
-			
-				int length;
-				if( startLine < endLine ){
-					length = document.getLineLength( startLine ) - startColumn;
-				} else {
-					length = endColumn - startColumn;
-				}
-				p = new Position( offset, length ); 
-			} catch( BadLocationException ex) {
-				
-			}
-			return p; 			
-			
-		}
-		
-		private void parseData( Node node ){
-			
-			if( node instanceof ScalarNode ){
-				if( this.type == SEQUENCEITEM ){
-					this.type = SCALAR;
-				} else if( this.type == MAPPINGITEM ){
-					this.type = MAPPINGSCALAR;
-				}				
-			} else if( node instanceof SequenceNode ){
-				SequenceNode sNode = (SequenceNode) node;
-				List<Node> children = sNode.getValue();
-				for( Node childNode : children ){
-					YAMLSegment child = new YAMLSegment( childNode, this, SEQUENCEITEM, document );
-					this.children.add(child);					
-				}
-			} else if ( node instanceof MappingNode ){
-				MappingNode mNode = (MappingNode) node;
-				List<Node[]> children = mNode.getValue();
-				for( Node[] childNode : children ){
-					String key = childNode[0].getValue().toString();
-					YAMLSegment child = new YAMLSegment( childNode[1], this, MAPPINGITEM, document );
-					child.key = key;
-					this.children.add(child);
-				}
-			}		
-			
-		}
-		
-		public String toString(){
-			if( type == YAMLSegment.DOCUMENT ){
-				return "";
-			} else if( type == YAMLSegment.SCALAR ){
-				return node.getValue().toString();
-			} else if( type == YAMLSegment.MAPPINGITEM ){
-				return key;
-			} else if( type == YAMLSegment.SEQUENCEITEM ){
-				return "";
-			} else if( type == MAPPINGSCALAR ){
-				return key + ": " + node.getValue().toString();
-			}
-			
-			return super.toString();
-			
-		}
-		
-	}
-	
 	protected class ContentProvider implements ITreeContentProvider {
 
 		protected Loader yamlParser = new Loader();
-		protected List<YAMLSegment> yamlDocuments = new ArrayList<YAMLSegment>();
+		protected List<YAMLOutlineElement> yamlDocuments = new ArrayList<YAMLOutlineElement>();
 		protected IPositionUpdater positionUpdater = new DefaultPositionUpdater(YAMLSEGMENT);		
 		
 		public void parse(IDocument document){
@@ -159,7 +46,7 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 			try {
 				
 				for ( Node rootNode : yamlParser.loadAll2( new StringReader(content) ) ){
-					YAMLSegment ye = new YAMLSegment( rootNode, document );
+					YAMLOutlineElement ye = new YAMLOutlineElement( rootNode, document );
 					yamlDocuments.add(ye);
 				}						
 			
@@ -171,8 +58,8 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 		
 		public Object[] getChildren(Object element) {
 			
-			if( element instanceof YAMLSegment ){
-				return ((YAMLSegment) element).children.toArray();
+			if( element instanceof YAMLOutlineElement ){
+				return ((YAMLOutlineElement) element).children.toArray();
 			}
 			
 			return null;
@@ -180,8 +67,8 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 
 		public Object getParent(Object element) {
 			
-			if( element instanceof YAMLSegment ){
-				return ((YAMLSegment) element).parent;
+			if( element instanceof YAMLOutlineElement ){
+				return ((YAMLOutlineElement) element).parent;
 			}
 			
 			return null;
@@ -189,8 +76,8 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 
 		public boolean hasChildren(Object element) {
 
-			if( element instanceof YAMLSegment ){
-				return ( ((YAMLSegment) element).children.size() == 0 ) ? false : true;
+			if( element instanceof YAMLOutlineElement ){
+				return ( ((YAMLOutlineElement) element).children.size() == 0 ) ? false : true;
 			}
 			
 			return false;
@@ -277,7 +164,7 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 		if (selection.isEmpty())
 			textEditor.resetHighlightRange();
 		else {
-			YAMLSegment segment= (YAMLSegment) ((IStructuredSelection) selection).getFirstElement();
+			YAMLOutlineElement segment= (YAMLOutlineElement) ((IStructuredSelection) selection).getFirstElement();
 			int start= segment.position.getOffset();
 			int length= segment.position.getLength();
 			try {
