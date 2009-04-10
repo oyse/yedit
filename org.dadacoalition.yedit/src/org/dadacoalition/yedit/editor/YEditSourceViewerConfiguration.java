@@ -10,13 +10,13 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
 
 public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 
-	private YAMLScanner jsonScanner;
+	private YAMLScanner yamlScanner;
 	private ColorManager colorManager;
-	private YEdit jsonEditor;
+	private YEdit yamlEditor;
 
 	
-	public YEditSourceViewerConfiguration( YEdit jsonEditor ){
-		this.jsonEditor = jsonEditor;
+	public YEditSourceViewerConfiguration( YEdit yamlEditor ){
+		this.yamlEditor = yamlEditor;
 		colorManager = new ColorManager();
 	}
 	
@@ -28,7 +28,7 @@ public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 			}
 		};
 		
-		jsonEditor.addDocumentIdleListener( listener );
+		yamlEditor.addDocumentIdleListener( listener );
 		
 	}
 	
@@ -46,10 +46,10 @@ public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 	
 	protected YAMLScanner getScanner(){
 		
-		if( jsonScanner == null ){
-			jsonScanner = new YAMLScanner( colorManager );
+		if( yamlScanner == null ){
+			yamlScanner = new YAMLScanner( colorManager );
 		}
-		return jsonScanner;
+		return yamlScanner;
 		
 	}
 	
