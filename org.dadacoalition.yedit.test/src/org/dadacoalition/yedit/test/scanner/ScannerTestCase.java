@@ -11,6 +11,7 @@ public class ScannerTestCase extends YEditTestCase {
 	private List<ScannerToken> expectedTokens;
 	private int startOffset;
 	private int rangeLength;
+	private String contentFile;
 		
 	public List<ScannerToken> getExpectedTokens() {
 		return expectedTokens;
@@ -33,6 +34,14 @@ public class ScannerTestCase extends YEditTestCase {
 		this.rangeLength = rangeLength;
 	}
 	
+	public String getContentFile() {
+		return contentFile;
+	}
+
+	public void setContentFile(String contentFile) {
+		this.contentFile = contentFile;
+	}
+
 	public ArrayList<YAMLToken> getYAMLTokens(){
 		
 		ArrayList<YAMLToken> yamlTokens = new ArrayList<YAMLToken>();
