@@ -12,9 +12,9 @@ public class YAMLToken extends Token {
 	
 	public static int COMMENT = 4;
 		
-	private int tokenType;
+	protected int tokenType;
 	
-	YAMLToken( Object data, int type ){
+	public YAMLToken( Object data, int type ){
 		super( data );
 		this.tokenType = type;		
 	}
@@ -41,6 +41,21 @@ public class YAMLToken extends Token {
 		
 		return typeString;
 	
+	}
+	
+	public boolean equals( Object o ){
+		
+		if( !( o instanceof YAMLToken ) ){
+			return false;
+		}
+		
+		YAMLToken t = ( YAMLToken ) o;
+		if( t.tokenType == this.tokenType ){
+			return true;
+		}
+		
+		return false;
+		
 	}
 
 }
