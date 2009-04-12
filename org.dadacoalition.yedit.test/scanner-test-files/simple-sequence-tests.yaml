@@ -1,0 +1,11 @@
+---
+name: Parsing while document
+rangeLength: -1
+startOffset: 0
+expectedTokens:
+  - type: DOCUMENT
+    times: 1 
+  - type: SCALAR
+    times: 52
+  - type: COMMENT
+    times: 1
