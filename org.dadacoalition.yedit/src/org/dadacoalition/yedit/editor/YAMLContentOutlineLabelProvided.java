@@ -3,6 +3,7 @@ package org.dadacoalition.yedit.editor;
 import java.net.URL;
 
 import org.dadacoalition.yedit.Activator;
+import org.dadacoalition.yedit.YEditLog;
 import org.eclipse.core.runtime.*;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
@@ -72,11 +73,14 @@ public class YAMLContentOutlineLabelProvided extends LabelProvider {
 
 	private static ImageDescriptor createImageDescriptor(Bundle bundle, IPath path) {
 		URL url = FileLocator.find(bundle, path, null );
-		System.out.println( url );
-		if (url != null)
+		
+		YEditLog.logger.fine( "Attempting to load image " + url );
+		if (url != null){
 			return ImageDescriptor.createFromURL(url);
-		else
+		} else {
+			YEditLog.logger.warning( "Could not load image " + path );
 			return null;
+		}
 	}
 
 }
