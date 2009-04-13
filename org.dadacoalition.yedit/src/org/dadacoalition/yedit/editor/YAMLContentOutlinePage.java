@@ -4,6 +4,7 @@ package org.dadacoalition.yedit.editor;
 import java.io.StringReader;
 import java.util.*;
 
+import org.dadacoalition.yedit.YEditLog;
 import org.eclipse.jface.text.BadPositionCategoryException;
 import org.eclipse.jface.text.DefaultPositionUpdater;
 import org.eclipse.jface.text.IDocument;
@@ -51,7 +52,7 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 				}						
 			
 			} catch ( YAMLException ex ) {
-				System.out.println( ex.toString() );
+				YEditLog.logger.info( "Syntax error found during parsing for outlinew view. Parsing stopped." );
 			}
 		}
 		
@@ -100,10 +101,9 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 			
 		}
 
-		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
-			System.out.println( "Input changed" );
+			YEditLog.logger.fine( "Input to the Outline view was changed." );
 			
 			if (oldInput != null) {
 				IDocument document= documentProvider.getDocument(oldInput);
@@ -156,7 +156,8 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 	}
 	
 	public void selectionChanged( SelectionChangedEvent event ){
-		System.out.println( "Selection changed" );
+		
+		YEditLog.logger.fine("Select in the outline view changed");
 		
 		super.selectionChanged(event);
 
