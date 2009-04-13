@@ -10,5 +10,8 @@ public class PreferenceConstants {
 	public static final String COLOR_SCALAR = "colorScalarPreference";
 	public static final String COLOR_DEFAULT = "colorDefaultPreference";
 	public static final String COLOR_DOCUMENT = "colorDocumentPreference";
+	public static final String COLOR_ANCHOR = "colorAnchorPreferences";
+	public static final String COLOR_ALIAS = "colorAliasPreferences";
+	public static final String COLOR_TAG = "colorTagPreferences";
 	
 }

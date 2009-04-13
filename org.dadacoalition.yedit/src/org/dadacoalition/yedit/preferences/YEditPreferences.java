@@ -6,7 +6,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.IWorkbench;
 
 /**
- * The UI for setting the Y-Edit preferences
+ * The UI for setting the YEdit preferences
  * @author oysteto
  *
  */
@@ -17,7 +17,7 @@ public class YEditPreferences
 	public YEditPreferences() {
 		super(GRID);
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());
-		setDescription("Y-Edit Preferences");
+		setDescription("YEdit Preferences");
 	}
 	
 	/**
@@ -32,7 +32,10 @@ public class YEditPreferences
 		addField(new ColorFieldEditor(PreferenceConstants.COLOR_COMMENT, "Comments", getFieldEditorParent() ) );
 		addField(new ColorFieldEditor(PreferenceConstants.COLOR_KEY, "Keys", getFieldEditorParent() ) );
 		addField(new ColorFieldEditor(PreferenceConstants.COLOR_DOCUMENT, "Documents", getFieldEditorParent() ) );
-		addField(new ColorFieldEditor(PreferenceConstants.COLOR_SCALAR, "Scalars", getFieldEditorParent() ) );		
+		addField(new ColorFieldEditor(PreferenceConstants.COLOR_SCALAR, "Scalars", getFieldEditorParent() ) );	
+		addField(new ColorFieldEditor(PreferenceConstants.COLOR_ANCHOR, "Anchors", getFieldEditorParent() ) );
+		addField(new ColorFieldEditor(PreferenceConstants.COLOR_ALIAS, "Alias", getFieldEditorParent() ) );
+		addField(new ColorFieldEditor(PreferenceConstants.COLOR_TAG, "Tags", getFieldEditorParent() ) );
 		
 	}
 
