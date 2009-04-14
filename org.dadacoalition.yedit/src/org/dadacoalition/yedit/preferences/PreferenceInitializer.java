@@ -26,7 +26,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		PreferenceConverter.setDefault(store, PreferenceConstants.COLOR_SCALAR, new RGB(0,0,255));
 		PreferenceConverter.setDefault(store, PreferenceConstants.COLOR_ANCHOR, new RGB(175,0,255));
 		PreferenceConverter.setDefault(store, PreferenceConstants.COLOR_ALIAS, new RGB(175,0,255));
-		PreferenceConverter.setDefault(store, PreferenceConstants.COLOR_TAG, new RGB(0,0,255));		
+		PreferenceConverter.setDefault(store, PreferenceConstants.COLOR_TAG_PROPERTY, new RGB(175,0,255));
+		PreferenceConverter.setDefault(store, PreferenceConstants.COLOR_FLOW_CHARACTER, new RGB(0,0,0));
 
 	}
 

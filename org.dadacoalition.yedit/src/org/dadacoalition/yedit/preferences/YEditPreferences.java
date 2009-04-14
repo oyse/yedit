@@ -35,7 +35,7 @@ public class YEditPreferences
 		addField(new ColorFieldEditor(PreferenceConstants.COLOR_SCALAR, "Scalars", getFieldEditorParent() ) );	
 		addField(new ColorFieldEditor(PreferenceConstants.COLOR_ANCHOR, "Anchors", getFieldEditorParent() ) );
 		addField(new ColorFieldEditor(PreferenceConstants.COLOR_ALIAS, "Alias", getFieldEditorParent() ) );
-		addField(new ColorFieldEditor(PreferenceConstants.COLOR_TAG, "Tags", getFieldEditorParent() ) );
+		addField(new ColorFieldEditor(PreferenceConstants.COLOR_TAG_PROPERTY, "Tag properties", getFieldEditorParent() ) );
 		
 	}
 
