@@ -13,7 +13,8 @@ public class YAMLToken extends Token {
 	public static int COMMENT = 5;
 	public static int ANCHOR = 6;
 	public static int ALIAS = 7;
-	public static int TAG = 8;
+	public static int TAG_PROPERTY = 8;
+	public static int FLOW_CHARACTER = 9;
 
 	//helper mapping used by toString(). Should really be simple way to do this.
 	private static final HashMap<Integer, String> TOKEN_NAMES = new HashMap<Integer, String>();
@@ -25,7 +26,8 @@ public class YAMLToken extends Token {
 		TOKEN_NAMES.put( YAMLToken.SCALAR, "SCALAR" );
 		TOKEN_NAMES.put( YAMLToken.ANCHOR,"ANCHOR" );
 		TOKEN_NAMES.put( YAMLToken.ALIAS, "ALIAS" );
-		TOKEN_NAMES.put( YAMLToken.TAG, "TAG" );
+		TOKEN_NAMES.put( YAMLToken.TAG_PROPERTY, "TAG_PROPERTY" );
+		TOKEN_NAMES.put( YAMLToken.FLOW_CHARACTER, "FLOW_CHARACTER" );
 	}	
 	
 	
