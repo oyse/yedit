@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: YEdit YAML editor
 Bundle-SymbolicName: org.dadacoalition.yedit;singleton:=true
-Bundle-Version: 0.0.1
+Bundle-Version: 0.0.2
 Bundle-Activator: org.dadacoalition.yedit.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -12,4 +12,23 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.ui.ide
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.dadacoalition.yedit,
+ org.dadacoalition.yedit.editor,
+ org.dadacoalition.yedit.preferences,
+ org.yaml.snakeyaml,
+ org.yaml.snakeyaml.composer,
+ org.yaml.snakeyaml.constructor,
+ org.yaml.snakeyaml.emitter,
+ org.yaml.snakeyaml.error,
+ org.yaml.snakeyaml.events,
+ org.yaml.snakeyaml.introspector,
+ org.yaml.snakeyaml.nodes,
+ org.yaml.snakeyaml.parser,
+ org.yaml.snakeyaml.reader,
+ org.yaml.snakeyaml.representer,
+ org.yaml.snakeyaml.resolver,
+ org.yaml.snakeyaml.scanner,
+ org.yaml.snakeyaml.serializer,
+ org.yaml.snakeyaml.tokens,
+ org.yaml.snakeyaml.util
