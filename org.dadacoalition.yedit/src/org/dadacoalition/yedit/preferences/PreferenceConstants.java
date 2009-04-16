@@ -15,4 +15,7 @@ public class PreferenceConstants {
 	public static final String COLOR_TAG_PROPERTY = "colorTagPropertyPreferences";
 	public static final String COLOR_FLOW_CHARACTER = "colorFlowCharacterPreferences";
 	
+	public static final String SPACES_PER_TAB = "spacesPerTab";
+	public static final String SECONDS_TO_REEVALUATE = "secondsToReevaluate";
+	
 }
