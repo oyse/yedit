@@ -27,16 +27,9 @@ public class YEditPreferences
 	 * restore itself.
 	 */
 	public void createFieldEditors() {
-				
-		addField(new ColorFieldEditor(PreferenceConstants.COLOR_DEFAULT, "Default", getFieldEditorParent() ) );
-		addField(new ColorFieldEditor(PreferenceConstants.COLOR_COMMENT, "Comments", getFieldEditorParent() ) );
-		addField(new ColorFieldEditor(PreferenceConstants.COLOR_KEY, "Keys", getFieldEditorParent() ) );
-		addField(new ColorFieldEditor(PreferenceConstants.COLOR_DOCUMENT, "Documents", getFieldEditorParent() ) );
-		addField(new ColorFieldEditor(PreferenceConstants.COLOR_SCALAR, "Scalars", getFieldEditorParent() ) );	
-		addField(new ColorFieldEditor(PreferenceConstants.COLOR_ANCHOR, "Anchors", getFieldEditorParent() ) );
-		addField(new ColorFieldEditor(PreferenceConstants.COLOR_ALIAS, "Alias", getFieldEditorParent() ) );
-		addField(new ColorFieldEditor(PreferenceConstants.COLOR_TAG_PROPERTY, "Tag properties", getFieldEditorParent() ) );
 		
+		addField(new IntegerFieldEditor(PreferenceConstants.SPACES_PER_TAB, "Spaces per tab", getFieldEditorParent(), 2 ) );
+		addField(new IntegerFieldEditor(PreferenceConstants.SECONDS_TO_REEVALUATE, "Seconds between syntax reevaluation", getFieldEditorParent(), 3 ) );
 	}
 
 	/* (non-Javadoc)
