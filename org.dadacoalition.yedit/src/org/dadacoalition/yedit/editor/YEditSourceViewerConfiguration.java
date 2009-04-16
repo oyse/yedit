@@ -1,6 +1,14 @@
 package org.dadacoalition.yedit.editor;
 
+import org.dadacoalition.yedit.Activator;
+import org.dadacoalition.yedit.preferences.PreferenceConstants;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.text.DefaultAutoIndentStrategy;
+import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
+import org.eclipse.jface.text.IAutoEditStrategy;
+import org.eclipse.jface.text.IAutoIndentStrategy;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.TabsToSpacesConverter;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
@@ -42,6 +50,24 @@ public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 		
 		return pr;
 		
+	}
+	
+	@Override
+	public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer, String contentType ){		
+		if( IDocument.DEFAULT_CONTENT_TYPE.equals(contentType) ){
+						
+			return new IAutoEditStrategy[] { 
+					new TabsToSpacesConverter(),
+					new DefaultIndentLineAutoEditStrategy(),
+					};
+		} else {
+			return new IAutoEditStrategy[]{ new DefaultIndentLineAutoEditStrategy() };		
+		}
+	}
+	
+	public int getTabWidth( ISourceViewer sourceViewer ){
+		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
+		return prefs.getInt(PreferenceConstants.SPACES_PER_TAB);
 	}
 	
 	protected YAMLScanner getScanner(){
