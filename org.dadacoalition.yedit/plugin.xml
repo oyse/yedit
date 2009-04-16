@@ -15,9 +15,15 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
+            category="org.dadacoalition.yedit.preferences.YEditPreferences"
+            class="org.dadacoalition.yedit.preferences.ColorPreferences"
+            id="org.dadacoalition.yedit.preferences.ColorPreferences"
+            name="Color Preferences">
+      </page>
+      <page
             class="org.dadacoalition.yedit.preferences.YEditPreferences"
             id="org.dadacoalition.yedit.preferences.YEditPreferences"
-            name="YEdit YAML Editor Preferences">
+            name="YEdit Preferences">
       </page>
    </extension>
    <extension
