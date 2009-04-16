@@ -6,6 +6,8 @@ package org.dadacoalition.yedit.editor;
 
 import java.util.*;
 
+import org.dadacoalition.yedit.Activator;
+import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.source.ISourceViewer;
@@ -33,6 +35,7 @@ public class IdleTimer extends Thread
 
     private long lastChange = -1L;
 	private int waitForTermination = 1000; // millis
+	private int timeBetweenActivation;
 
     /**
      * @param sourceViewer  viewer monitored for document changes
@@ -43,8 +46,10 @@ public class IdleTimer extends Thread
 		super("IdleTimer");
         assert sourceViewer != null;
         assert display != null;
-        
-		this.sourceViewer = sourceViewer;
+                
+        timeBetweenActivation = Activator.getDefault().getPreferenceStore().getInt(PreferenceConstants.SECONDS_TO_REEVALUATE) * 1000;
+		
+        this.sourceViewer = sourceViewer;
 		this.display = display;
 	}
 
@@ -106,12 +111,10 @@ public class IdleTimer extends Thread
             {
                 while (lastChange == -1) wait();
 
-                int sleep = 1000;
-
                 // note that lastChange might be increased by document
                 // changes occurring during the wait
-                while (System.currentTimeMillis() < lastChange + sleep)
-                    wait(sleep);
+                while (System.currentTimeMillis() < lastChange + timeBetweenActivation)
+                    wait(timeBetweenActivation);
 
                 lastChange = -1L;
             }
