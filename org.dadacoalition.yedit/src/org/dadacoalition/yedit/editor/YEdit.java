@@ -176,4 +176,16 @@ public class YEdit extends TextEditor {
 		}
 	}
 	
+	/**
+	 * This method overrides the corresponding method in AbstractDecoratedTextEditor.
+	 * It is used to force tab to spaces conversion even if the the preference 
+	 * EDITOR_SPACES_FOR_TABS is not set to true. If this method is not present
+	 * pressing the tab key will cause the focus to jump out of the editor and on to button
+	 * row if the EDITOR_SPACE_FOR_TABS is not true.
+	 * @return Always returns true
+	 */
+	protected boolean isTabsToSpacesConversionEnabled(){
+		return true;
+	}
+	
 }
