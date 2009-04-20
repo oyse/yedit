@@ -32,5 +32,49 @@
             class="org.dadacoalition.yedit.preferences.PreferenceInitializer">
       </initializer>
    </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            description="Commands related to the YEdit plugin"
+            id="org.dadacoalition.yedit.commands.category"
+            name="YEdit">
+      </category>
+      <command
+            categoryId="org.dadacoalition.yedit.commands.category"
+            description="Turn comments on/off for a selection"
+            id="org.dadacoalition.yedit.commands.toggleComment"
+            name="Toggle Comment">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <menu
+               label="YEdit">
+            <command
+                  commandId="org.dadacoalition.yedit.commands.toggleComment"
+                  label="Toggle Comment"
+                  style="push">
+            </command>
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activePartId">
+                  <equals
+                        value="org.dadacoalition.yedit.editor.YEdit">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.dadacoalition.yedit.handlers.ToggleCommentHandler"
+            commandId="org.dadacoalition.yedit.commands.toggleComment">
+      </handler>
+   </extension>
 
 </plugin>

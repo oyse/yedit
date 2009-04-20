@@ -79,5 +79,13 @@ public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 		
 	}
 	
+	/**
+	 * Returns the prefixes used when doing prefix operations. For YEdit
+	 * that means ToggleComment. Without overriding this method ToggleComment will not work.
+	 */
+	public String[] getDefaultPrefixes( ISourceViewer viewer, String contentType ){
+		return new String[] { "#", "" };
+	}
+	
 	
 }
