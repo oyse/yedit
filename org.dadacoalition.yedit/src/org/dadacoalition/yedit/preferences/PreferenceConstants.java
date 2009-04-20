@@ -16,6 +16,9 @@ public class PreferenceConstants {
 	public static final String COLOR_FLOW_CHARACTER = "colorFlowCharacterPreferences";
 	
 	public static final String SPACES_PER_TAB = "spacesPerTab";
+	
+	//the number of seconds that should pass between each time the the syntax highlighter reevaluates
+	//the entire YAML file.
 	public static final String SECONDS_TO_REEVALUATE = "secondsToReevaluate";
 	
 }
