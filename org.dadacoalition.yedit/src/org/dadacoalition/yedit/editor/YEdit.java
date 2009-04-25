@@ -26,6 +26,7 @@ public class YEdit extends TextEditor {
 	public YEdit() {
 		super();
 		colorManager = new ColorManager();
+		setKeyBindingScopes( new String[] { "org.dadacoalition.yedit.yeditScope" } );
 
 	}
 

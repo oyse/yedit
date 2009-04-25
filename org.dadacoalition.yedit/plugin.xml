@@ -76,5 +76,22 @@
             commandId="org.dadacoalition.yedit.commands.toggleComment">
       </handler>
    </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="org.dadacoalition.yedit.commands.toggleComment"
+            contextId="org.dadacoalition.yedit.yeditScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Ctrl+Shift+C">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.contexts">
+      <context
+            id="org.dadacoalition.yedit.yeditScope"
+            name="YEdit editor context"
+            parentId="org.eclipse.ui.textEditorScope">
+      </context>
+   </extension>
 
 </plugin>
