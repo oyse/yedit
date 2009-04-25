@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.YEditLog;
 import org.dadacoalition.yedit.YEditMessages;
 import org.eclipse.core.commands.AbstractHandler;
@@ -21,9 +20,17 @@ import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.texteditor.TextOperationAction;
 
+/**
+ * Command handler for toggling comments. The handler detects if comments should
+ * be added or removed from the currently selected lines by inspect the first non-whitespace
+ * character on each line. If the first character is '#' comments are removed. Otherwise
+ * a '#' character is added to each line.
+ * @author oysteto
+ *
+ */
 public class ToggleCommentHandler extends AbstractHandler {
 
-	@Override
+	
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
 		ISelection selection = HandlerUtil.getCurrentSelection( event );
@@ -33,8 +40,7 @@ public class ToggleCommentHandler extends AbstractHandler {
 		}
 		
 		TextSelection ts = (TextSelection) selection;
-		
-		
+			
 		YEditLog.logger.info( ts.getStartLine() + " " + ts.getEndLine() );
 		IEditorPart editorPart = HandlerUtil.getActiveEditor(event);
 		if( !( editorPart instanceof TextEditor ) ){
@@ -95,6 +101,12 @@ public class ToggleCommentHandler extends AbstractHandler {
 		return false;
 	}
 	
+	/**
+	 * Checks whether a line starts with a comment character or not.
+	 * @param line The string that should be checked. Should be the text string of a single line
+	 * without line delimiter characters.
+	 * @return true if the string starts with a comment character, false otherwise.
+	 */
 	public static boolean startsWithComment( String line ){
 		
 		Pattern commentPattern = Pattern.compile( "^\\s*#.*" );
