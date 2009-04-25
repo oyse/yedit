@@ -1,5 +1,7 @@
 package org.dadacoalition.yedit.editor;
 
+import java.util.Arrays;
+
 import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -68,6 +70,29 @@ public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 	public int getTabWidth( ISourceViewer sourceViewer ){
 		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 		return prefs.getInt(PreferenceConstants.SPACES_PER_TAB);
+	}
+	
+	/**
+	 * This methods is necessary for proper implementation of Shift Left and Shift Right.
+	 * 
+	 * This implementation overrides the default implementation to ensure that only spaces
+	 * are inserted and not tabs.
+	 * 
+	 * @returns An array of prefixes. The prefix at position 0 is used when shifting right.
+	 * When shifting left all the prefixes are checked and one of the matches that prefix is
+	 * removed from the line.
+	 */
+	public String[] getIndentPrefixes( ISourceViewer sourceViewer, String contentType ){
+		int tabWidth = getTabWidth( sourceViewer );
+		
+		String[] indentPrefixes = new String[ tabWidth ];
+		for( int prefixLength = 1; prefixLength <= tabWidth; prefixLength++  ){
+			char[] spaceChars = new char[prefixLength];
+			Arrays.fill(spaceChars, ' ');
+			indentPrefixes[tabWidth - prefixLength] = new String(spaceChars);
+		}
+		
+		return indentPrefixes;
 	}
 	
 	protected YAMLScanner getScanner(){
