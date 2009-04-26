@@ -35,7 +35,7 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 	
 	protected class ContentProvider implements ITreeContentProvider {
 
-		protected Loader yamlParser = new Loader();
+		protected Yaml yamlParser = new Yaml();
 		protected List<YAMLOutlineElement> yamlDocuments = new ArrayList<YAMLOutlineElement>();
 		protected IPositionUpdater positionUpdater = new DefaultPositionUpdater(YAMLSEGMENT);		
 		
@@ -46,7 +46,7 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 			
 			try {
 				
-				for ( Node rootNode : yamlParser.loadAll2( new StringReader(content) ) ){
+			    for( Node rootNode : yamlParser.composeAll( new StringReader( content ) ) ){
 					YAMLOutlineElement ye = new YAMLOutlineElement( rootNode, document );
 					yamlDocuments.add(ye);
 				}						
@@ -85,7 +85,7 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 		}
 
 		public Object[] getElements(Object arg0) {
-			// TODO Auto-generated method stub
+
 			if( yamlDocuments != null ){
 				return yamlDocuments.toArray();
 			}
