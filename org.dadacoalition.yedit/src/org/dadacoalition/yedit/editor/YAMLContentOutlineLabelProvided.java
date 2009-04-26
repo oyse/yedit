@@ -34,13 +34,17 @@ public class YAMLContentOutlineLabelProvided extends LabelProvider {
 			if( segment.type == YAMLOutlineElement.DOCUMENT ){
 				return get( IMG_DOCUMENT );
 			} else if( segment.type == YAMLOutlineElement.MAPPINGITEM ){
-				return get( IMG_MAPPING );
+			    if( 0 == segment.children.size() ){
+			        return get( IMG_MAPPINGSCALAR );
+			    } else {
+			        return get( IMG_MAPPING );
+			    }
 			} else if( segment.type == YAMLOutlineElement.SEQUENCEITEM ){
-				return get( IMG_SEQUENCE );
-			} else if( segment.type == YAMLOutlineElement.SCALAR ){
-				return get( IMG_SCALAR );
-			} else if( segment.type == YAMLOutlineElement.MAPPINGSCALAR ){
-				return get( IMG_MAPPINGSCALAR );
+			    if( 0 == segment.children.size() ){
+			        return get( IMG_SCALAR );
+			    } else {
+			        return get( IMG_SEQUENCE );
+			    }
 			}			
 		} 
 		

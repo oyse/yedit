@@ -19,21 +19,15 @@ import org.yaml.snakeyaml.nodes.SequenceNode;
  *
  */
 public class YAMLOutlineElement {
-		
-        /** The element is a single scalar. */
-		public static final int SCALAR = 1;
-		
+			
 		/** The element is part of a mapping */
-		public static final int MAPPINGITEM = 2;
+		public static final int MAPPINGITEM = 1;
 		
 		/** The element is part of a sequence */
-		public static final int SEQUENCEITEM = 3;
+		public static final int SEQUENCEITEM = 2;
 		
 		/** The element is a document element */
-		public static final int DOCUMENT = 4;
-		
-		/** The element is a key value pair where the value is a single scalar */
-		public static final int MAPPINGSCALAR = 5;
+		public static final int DOCUMENT = 3;
 	
 		protected Node node;
 		protected String key;
@@ -119,14 +113,7 @@ public class YAMLOutlineElement {
 		private void parseNode( Node node ){
 			
 			if( node instanceof ScalarNode ){
-			    
-			    //At this stage we know that the element has no children, therefore change the
-			    //type of the element.
-				if( this.type == SEQUENCEITEM ){
-					this.type = SCALAR;
-				} else if( this.type == MAPPINGITEM ){
-					this.type = MAPPINGSCALAR;
-				}				
+				//scalar nodes require no further action
 			} else if( node instanceof SequenceNode ){
 				SequenceNode sNode = (SequenceNode) node;
 				List<Node> children = sNode.getValue();
@@ -143,21 +130,24 @@ public class YAMLOutlineElement {
 					child.key = key;
 					this.children.add(child);
 				}
-			}		
-			
+			}					
 		}
 		
 		public String toString(){
 			if( type == YAMLOutlineElement.DOCUMENT ){
 				return "";
-			} else if( type == YAMLOutlineElement.SCALAR ){
-				return node.getValue().toString();
-			} else if( type == YAMLOutlineElement.MAPPINGITEM ){
-				return key;
+			} else if( type == YAMLOutlineElement.MAPPINGITEM ){			    
+			    if( 0 == children.size() ){
+			        return key + ": " + node.getValue().toString();
+			    } else {
+			        return key;
+			    }
 			} else if( type == YAMLOutlineElement.SEQUENCEITEM ){
-				return "";
-			} else if( type == YAMLOutlineElement.MAPPINGSCALAR ){
-				return key + ": " + node.getValue().toString();
+			    if( 0 == children.size() ) {
+			        return node.getValue().toString();
+			    } else {
+			        return "";
+			    }			        			    
 			}
 			
 			return super.toString();
