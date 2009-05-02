@@ -29,7 +29,7 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 
 	private Object input;
 	private IDocumentProvider documentProvider;
-	private ITextEditor textEditor;
+	private YEdit yamlEditor;
 	
 	public static final String YAMLSEGMENT = "_____YAML_Element";
 	
@@ -129,10 +129,10 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 		
 	}
 	
-	public YAMLContentOutlinePage(IDocumentProvider provider, ITextEditor editor){
+	public YAMLContentOutlinePage(IDocumentProvider provider, YEdit editor){
 		super();
 		documentProvider = provider;
-		textEditor = editor;
+		yamlEditor = editor;
 	}
 	
 	
@@ -142,7 +142,8 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 
 		TreeViewer viewer= getTreeViewer();
 		viewer.setContentProvider(new ContentProvider());
-		viewer.setLabelProvider(new YAMLContentOutlineLabelProvided());
+		//viewer.setLabelProvider(new YAMLContentOutlineLabelProvided());
+		viewer.setLabelProvider( new YEditStyledLabelProvider( yamlEditor.getColorManager() ) );
 		viewer.addSelectionChangedListener(this);
 
 		if (input != null){
@@ -163,15 +164,15 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 
 		ISelection selection= event.getSelection();
 		if (selection.isEmpty())
-			textEditor.resetHighlightRange();
+			yamlEditor.resetHighlightRange();
 		else {
 			YAMLOutlineElement segment= (YAMLOutlineElement) ((IStructuredSelection) selection).getFirstElement();
 			int start= segment.position.getOffset();
 			int length= segment.position.getLength();
 			try {
-				textEditor.setHighlightRange(start, length, true);
+				yamlEditor.setHighlightRange(start, length, true);
 			} catch (IllegalArgumentException x) {
-				textEditor.resetHighlightRange();
+				yamlEditor.resetHighlightRange();
 			}
 		}		
 	}
