@@ -189,4 +189,8 @@ public class YEdit extends TextEditor {
 		return true;
 	}
 	
+	protected ColorManager getColorManager(){
+	    return colorManager;
+	}
+	
 }
