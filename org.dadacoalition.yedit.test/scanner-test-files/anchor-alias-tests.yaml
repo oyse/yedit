@@ -1,0 +1,16 @@
+---
+name: Document with anchor an alias from the start
+contentFile: anchor-alias.yaml
+rangeLength: -1
+startOffset: 0
+expectedTokens:
+  - type: DOCUMENT_START
+  - type: ANCHOR
+  - type: KEY
+  - type: SCALAR
+  - type: KEY
+  - type: SCALAR
+  - type: ALIAS
+  - type: ANCHOR
+  - type: KEY
+  - type: ALIAS

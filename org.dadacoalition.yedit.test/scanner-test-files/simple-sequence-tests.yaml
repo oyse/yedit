@@ -1,10 +1,21 @@
 ---
-name: Parsing while document
+name: Simple document with only sequences. While document
+contentFile: simple-sequence.yaml
 rangeLength: -1
 startOffset: 0
 expectedTokens:
-  - type: DOCUMENT
+  - type: DOCUMENT_START
     times: 1 
+  - type: SCALAR
+    times: 52
+  - type: COMMENT
+    times: 1
+---
+name: Simple document with only sequences. Not start of document
+contentFile: simple-sequence.yaml
+rangeLength: -1
+startOffset: 4
+expectedTokens:
   - type: SCALAR
     times: 52
   - type: COMMENT

@@ -1,0 +1,7 @@
+---
+- &firstAnchor
+  some key: "value"
+  some other key: "value"
+- *firstAnchor
+- &secondAnchor #test with comment
+  key: *firstAnchor # test with comment

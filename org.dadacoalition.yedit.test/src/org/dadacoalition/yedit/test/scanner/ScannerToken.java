@@ -6,17 +6,21 @@ import org.dadacoalition.yedit.editor.YAMLToken;
 
 public class ScannerToken {
 	
-	private Integer times;
+	private Integer times = 1;
 	private String type;
 	private int tokenType;
 
 	private static final HashMap<String,Integer> TOKEN_TYPES = new HashMap<String,Integer>();
 	
 	static {
-		TOKEN_TYPES.put("DOCUMENT", YAMLToken.DOCUMENT );
+		TOKEN_TYPES.put("DOCUMENT_START", YAMLToken.DOCUMENT_START );
+		TOKEN_TYPES.put("DOCUMENT_END", YAMLToken.DOCUMENT_END );
 		TOKEN_TYPES.put("COMMENT", YAMLToken.COMMENT );
 		TOKEN_TYPES.put("KEY", YAMLToken.KEY );
 		TOKEN_TYPES.put("SCALAR", YAMLToken.SCALAR );
+		TOKEN_TYPES.put("ANCHOR", YAMLToken.ANCHOR );
+		TOKEN_TYPES.put("ALIAS", YAMLToken.ALIAS );
+		TOKEN_TYPES.put("TAG_PROPERTY", YAMLToken.TAG_PROPERTY );
 	}
 	
 	public Integer getTimes() {

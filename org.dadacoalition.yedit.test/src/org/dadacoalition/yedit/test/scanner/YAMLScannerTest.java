@@ -48,23 +48,28 @@ public class YAMLScannerTest {
 
 	@Parameters
 	public static Collection<Object[]> readTests() {
-		
-		String[] testfiles = { "simple-sequence-tests.yaml" };
-		
+
+		String[] testfiles = { 
+				"simple-sequence-tests.yaml",
+				"empty-document-tests.yaml",
+				"anchor-alias-tests.yaml",
+		};
+
 		Collection<Object[]> testCases = new ArrayList<Object[]>();
-		for( String testfile : testfiles ){
-			ArrayList<ScannerTestCase> tests = readTests(TEST_FILES_DIR + testfile );
-			for( ScannerTestCase stc : tests ){
+		for (String testfile : testfiles) {
+			ArrayList<ScannerTestCase> tests = readTests(TEST_FILES_DIR
+					+ testfile);
+			for (ScannerTestCase stc : tests) {
 				Object[] testcase = { stc };
-				testCases.add( testcase );
+				testCases.add(testcase);
 			}
-			
+
 		}
-		
-		return testCases;	
-		
+
+		return testCases;
+
 	}
-	
+
 	@Test
 	public void verifyTokens() {
 
@@ -77,7 +82,7 @@ public class YAMLScannerTest {
 		if (-1 == rangeLength) {
 			rangeLength = document.getLength() - testCase.getStartOffset();
 		}
-		scanner.setRange(document, testCase.getStartOffset(), rangeLength );
+		scanner.setRange(document, testCase.getStartOffset(), rangeLength);
 
 		// do the actual scanning. It is crucial to update the range of the
 		// scanner
@@ -94,6 +99,10 @@ public class YAMLScannerTest {
 			token = scanner.nextToken();
 		}
 
+		System.out.println( testCase.getName() );
+		for( IToken t : scannedTokens ){
+			System.out.println( t );
+		}
 		compareTokens(testCase.getName(), testCase.getYAMLTokens(),
 				scannedTokens);
 

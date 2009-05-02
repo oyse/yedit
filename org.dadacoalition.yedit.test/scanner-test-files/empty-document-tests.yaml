@@ -1,0 +1,10 @@
+---
+name: Parsing empty document
+contentFile: empty-document.yaml
+rangeLength: -1
+startOffset: 0
+expectedTokens:
+  - type: DOCUMENT_START
+    times: 1 
+  - type: DOCUMENT_END
+    times: 1
