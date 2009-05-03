@@ -142,7 +142,6 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 
 		TreeViewer viewer= getTreeViewer();
 		viewer.setContentProvider(new ContentProvider());
-		//viewer.setLabelProvider(new YAMLContentOutlineLabelProvided());
 		viewer.setLabelProvider( new YEditStyledLabelProvider( yamlEditor.getColorManager() ) );
 		viewer.addSelectionChangedListener(this);
 
