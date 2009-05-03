@@ -4,6 +4,7 @@ import java.net.URL;
 
 import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.YEditLog;
+import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -19,10 +20,27 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.TextStyle;
 import org.osgi.framework.Bundle;
 
+/**
+ * Label provider that is capable of using more than one style for a single label.
+ * @author oysteto
+ *
+ */
 public class YEditStyledLabelProvider extends StyledCellLabelProvider {
     
     private final Styler TAG_STYLER;
     private final Styler TEXT_STYLER;
+    
+    private static final IPath ICONS_PATH = new Path("/icons");
+    private static ImageRegistry imageRegistry;
+
+    public static final String IMG_SEQUENCE = "outline_sequence.png";
+    public static final String IMG_MAPPING = "outline_mapping.gif";
+    public static final String IMG_DOCUMENT = "outline_document.gif";
+    public static final String IMG_SCALAR = "outline_scalar.gif";
+    public static final String IMG_MAPPINGSCALAR = "outline_mappingscalar.gif"; 
+    
+    private static final String[] images = { IMG_SEQUENCE, IMG_MAPPING, IMG_DOCUMENT, IMG_SCALAR, IMG_MAPPINGSCALAR };
+    
     
     public YEditStyledLabelProvider( ColorManager colorManager ) {
         final Color c = colorManager.getColor( new RGB( 149, 125, 71) );
@@ -46,50 +64,46 @@ public class YEditStyledLabelProvider extends StyledCellLabelProvider {
         Object e = cell.getElement();
         if( e instanceof YAMLOutlineElement ){
             YAMLOutlineElement element = (YAMLOutlineElement) e;
-            StyledString styledString = new StyledString( element.toString() + " ", TEXT_STYLER );
-            styledString.append( element.node.getTag(), TAG_STYLER );
+            StyledString styledString = new StyledString( elementLabel(element), TEXT_STYLER );
+            
+            boolean showTags = Activator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.OUTLINE_SHOW_TAGS );
+            if( showTags ){
+                styledString.append( " " + element.node.getTag(), TAG_STYLER );
+            }
+            
             cell.setText(styledString.toString());
             cell.setStyleRanges(styledString.getStyleRanges());            
             cell.setImage(getImage( element ) );
-        }
-        
-        
-//        if (element instanceof File) {
-//            File file= (File) element;
-//            
-//            // Multi-font support only works in JFace 3.5 and above (specifically, 3.5 M4 and above).
-//            // With JFace 3.4, the font information (bold in this example) will be ignored.
-//            Styler style= file.isDirectory() ? fBoldStyler: null;
-//            StyledString styledString= new StyledString(file.getName(), style);
-//            String decoration = MessageFormat.format(" ({0} bytes)", new Object[] { new Long(file.length()) }); //$NON-NLS-1$
-//            styledString.append(decoration, StyledString.COUNTER_STYLER);
-//            
-//            cell.setText(styledString.toString());
-//            cell.setStyleRanges(styledString.getStyleRanges());
-//            
-//            if (file.isDirectory()) {
-//                cell.setImage(IMAGE1);
-//            } else {
-//                cell.setImage(IMAGE2);
-//            }
-//        } else {
-//            cell.setText("Unknown element"); //$NON-NLS-1$
-//        }
+        }              
+
 
         super.update(cell);
     }
-
     
-    private static final IPath ICONS_PATH = new Path("/icons");
-    private static ImageRegistry imageRegistry;
+    /** 
+     * @return The label string for the element. For scalar elements the label string could
+     * be shortened depending on the value of OULTINE_SCALAR_MAX_LENGTH
+     */
+    private String elementLabel( YAMLOutlineElement element ){
+        
+        if( 0 == element.children.size() ){
+            
+            int maxLength = Activator.getDefault().getPreferenceStore().getInt(PreferenceConstants.OUTLINE_SCALAR_MAX_LENGTH );
+            
+            //max length of 0 means that is could be of any length.
+            String elemString = element.toString();
+            if( maxLength != 0 && elemString.length() > maxLength ){
+                elemString = elemString.substring(0, maxLength );
+                elemString += " ...";
+            }
+            return elemString;
+            
+        } else {
+            return element.toString();
+        }
+        
+    }
 
-    public static final String IMG_SEQUENCE = "outline_sequence.png";
-    public static final String IMG_MAPPING = "outline_mapping.gif";
-    public static final String IMG_DOCUMENT = "outline_document.gif";
-    public static final String IMG_SCALAR = "outline_scalar.gif";
-    public static final String IMG_MAPPINGSCALAR = "outline_mappingscalar.gif"; 
-    
-    private static final String[] images = { IMG_SEQUENCE, IMG_MAPPING, IMG_DOCUMENT, IMG_SCALAR, IMG_MAPPINGSCALAR };
         
 
     public Image getImage(Object element) {

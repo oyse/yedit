@@ -30,6 +30,10 @@ public class YEditPreferences
 		
 		addField(new IntegerFieldEditor(PreferenceConstants.SPACES_PER_TAB, "Spaces per tab", getFieldEditorParent(), 2 ) );
 		addField(new IntegerFieldEditor(PreferenceConstants.SECONDS_TO_REEVALUATE, "Seconds between syntax reevaluation", getFieldEditorParent(), 3 ) );
+		
+		addField(new IntegerFieldEditor(PreferenceConstants.OUTLINE_SCALAR_MAX_LENGTH, "Maximum display length of scalar", getFieldEditorParent(), 4 ) );
+		addField(new BooleanFieldEditor(PreferenceConstants.OUTLINE_SHOW_TAGS, "Show tags in outline view", getFieldEditorParent() ) );
+	
 	}
 
 	/* (non-Javadoc)

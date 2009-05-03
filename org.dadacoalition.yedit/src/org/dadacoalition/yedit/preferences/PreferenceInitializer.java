@@ -31,6 +31,10 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
 		store.setDefault(PreferenceConstants.SPACES_PER_TAB, 2);
 		store.setDefault(PreferenceConstants.SECONDS_TO_REEVALUATE, 3);
+		
+		store.setDefault(PreferenceConstants.OUTLINE_SCALAR_MAX_LENGTH, 30);
+		store.setDefault(PreferenceConstants.OUTLINE_SHOW_TAGS, true );
+		
 	}
 
 }
