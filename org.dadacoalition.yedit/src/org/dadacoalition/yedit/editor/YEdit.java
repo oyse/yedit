@@ -1,5 +1,7 @@
 package org.dadacoalition.yedit.editor;
 
+import java.io.StringReader;
+
 import org.dadacoalition.yedit.YEditLog;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -116,7 +118,7 @@ public class YEdit extends TextEditor {
 		YAMLException parserError = null;
 		try {			
 			//parse all the YAML documents in the file
-			for ( Object data : yamlParser.loadAll( content ) ){
+			for ( Object data : yamlParser.composeAll( new StringReader(content) ) ){
 			}						
 		
 		} catch ( YAMLException ex ) {
