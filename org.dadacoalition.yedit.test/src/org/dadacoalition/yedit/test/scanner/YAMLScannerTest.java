@@ -113,7 +113,7 @@ public class YAMLScannerTest {
 
 	public void compareTokens(String testname, List<YAMLToken> expectedTokens,
 			List<IToken> receivedTokens) {
-	    printTokens( receivedTokens );
+	    //printTokens( receivedTokens );
 		org.junit.Assert.assertEquals(testname + " Number of tokens.",
 				expectedTokens.size(), receivedTokens.size());
 

@@ -142,4 +142,5 @@ expectedTokens:
   - type: WHITESPACE
   - type: SCALAR #value
     times: 5 
+  - type: WHITESPACE
   - type: COMMENT

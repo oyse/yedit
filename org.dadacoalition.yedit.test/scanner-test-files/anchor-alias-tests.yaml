@@ -24,9 +24,11 @@ expectedTokens:
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE
   - type: ANCHOR
+  - type: WHITESPACE  
   - type: COMMENT
   - type: WHITESPACE
     times: 2
   - type: KEY
   - type: ALIAS
+  - type: WHITESPACE  
   - type: COMMENT

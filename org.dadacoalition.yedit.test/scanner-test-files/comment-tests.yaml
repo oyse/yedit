@@ -7,13 +7,13 @@ expectedTokens:
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE
   - type: SCALAR
+  - type: WHITESPACE
   - type: COMMENT
   
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE
   - type: SCALAR
-    times: 2
-  - type: WHITESPACE
+  - type: COMMENT
 
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE

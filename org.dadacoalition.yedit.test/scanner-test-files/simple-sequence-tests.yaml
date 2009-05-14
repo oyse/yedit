@@ -28,4 +28,5 @@ expectedTokens:
   - type: WHITESPACE
   - type: SCALAR
     times: 4
+  - type: WHITESPACE    
   - type: COMMENT
