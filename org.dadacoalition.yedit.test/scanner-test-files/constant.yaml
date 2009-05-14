@@ -1,0 +1,27 @@
+---
+- null
+- Null
+- NULL
+- ~
+- NULl
+- false
+- False
+- FALSE
+- falsE
+- true
+- True
+- TRUE
+- tRue
+- .nan
+- .NaN
+- .NAN
+- .naN
+- nan
+- .inf
+- .Inf
+- .INF
+- inf
+- .INf
+- "false"
+- 'TRUE'
+- value #true

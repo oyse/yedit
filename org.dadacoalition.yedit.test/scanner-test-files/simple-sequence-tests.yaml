@@ -5,18 +5,27 @@ rangeLength: -1
 startOffset: 0
 expectedTokens:
   - type: DOCUMENT_START
-    times: 1 
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE  
   - type: SCALAR
-    times: 52
-  - type: COMMENT
-    times: 1
----
-name: Simple document with only sequences. Not start of document
-contentFile: simple-sequence.yaml
-rangeLength: -1
-startOffset: 4
-expectedTokens:
+    times: 9
+  - type: WHITESPACE  
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE  
   - type: SCALAR
-    times: 52
+    times: 9
+  - type: WHITESPACE
+  - type: SCALAR
+    times: 4
+  - type: WHITESPACE
+  - type: SCALAR
+    times: 5 
+  - type: WHITESPACE
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE  
+  - type: SCALAR
+    times: 9
+  - type: WHITESPACE
+  - type: SCALAR
+    times: 4
   - type: COMMENT
-    times: 1

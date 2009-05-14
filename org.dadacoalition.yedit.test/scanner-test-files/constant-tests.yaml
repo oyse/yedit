@@ -1,0 +1,145 @@
+---
+name: Document that uses YAML constants. Parsed from start.
+contentFile: constant.yaml
+rangeLength: -1
+startOffset: 0
+expectedTokens:
+  - type: DOCUMENT_START
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #null
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #Null
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #NULL
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #~
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: SCALAR #NULl
+    times: 4
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #false
+  - type: WHITESPACE
+  
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #False
+  - type: WHITESPACE
+  
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #FALSE
+  - type: WHITESPACE  
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: SCALAR #falsE
+    times: 5
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #true
+  - type: WHITESPACE
+  
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #True
+  - type: WHITESPACE
+  
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #TRUE
+  - type: WHITESPACE  
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: SCALAR #tRue
+    times: 4
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #.nan
+  - type: WHITESPACE
+  
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #.NaN
+  - type: WHITESPACE
+  
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #.NAN
+  - type: WHITESPACE  
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: SCALAR #.naN
+    times: 4
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: SCALAR #nan
+    times: 3
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #.inf
+  - type: WHITESPACE
+  
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #.Inf
+  - type: WHITESPACE
+  
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: CONSTANT #.INF
+  - type: WHITESPACE  
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: SCALAR #inf
+    times: 3
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: SCALAR #.INf
+    times: 4
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: SCALAR #"false" 
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: SCALAR #'TRUE' 
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: SCALAR #value
+    times: 5 
+  - type: COMMENT

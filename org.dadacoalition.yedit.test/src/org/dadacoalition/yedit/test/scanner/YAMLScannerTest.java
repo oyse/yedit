@@ -14,6 +14,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.yaml.snakeyaml.Loader;
 import org.yaml.snakeyaml.TypeDescription;
+import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
 import org.eclipse.jface.text.Document;
@@ -53,6 +54,8 @@ public class YAMLScannerTest {
 				"simple-sequence-tests.yaml",
 				"empty-document-tests.yaml",
 				"anchor-alias-tests.yaml",
+				"constant-tests.yaml",
+				"comment-tests.yaml",
 		};
 
 		Collection<Object[]> testCases = new ArrayList<Object[]>();
@@ -99,10 +102,6 @@ public class YAMLScannerTest {
 			token = scanner.nextToken();
 		}
 
-		System.out.println( testCase.getName() );
-		for( IToken t : scannedTokens ){
-			System.out.println( t );
-		}
 		compareTokens(testCase.getName(), testCase.getYAMLTokens(),
 				scannedTokens);
 
@@ -114,7 +113,7 @@ public class YAMLScannerTest {
 
 	public void compareTokens(String testname, List<YAMLToken> expectedTokens,
 			List<IToken> receivedTokens) {
-
+	    printTokens( receivedTokens );
 		org.junit.Assert.assertEquals(testname + " Number of tokens.",
 				expectedTokens.size(), receivedTokens.size());
 
@@ -138,7 +137,8 @@ public class YAMLScannerTest {
 		TypeDescription tokenDesc = new TypeDescription(ScannerToken.class);
 		testCaseConstructor.addTypeDescription(tokenDesc);
 
-		Loader yamlParser = new Loader(testCaseConstructor);
+		Loader loader = new Loader(testCaseConstructor);
+		Yaml yamlParser = new Yaml(loader);
 
 		// read all the documents in the test file
 		String tests = TestUtils.readFile(filename);
@@ -149,6 +149,15 @@ public class YAMLScannerTest {
 
 		return testCases;
 
+	}
+	
+	private void printTokens( List<IToken> tokens ) {
+	    
+	    for( IToken token : tokens ){
+	        System.out.println( token );	        
+	    }
+	    
+	
 	}
 
 }
