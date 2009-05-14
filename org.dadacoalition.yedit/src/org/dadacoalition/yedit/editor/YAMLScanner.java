@@ -72,7 +72,7 @@ public class YAMLScanner extends RuleBasedScanner {
         // IRule[] rules = new IRule[10];
         rules.add(new MultiLineRule("\"", "\"", scalarToken, '\\'));
         rules.add(new MultiLineRule("'", "'", scalarToken));
-        rules.add(new EndOfLineRule(" #", commentToken));
+        rules.add(new EndOfLineRule("#", commentToken));
         rules.add(new EndOfLineRule("---", documentStartToken));
         rules.add(new EndOfLineRule("...", documentEndToken));
         rules.add(new RegexRule("\\s", whitespaceToken));
