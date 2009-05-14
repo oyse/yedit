@@ -1,33 +1,48 @@
+#all the lines must have newlines in them since newlines are returned
+#by Document.get()
 ---
 name: Empty line
 line:
 expected: false
 ---
 name: "Line where first character is #"
-line: "#"
+line: "#
+
+"
 expected: true
 ---
 name: "Line that has some spaces and then #"
-line: "   #"
+line: "   #
+
+"
 expected: true
 ---
 name: "Line that has #, but not before after some other characters"
-line: "some chars#"
+line: "some chars#
+
+"
 expected: false
 ---
 name: "Line that does not have #"
-line: "some: line"
+line: "some: line
+
+"
 expected: false
 ---
 name: "Line that has spaces but not #"
-line: "   some line ? 234123423"
+line: "   some line ? 234123423
+
+"
 expected: false
 ---
 name: "Line that has # at start but also later"
-line: "#some chars#"
+line: "#some chars#
+
+"
 expected: true
 ---
 name: "Line that ends with end of line with # at start"
 line: "# multiplines 
+
 "
 expected: true

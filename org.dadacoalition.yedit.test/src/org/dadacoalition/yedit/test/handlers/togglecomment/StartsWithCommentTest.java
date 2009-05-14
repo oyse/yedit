@@ -13,6 +13,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.yaml.snakeyaml.Loader;
 import org.yaml.snakeyaml.TypeDescription;
+import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
 import org.dadacoalition.yedit.handlers.ToggleCommentHandler;
@@ -66,8 +67,9 @@ public class StartsWithCommentTest {
 		TypeDescription testCaseDesc = new TypeDescription(StartsWithCommentTestCase.class);
 		testCaseConstructor.addTypeDescription(testCaseDesc);
 
-		Loader yamlParser = new Loader(testCaseConstructor);
-
+		Loader loader = new Loader(testCaseConstructor);
+		Yaml yamlParser = new Yaml(loader);
+		
 		// read all the documents in the test file
 		String tests = TestUtils.readFile(filename);
 		ArrayList<StartsWithCommentTestCase> testCases = new ArrayList<StartsWithCommentTestCase>();
