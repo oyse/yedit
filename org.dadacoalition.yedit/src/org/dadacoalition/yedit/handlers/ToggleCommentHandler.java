@@ -80,11 +80,7 @@ public class ToggleCommentHandler extends AbstractHandler {
 				int offsetAtStart = document.getLineOffset(lineNum);
 				int lineLength = document.getLineLength( lineNum );
 				
-				//there seems like the Pattern matcher has problems with the line delimiters
-				//so we remove them from the line text. Should check if there are some other
-				//way to do this.
-				int lineDelimitersLength = document.getLineDelimiter(lineNum).length();
-				String lineText = document.get( offsetAtStart, lineLength - lineDelimitersLength );
+				String lineText = document.get( offsetAtStart, lineLength );
 				
 				YEditLog.logger.info( "Checking line " + lineNum + " with text " + lineText );
 				
@@ -109,7 +105,7 @@ public class ToggleCommentHandler extends AbstractHandler {
 	 */
 	public static boolean startsWithComment( String line ){
 		
-		Pattern commentPattern = Pattern.compile( "^\\s*#.*" );
+		Pattern commentPattern = Pattern.compile( "^\\s*#.*", Pattern.DOTALL );
 		
 		Matcher m = commentPattern.matcher(line);
 		boolean match = m.matches();
