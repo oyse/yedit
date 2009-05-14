@@ -13,7 +13,8 @@ public class PreferenceConstants {
 	public static final String COLOR_ANCHOR = "colorAnchorPreferences";
 	public static final String COLOR_ALIAS = "colorAliasPreferences";
 	public static final String COLOR_TAG_PROPERTY = "colorTagPropertyPreferences";
-	public static final String COLOR_FLOW_CHARACTER = "colorFlowCharacterPreferences";
+	public static final String COLOR_INDICATOR_CHARACTER = "colorFlowCharacterPreferences";
+	public static final String COLOR_CONSTANT = "colorConstantPreferences";
 	
 	public static final String SPACES_PER_TAB = "spacesPerTab";
 	

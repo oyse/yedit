@@ -2,6 +2,10 @@ package org.dadacoalition.yedit.preferences;
 
 import org.dadacoalition.yedit.Activator;
 import org.eclipse.jface.preference.*;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.IWorkbench;
 
@@ -27,7 +31,7 @@ public class ColorPreferences
 	 * restore itself.
 	 */
 	public void createFieldEditors() {
-				
+    
 		addField(new ColorFieldEditor(PreferenceConstants.COLOR_DEFAULT, "Default", getFieldEditorParent() ) );
 		addField(new ColorFieldEditor(PreferenceConstants.COLOR_COMMENT, "Comments", getFieldEditorParent() ) );
 		addField(new ColorFieldEditor(PreferenceConstants.COLOR_KEY, "Keys", getFieldEditorParent() ) );
@@ -36,9 +40,9 @@ public class ColorPreferences
 		addField(new ColorFieldEditor(PreferenceConstants.COLOR_ANCHOR, "Anchors", getFieldEditorParent() ) );
 		addField(new ColorFieldEditor(PreferenceConstants.COLOR_ALIAS, "Alias", getFieldEditorParent() ) );
 		addField(new ColorFieldEditor(PreferenceConstants.COLOR_TAG_PROPERTY, "Tag properties", getFieldEditorParent() ) );
-		
+        addField(new ColorFieldEditor(PreferenceConstants.COLOR_CONSTANT, "Constants", getFieldEditorParent() ) );		
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
 	 */

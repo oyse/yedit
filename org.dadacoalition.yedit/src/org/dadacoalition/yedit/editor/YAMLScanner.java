@@ -1,5 +1,7 @@
 package org.dadacoalition.yedit.editor;
 
+import java.util.ArrayList;
+
 import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -8,94 +10,94 @@ import org.eclipse.jface.text.TextAttribute;
 import org.eclipse.jface.text.rules.*;
 import org.eclipse.swt.graphics.RGB;
 
-
 public class YAMLScanner extends RuleBasedScanner {
 
-	public YAMLScanner(ColorManager colorManager) {
+    public YAMLScanner(ColorManager colorManager) {
 
-		IPreferenceStore store = Activator.getDefault().getPreferenceStore();		
-		
-		RGB keyColor = PreferenceConverter.getColor(store, PreferenceConstants.COLOR_KEY);			
-		IToken keyToken = new YAMLToken( 
-				new TextAttribute(colorManager.getColor(keyColor)),
-				YAMLToken.KEY
-				);
-		
-		RGB scalarColor = PreferenceConverter.getColor(store, PreferenceConstants.COLOR_SCALAR);
-		IToken scalarToken = new YAMLToken(
-				new TextAttribute( colorManager.getColor(scalarColor) ),
-				YAMLToken.SCALAR
-				);	
+        IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 
-		RGB commentColor = PreferenceConverter.getColor(store, PreferenceConstants.COLOR_COMMENT);
-		IToken commentToken = new YAMLToken(
-				new TextAttribute(colorManager.getColor(commentColor)),
-				YAMLToken.COMMENT
-				);	
+        RGB keyColor = PreferenceConverter.getColor(store,
+                PreferenceConstants.COLOR_KEY);
+        IToken keyToken = new YAMLToken(new TextAttribute(colorManager
+                .getColor(keyColor)), YAMLToken.KEY);
 
-		RGB documentColor = PreferenceConverter.getColor(store, PreferenceConstants.COLOR_DOCUMENT);
-		IToken documentStartToken = new YAMLToken(
-				new TextAttribute(
-						colorManager.getColor(documentColor)
-					),
-				YAMLToken.DOCUMENT_START
-		);
-		IToken documentEndToken = new YAMLToken(
-				new TextAttribute(
-						colorManager.getColor(documentColor)
-					),
-				YAMLToken.DOCUMENT_END
-		);
+        RGB scalarColor = PreferenceConverter.getColor(store,
+                PreferenceConstants.COLOR_SCALAR);
+        IToken scalarToken = new YAMLToken(new TextAttribute(colorManager
+                .getColor(scalarColor)), YAMLToken.SCALAR);
 
-		RGB anchorColor = PreferenceConverter.getColor(store, PreferenceConstants.COLOR_ANCHOR);
-		IToken anchorToken = new YAMLToken(
-				new TextAttribute(
-						colorManager.getColor(anchorColor)
-					),
-				YAMLToken.ANCHOR
-		);
+        RGB commentColor = PreferenceConverter.getColor(store,
+                PreferenceConstants.COLOR_COMMENT);
+        IToken commentToken = new YAMLToken(new TextAttribute(colorManager
+                .getColor(commentColor)), YAMLToken.COMMENT);
 
-		RGB aliasColor = PreferenceConverter.getColor(store, PreferenceConstants.COLOR_ALIAS);
-		IToken aliasToken = new YAMLToken(
-				new TextAttribute(
-						colorManager.getColor(aliasColor)
-					),
-				YAMLToken.ALIAS
-		);
-		
-		RGB flowCharColor = PreferenceConverter.getColor(store, PreferenceConstants.COLOR_FLOW_CHARACTER);
-		IToken flowCharToken = new YAMLToken(
-				new TextAttribute(
-						colorManager.getColor(flowCharColor)
-					),
-				YAMLToken.FLOW_CHARACTER
-		); 
+        RGB documentColor = PreferenceConverter.getColor(store,
+                PreferenceConstants.COLOR_DOCUMENT);
+        IToken documentStartToken = new YAMLToken(new TextAttribute(
+                colorManager.getColor(documentColor)), YAMLToken.DOCUMENT_START);
+        IToken documentEndToken = new YAMLToken(new TextAttribute(colorManager
+                .getColor(documentColor)), YAMLToken.DOCUMENT_END);
 
-		RGB tagPropColor = PreferenceConverter.getColor(store, PreferenceConstants.COLOR_TAG_PROPERTY);
-		IToken tagPropToken = new YAMLToken(
-				new TextAttribute(
-						colorManager.getColor(tagPropColor)
-					),
-				YAMLToken.TAG_PROPERTY
-		); 		
-		
-		IRule[] rules = new IRule[10];
-			
-		rules[0] = new MultiLineRule( "\"", "\"", scalarToken, '\\' );
-		rules[1] = new MultiLineRule( "'", "'", scalarToken );
-		rules[2] = new EndOfLineRule( "#", commentToken );
-		rules[3] = new EndOfLineRule( "---", documentStartToken );	
-		rules[4] = new RegexRule( "\\{|\\}|\\[|\\]|,", flowCharToken );	
-		rules[5] = new EndOfLineRule( "...", documentEndToken );
-		rules[6] = new RegexRule( "\\w[\\w\\t ]*:\\s", keyToken );
-		rules[7] = new WordPatternRule( new WordDetector(), "&", "", anchorToken );
-		rules[8] = new WordPatternRule( new WordDetector(), "*", "", aliasToken );
-		rules[9] = new WordPatternRule( new WordDetector(), "!", "", tagPropToken );
-		
-		setRules( rules );
-		setDefaultReturnToken( scalarToken );
+        RGB anchorColor = PreferenceConverter.getColor(store,
+                PreferenceConstants.COLOR_ANCHOR);
+        IToken anchorToken = new YAMLToken(new TextAttribute(colorManager
+                .getColor(anchorColor)), YAMLToken.ANCHOR);
 
-		
-	}
+        RGB aliasColor = PreferenceConverter.getColor(store,
+                PreferenceConstants.COLOR_ALIAS);
+        IToken aliasToken = new YAMLToken(new TextAttribute(colorManager
+                .getColor(aliasColor)), YAMLToken.ALIAS);
+
+        RGB indicatorCharColor = PreferenceConverter.getColor(store,
+                PreferenceConstants.COLOR_INDICATOR_CHARACTER);
+        IToken indicatorCharToken = new YAMLToken(new TextAttribute(
+                colorManager.getColor(indicatorCharColor)),
+                YAMLToken.INDICATOR_CHARACTER);
+
+        RGB tagPropColor = PreferenceConverter.getColor(store,
+                PreferenceConstants.COLOR_TAG_PROPERTY);
+        IToken tagPropToken = new YAMLToken(new TextAttribute(colorManager
+                .getColor(tagPropColor)), YAMLToken.TAG_PROPERTY);
+
+        RGB predefinedPropColor = PreferenceConverter.getColor(store,
+                PreferenceConstants.COLOR_CONSTANT);
+        IToken predefinedValToken = new YAMLToken(new TextAttribute(
+                colorManager.getColor(predefinedPropColor)),
+                YAMLToken.CONSTANT);
+
+        IToken whitespaceToken = new YAMLToken(new TextAttribute(null),
+                YAMLToken.WHITESPACE);
+
+        ArrayList<IRule> rules = new ArrayList<IRule>();
+        // IRule[] rules = new IRule[10];
+        rules.add(new MultiLineRule("\"", "\"", scalarToken, '\\'));
+        rules.add(new MultiLineRule("'", "'", scalarToken));
+        rules.add(new EndOfLineRule(" #", commentToken));
+        rules.add(new EndOfLineRule("---", documentStartToken));
+        rules.add(new EndOfLineRule("...", documentEndToken));
+        rules.add(new RegexRule("\\s", whitespaceToken));
+        rules.add(new RegexRule("\\{|\\}|\\[|\\]|,|-", indicatorCharToken));
+        rules.add(new RegexRule("\\w[\\w\\t ]*:\\s", keyToken));
+        rules
+                .add(new WordPatternRule(new WordDetector(), "&", "",
+                        anchorToken));
+        rules.add(new WordPatternRule(new WordDetector(), "*", "", aliasToken));
+        rules
+                .add(new WordPatternRule(new WordDetector(), "!", "",
+                        tagPropToken));
+
+        String predefinedRegex = "true|True|TRUE";
+        predefinedRegex += "|false|False|FALSE";
+        predefinedRegex += "|\\.inf|\\.Inf|\\.INF";
+        predefinedRegex += "|\\.nan|\\.NaN|\\.NAN";
+        predefinedRegex += "|null|Null|NULL|~";
+        rules.add(new RegexRule(predefinedRegex, predefinedValToken));
+
+        IRule[] rulesArray = new IRule[rules.size()];
+        rules.toArray(rulesArray);
+        setRules(rulesArray);
+        setDefaultReturnToken(scalarToken);
+
+    }
 
 }
