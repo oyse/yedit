@@ -7,7 +7,7 @@
             class="org.dadacoalition.yedit.editor.YEdit"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             default="false"
-            extensions="yaml"
+            extensions="yml,yaml"
             id="org.dadacoalition.yedit.editor.YEdit"
             name="YEdit YAML Editor">
       </editor>
