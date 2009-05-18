@@ -84,6 +84,12 @@
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="Ctrl+Shift+C">
       </key>
+      <key
+            commandId="org.dadacoalition.yedit.commands.toggleComment"
+            contextId="org.dadacoalition.yedit.yeditScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Ctrl+/">
+      </key>
    </extension>
    <extension
          point="org.eclipse.ui.contexts">
