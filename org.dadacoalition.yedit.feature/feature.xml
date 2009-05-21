@@ -2,7 +2,7 @@
 <feature
       id="org.dadacoalition.yedit"
       label="YEdit Feature"
-      version="0.0.5"
+      version="0.0.6"
       provider-name="YEdit Project">
 
    <description>
@@ -115,7 +115,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.dadacoalition.yedit"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.0.6"
          unpack="false"/>
 
 </feature>
