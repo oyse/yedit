@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: YEdit YAML editor
 Bundle-SymbolicName: org.dadacoalition.yedit;singleton:=true
-Bundle-Version: 0.0.6
+Bundle-Version: 0.0.7
 Bundle-Activator: org.dadacoalition.yedit.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -13,7 +13,20 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: org.dadacoalition.yedit,
- org.dadacoalition.yedit.editor,
- org.dadacoalition.yedit.handlers,
- org.dadacoalition.yedit.preferences
+Export-Package: org.dadacoalition.yedit;uses:="org.eclipse.ui.plugin,org.osgi.framework",
+ org.dadacoalition.yedit.editor;
+  uses:="org.eclipse.jface.text,
+   org.eclipse.ui.texteditor,
+   org.eclipse.core.runtime,
+   org.eclipse.jface.text.source,
+   org.eclipse.jface.text.rules,
+   org.yaml.snakeyaml.nodes,
+   org.eclipse.ui.views.contentoutline,
+   org.eclipse.jface.text.presentation,
+   org.eclipse.swt.graphics,
+   org.eclipse.jface.viewers,
+   org.eclipse.swt.widgets,
+   org.eclipse.ui.editors.text,
+   org.yaml.snakeyaml",
+ org.dadacoalition.yedit.handlers;uses:="org.eclipse.jface.text,org.eclipse.core.commands",
+ org.dadacoalition.yedit.preferences;uses:="org.eclipse.jface.preference,org.eclipse.ui,org.eclipse.core.runtime.preferences"
