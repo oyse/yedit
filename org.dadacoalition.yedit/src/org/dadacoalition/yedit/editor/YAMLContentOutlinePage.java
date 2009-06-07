@@ -13,6 +13,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.widgets.Composite;
@@ -137,16 +138,16 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 	
 	
 	public void createControl(Composite parent) {
-
 		super.createControl(parent);
 
 		TreeViewer viewer= getTreeViewer();
 		viewer.setContentProvider(new ContentProvider());
 		viewer.setLabelProvider( new YEditStyledLabelProvider( yamlEditor.getColorManager() ) );
 		viewer.addSelectionChangedListener(this);
+		viewer.setAutoExpandLevel(TreeViewer.ALL_LEVELS);
 
 		if (input != null){
-			viewer.setInput(input);
+			setInput(input);
 		}
 	}	
 	
@@ -157,7 +158,7 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 	
 	public void selectionChanged( SelectionChangedEvent event ){
 		
-		YEditLog.logger.fine("Select in the outline view changed");
+		YEditLog.logger.info("Select in the outline view changed");
 		
 		super.selectionChanged(event);
 
@@ -176,17 +177,11 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 		}		
 	}
 	
-	public void update(){
+	public void update(){	    
 		TreeViewer viewer= getTreeViewer();
 
 		if (viewer != null) {
-			Control control= viewer.getControl();
-			if (control != null && !control.isDisposed()) {
-				control.setRedraw(false);
-				viewer.setInput(input);
-				viewer.expandAll();
-				control.setRedraw(true);
-			}
+		    viewer.setInput(input);
 		}		
 	}
 	
