@@ -18,6 +18,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.part.MultiPageEditorPart;
 import org.eclipse.ui.texteditor.TextOperationAction;
 
 /**
@@ -43,20 +44,43 @@ public class ToggleCommentHandler extends AbstractHandler {
 			
 		YEditLog.logger.info( ts.getStartLine() + " " + ts.getEndLine() );
 		IEditorPart editorPart = HandlerUtil.getActiveEditor(event);
-		if( !( editorPart instanceof TextEditor ) ){
+		if( !( editorPart instanceof TextEditor ) && !(editorPart instanceof MultiPageEditorPart )){
 			YEditLog.logger.warning( "Editor is not a TextEditor. Should always be so for the Toogle Comment action" );
 			return null;
 		}
 		
-		TextEditor textEditor = (TextEditor) editorPart;
+		
+		TextEditor textEditor = null;
+		
+		//It seems like a multipage editor can have several text editors. We just pick the first one
+		//since it does not seem to be a way to retrieve the active one.
+		if( editorPart instanceof MultiPageEditorPart ){
+		    MultiPageEditorPart mpe = (MultiPageEditorPart) editorPart;
+	        IEditorPart[] editors = mpe.findEditors(mpe.getEditorInput());
+	        for( IEditorPart editor : editors ) {
+	            if( editor instanceof TextEditor ){
+	                textEditor = (TextEditor) editor;
+	                YEditLog.logger.info("Found text editor for the MultiPageEditorPart");
+	                break;
+	            }
+	        }
+	        
+	        if( null == textEditor){
+	            YEditLog.logger.warning("The MultiPageEditorPart did not have a TextEditor. Cannot toggle comments");
+	            return null;
+	        }
+		} else {
+		    textEditor = (TextEditor) editorPart;    
+		}
+		
 		IDocument document = textEditor.getDocumentProvider().getDocument(textEditor.getEditorInput());
 		ResourceBundle b = YEditMessages.getResourceBundle();
 		
 		Action action;
 		if( addComment( document, ts ) ){
-			action = new TextOperationAction( b, "", (TextEditor) editorPart, ITextOperationTarget.PREFIX );
+			action = new TextOperationAction( b, "", textEditor, ITextOperationTarget.PREFIX );
 		} else {
-			action = new TextOperationAction( b, "", (TextEditor) editorPart, ITextOperationTarget.STRIP_PREFIX );			
+			action = new TextOperationAction( b, "", textEditor, ITextOperationTarget.STRIP_PREFIX );			
 		}
 		action.run();
 		return null;
