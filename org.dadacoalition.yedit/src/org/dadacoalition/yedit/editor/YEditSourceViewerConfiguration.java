@@ -5,15 +5,15 @@ import java.util.Arrays;
 import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.text.DefaultAutoIndentStrategy;
 import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
 import org.eclipse.jface.text.IAutoEditStrategy;
-import org.eclipse.jface.text.IAutoIndentStrategy;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.TabsToSpacesConverter;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
+import org.eclipse.jface.text.source.DefaultAnnotationHover;
+import org.eclipse.jface.text.source.IAnnotationHover;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 
@@ -41,7 +41,12 @@ public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 		yamlEditor.addDocumentIdleListener( listener );
 		
 	}
-	
+		
+	public IAnnotationHover getAnnotationHover( ISourceViewer sourceViewer ){    
+	    //defining this is necessary for getting hover messages on markers.
+	    return new DefaultAnnotationHover(); 
+	}
+
 	public IPresentationReconciler getPresentationReconciler( ISourceViewer sourceViewer ){
 		
 		PresentationReconciler pr = new PresentationReconciler();
