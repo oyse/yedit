@@ -69,15 +69,15 @@ public class YAMLScanner extends RuleBasedScanner {
                 YAMLToken.WHITESPACE);
 
         ArrayList<IRule> rules = new ArrayList<IRule>();
-        // IRule[] rules = new IRule[10];
+
         rules.add(new MultiLineRule("\"", "\"", scalarToken, '\\'));
         rules.add(new MultiLineRule("'", "'", scalarToken));
         rules.add(new EndOfLineRule("#", commentToken));
         rules.add(new EndOfLineRule("---", documentStartToken));
         rules.add(new EndOfLineRule("...", documentEndToken));
-        rules.add(new RegexRule("\\s", whitespaceToken));
-        rules.add(new RegexRule("\\{|\\}|\\[|\\]|,|-", indicatorCharToken));
-        rules.add(new RegexRule("\\w[\\w\\t ]*:\\s", keyToken));
+        rules.add(new IndicatorCharacterRule( indicatorCharToken ) );
+        rules.add(new WhitespaceRule( whitespaceToken));
+        rules.add(new KeyRule(keyToken));
         rules
                 .add(new WordPatternRule(new WordDetector(), "&", "",
                         anchorToken));
@@ -86,13 +86,10 @@ public class YAMLScanner extends RuleBasedScanner {
                 .add(new WordPatternRule(new WordDetector(), "!", "",
                         tagPropToken));
 
-        String predefinedRegex = "true|True|TRUE";
-        predefinedRegex += "|false|False|FALSE";
-        predefinedRegex += "|\\.inf|\\.Inf|\\.INF";
-        predefinedRegex += "|\\.nan|\\.NaN|\\.NAN";
-        predefinedRegex += "|null|Null|NULL|~";
-        rules.add(new RegexRule(predefinedRegex, predefinedValToken));
-
+        rules.add( new PredefinedValueRule( predefinedValToken ) );
+        
+        rules.add(new ScalarRule( scalarToken ) );
+        
         IRule[] rulesArray = new IRule[rules.size()];
         rules.toArray(rulesArray);
         setRules(rulesArray);
