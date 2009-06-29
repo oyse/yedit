@@ -9,11 +9,9 @@ expectedTokens:
   - type: WHITESPACE
   - type: ANCHOR
   - type: WHITESPACE
-    times: 3
   - type: KEY
   - type: SCALAR
   - type: WHITESPACE
-    times: 3
   - type: KEY
   - type: SCALAR
   - type: WHITESPACE
@@ -27,7 +25,6 @@ expectedTokens:
   - type: WHITESPACE  
   - type: COMMENT
   - type: WHITESPACE
-    times: 2
   - type: KEY
   - type: ALIAS
   - type: WHITESPACE  

@@ -29,7 +29,6 @@ expectedTokens:
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE
   - type: SCALAR #NULl
-    times: 4
   - type: WHITESPACE
 
   - type: INDICATOR_CHARACTER
@@ -50,7 +49,6 @@ expectedTokens:
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE
   - type: SCALAR #falsE
-    times: 5
   - type: WHITESPACE
 
   - type: INDICATOR_CHARACTER
@@ -71,7 +69,6 @@ expectedTokens:
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE
   - type: SCALAR #tRue
-    times: 4
   - type: WHITESPACE
 
   - type: INDICATOR_CHARACTER
@@ -92,13 +89,11 @@ expectedTokens:
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE
   - type: SCALAR #.naN
-    times: 4
   - type: WHITESPACE
 
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE
   - type: SCALAR #nan
-    times: 3
   - type: WHITESPACE
 
   - type: INDICATOR_CHARACTER
@@ -119,13 +114,11 @@ expectedTokens:
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE
   - type: SCALAR #inf
-    times: 3
   - type: WHITESPACE
 
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE
   - type: SCALAR #.INf
-    times: 4
   - type: WHITESPACE
 
   - type: INDICATOR_CHARACTER
@@ -140,7 +133,6 @@ expectedTokens:
 
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE
-  - type: SCALAR #value
-    times: 5 
-  - type: WHITESPACE
+  - type: SCALAR #value 
   - type: COMMENT
+  

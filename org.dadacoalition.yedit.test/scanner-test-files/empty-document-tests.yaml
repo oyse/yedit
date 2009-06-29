@@ -5,6 +5,6 @@ rangeLength: -1
 startOffset: 0
 expectedTokens:
   - type: DOCUMENT_START
-    times: 1 
+    times: 1
   - type: DOCUMENT_END
     times: 1
