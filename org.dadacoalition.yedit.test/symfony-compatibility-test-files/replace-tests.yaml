@@ -1,0 +1,92 @@
+--- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
+name: Single scalar not quoted
+content: This is a simple test
+expectedContent: "'This is a simple test'"
+
+--- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
+name: Single scalar quoted
+content: 'This is a simple test'
+expectedContent: "'This is a simple test'"
+
+--- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
+name: One line with single %, not quoted
+content: "%somevar%"
+expectedContent: "'%somevar%'"
+
+--- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
+name: One line with single %, already quoted
+content: "'%somevar%'"
+expectedContent: "'%somevar%'"
+
+--- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
+name: One line with double %, not quoted
+content: "%%somevar%%"
+expectedContent: "'%%somevar%%'"
+
+--- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
+name: One line with double %, already quoted
+content: "'%%somevar%%'"
+expectedContent: "'%%somevar%%'"
+
+--- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
+name: Several lines without %, scalars not quoted
+content: |
+  key1: a value
+  key2:
+    - 1
+    - 2
+    - 3
+expectedContent: |
+  key1: 'a value'
+  key2:
+    - '1'
+    - '2'
+    - '3'
+
+--- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
+name: Several lines with several vars
+content: |
+  title: %some_config_value%
+  database:
+    dns: %title%
+    username: %user%
+    password: secret
+  has_log: %%logging%%
+expectedContent: |
+  title: '%some_config_value%'
+  database:
+    dns: '%title%'
+    username: '%user%'
+    password: 'secret'
+  has_log: '%%logging%%'
+
+--- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
+name: '% place as part of scalar'
+content: |
+  autoload:
+
+    # symfony core
+    symfony:
+      name:           symfony
+      path:           %SF_SYMFONY_LIB_DIR%
+      recursive:      on
+      exclude:        [vendor]
+  
+    propel:
+      name:           propel
+      path:           %SF_SYMFONY_LIB_DIR%/vendor/propel
+      recursive:      on
+expectedContent: |
+  autoload:
+
+    # symfony core
+    symfony:
+      name:           'symfony'
+      path:           '%SF_SYMFONY_LIB_DIR%'
+      recursive:      'on'
+      exclude:        ['vendor']
+  
+    propel:
+      name:           'propel'
+      path:           '%SF_SYMFONY_LIB_DIR%/vendor/propel'
+      recursive:      'on'
