@@ -76,6 +76,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(PreferenceConstants.OUTLINE_SCALAR_MAX_LENGTH, 30);
 		store.setDefault(PreferenceConstants.OUTLINE_SHOW_TAGS, true );
 		
+		store.setDefault(PreferenceConstants.SYMFONY_COMPATIBILITY_MODE, false);
+		
 	}
 
 }

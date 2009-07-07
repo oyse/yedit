@@ -71,4 +71,6 @@ public class PreferenceConstants {
 	 */
 	public static final String OUTLINE_SCALAR_MAX_LENGTH = "outlineScalarMaxLength";
 	
+	
+	public static final String SYMFONY_COMPATIBILITY_MODE = "symfonyCompatibilityMode";
 }

@@ -2,12 +2,15 @@ package org.dadacoalition.yedit.editor;
 
 import java.io.StringReader;
 
+import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.YEditLog;
+import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -22,7 +25,7 @@ public class YEdit extends TextEditor {
 
 	private ColorManager colorManager;
 	private IdleTimer idleTimer;
-	private YEditSourceViewerConfiguration sourceViewerConfig;
+	YEditSourceViewerConfiguration sourceViewerConfig;
 	private YAMLContentOutlinePage contentOutline;
 
 	public YEdit() {
@@ -81,7 +84,7 @@ public class YEdit extends TextEditor {
 		
 		if (IContentOutlinePage.class.equals(required)) {
 			if (contentOutline == null) {
-				contentOutline = new YAMLContentOutlinePage(getDocumentProvider(), this);
+				contentOutline = new YAMLContentOutlinePage(getDocumentProvider(), this );
 				if (getEditorInput() != null)
 					contentOutline.setInput(getEditorInput());
 			}
@@ -114,6 +117,14 @@ public class YEdit extends TextEditor {
 		IDocument document = this.getDocumentProvider().getDocument(this.getEditorInput());	
 		String content = document.get();
 
+		//when in Symfony compatibility mode quote all scalars before sending the
+		//content to SnakeYAML for syntax checking
+		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
+		if( prefs.getBoolean(PreferenceConstants.SYMFONY_COMPATIBILITY_MODE ) ){
+		    SymfonyCompatibilityMode sr = new SymfonyCompatibilityMode( sourceViewerConfig.getScanner() );
+		    content = sr.quoteScalars(document);
+		}		
+		
 		Yaml yamlParser = new Yaml();
 		YAMLException parserError = null;
 		try {			

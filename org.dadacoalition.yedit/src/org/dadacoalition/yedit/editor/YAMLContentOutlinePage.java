@@ -4,7 +4,10 @@ package org.dadacoalition.yedit.editor;
 import java.io.StringReader;
 import java.util.*;
 
+import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.YEditLog;
+import org.dadacoalition.yedit.preferences.PreferenceConstants;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.BadPositionCategoryException;
 import org.eclipse.jface.text.DefaultPositionUpdater;
 import org.eclipse.jface.text.IDocument;
@@ -16,8 +19,10 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
@@ -43,6 +48,12 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 		public void parse(IDocument document){
 			
 			String content = document.get();
+	        
+			IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
+			if( prefs.getBoolean(PreferenceConstants.SYMFONY_COMPATIBILITY_MODE ) ){
+	            return;
+	        }   			
+			
 			yamlDocuments.clear();
 			
 			try {
@@ -130,7 +141,7 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 		
 	}
 	
-	public YAMLContentOutlinePage(IDocumentProvider provider, YEdit editor){
+	public YAMLContentOutlinePage(IDocumentProvider provider, YEdit editor ){
 		super();
 		documentProvider = provider;
 		yamlEditor = editor;
@@ -138,8 +149,9 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 	
 	
 	public void createControl(Composite parent) {
-		super.createControl(parent);
-
+	    
+	    super.createControl(parent);
+            
 		TreeViewer viewer= getTreeViewer();
 		viewer.setContentProvider(new ContentProvider());
 		viewer.setLabelProvider( new YEditStyledLabelProvider( yamlEditor.getColorManager() ) );
@@ -149,6 +161,7 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 		if (input != null){
 			setInput(input);
 		}
+
 	}	
 	
 	public void setInput(Object input) {
