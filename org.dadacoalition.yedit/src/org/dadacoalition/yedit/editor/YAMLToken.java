@@ -60,6 +60,10 @@ public class YAMLToken extends Token {
 		super( data );
 		this.tokenType = type;		
 	}
+	
+	public int getTokenType(){
+	    return this.tokenType;
+	}
 		
 	public String toString(){	
 		return TOKEN_NAMES.get( tokenType );	
