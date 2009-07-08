@@ -3,7 +3,6 @@ package org.dadacoalition.yedit.editor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.dadacoalition.yedit.YEditLog;
 import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.IToken;
