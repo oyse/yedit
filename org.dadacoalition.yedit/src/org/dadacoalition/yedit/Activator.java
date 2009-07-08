@@ -1,5 +1,12 @@
 package org.dadacoalition.yedit;
 
+import java.io.IOException;
+
+import org.dadacoalition.yedit.template.YAMLContentType;
+import org.eclipse.jface.text.templates.ContextTypeRegistry;
+import org.eclipse.jface.text.templates.persistence.TemplateStore;
+import org.eclipse.ui.editors.text.templates.ContributionContextTypeRegistry;
+import org.eclipse.ui.editors.text.templates.ContributionTemplateStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -10,9 +17,15 @@ public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.dadacoalition.yedit";
+	
+	public static final String TEMPLATE_STORE_ID = PLUGIN_ID + ".template";
 
 	// The shared instance
 	private static Activator plugin;
+	
+	private TemplateStore templateStore;
+	
+	private ContributionContextTypeRegistry contextTypeRegistry;
 	
 	/**
 	 * The constructor
@@ -47,5 +60,26 @@ public class Activator extends AbstractUIPlugin {
 	public static Activator getDefault() {
 		return plugin;
 	}
+	
+	public TemplateStore getTemplateStore() {
+        
+	    if (templateStore == null) {
+            templateStore = new ContributionTemplateStore(getContextTypeRegistry(), getDefault().getPreferenceStore(), TEMPLATE_STORE_ID);
+            try {
+                templateStore.load();
+            } catch (IOException e) {
+                YEditLog.logException(e);
+            }
+        }
+        return templateStore;	    
+	}
+	
+    public ContextTypeRegistry getContextTypeRegistry() {
+        if (contextTypeRegistry == null) {
+            contextTypeRegistry = new ContributionContextTypeRegistry();
+            contextTypeRegistry.addContextType(YAMLContentType.YAML_CONTENT_TYPE);
+        }
+        return contextTypeRegistry;
+    }	
 
 }

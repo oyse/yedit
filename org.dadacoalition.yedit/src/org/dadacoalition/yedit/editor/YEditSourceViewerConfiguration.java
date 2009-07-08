@@ -4,11 +4,15 @@ import java.util.Arrays;
 
 import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
+import org.dadacoalition.yedit.template.YAMLCompletionProcessor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
 import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.TabsToSpacesConverter;
+import org.eclipse.jface.text.contentassist.ContentAssistant;
+import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
+import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
@@ -59,7 +63,17 @@ public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 		
 	}
 	
-	@Override
+	public IContentAssistant getContentAssistant( ISourceViewer sourceViewer ){
+	    ContentAssistant ca = new ContentAssistant();
+	    
+	    IContentAssistProcessor cap = new YAMLCompletionProcessor();
+	    ca.setContentAssistProcessor(cap, IDocument.DEFAULT_CONTENT_TYPE);
+	    ca.setInformationControlCreator(getInformationControlCreator(sourceViewer));	    
+	    
+	    return ca;
+	    
+	}
+	
 	public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer, String contentType ){		
 		if( IDocument.DEFAULT_CONTENT_TYPE.equals(contentType) ){
 						
