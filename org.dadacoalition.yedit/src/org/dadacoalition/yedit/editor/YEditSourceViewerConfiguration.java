@@ -26,26 +26,11 @@ public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 
 	private YAMLScanner yamlScanner;
 	private ColorManager colorManager;
-	private YEdit yamlEditor;
-
 	
-	public YEditSourceViewerConfiguration( YEdit yamlEditor ){
-		this.yamlEditor = yamlEditor;
+	public YEditSourceViewerConfiguration(){
 		colorManager = new ColorManager();
 	}
-	
-	protected void addDocumentIdleListener() {
-		
-		IDocumentIdleListener listener = new IDocumentIdleListener(){
-			public void editorIdle( ISourceViewer sourceViewer ){
-				sourceViewer.invalidateTextPresentation();
-			}
-		};
-		
-		yamlEditor.addDocumentIdleListener( listener );
-		
-	}
-		
+			
 	public IAnnotationHover getAnnotationHover( ISourceViewer sourceViewer ){    
 	    //defining this is necessary for getting hover messages on markers.
 	    return new DefaultAnnotationHover(); 

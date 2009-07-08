@@ -12,6 +12,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.editors.text.TextEditor;
@@ -62,7 +63,7 @@ public class YEdit extends TextEditor {
 	protected void initializeEditor() {
 		super.initializeEditor();
 
-		YEditSourceViewerConfiguration jsvc = new YEditSourceViewerConfiguration(this);
+		YEditSourceViewerConfiguration jsvc = new YEditSourceViewerConfiguration();
 		setSourceViewerConfiguration(jsvc);
 		sourceViewerConfig = jsvc;
 
@@ -76,7 +77,12 @@ public class YEdit extends TextEditor {
 		idleTimer = new IdleTimer(getSourceViewer(), Display.getCurrent());
 		idleTimer.start();
 
-		sourceViewerConfig.addDocumentIdleListener();
+		IDocumentIdleListener listener = new IDocumentIdleListener(){
+            public void editorIdle( ISourceViewer sourceViewer ){
+                sourceViewer.invalidateTextPresentation();
+            }
+        };
+        addDocumentIdleListener(listener);
 
 	}
 	
