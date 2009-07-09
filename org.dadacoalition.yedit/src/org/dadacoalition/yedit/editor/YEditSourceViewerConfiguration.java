@@ -4,9 +4,10 @@ import java.util.Arrays;
 
 import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
-import org.dadacoalition.yedit.template.YAMLCompletionProcessor;
+import org.dadacoalition.yedit.template.YEditCompletionProcessor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
+import org.eclipse.jface.text.DefaultLineTracker;
 import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.TabsToSpacesConverter;
@@ -51,9 +52,11 @@ public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 	public IContentAssistant getContentAssistant( ISourceViewer sourceViewer ){
 	    ContentAssistant ca = new ContentAssistant();
 	    
-	    IContentAssistProcessor cap = new YAMLCompletionProcessor();
+	    IContentAssistProcessor cap = new YEditCompletionProcessor();
 	    ca.setContentAssistProcessor(cap, IDocument.DEFAULT_CONTENT_TYPE);
 	    ca.setInformationControlCreator(getInformationControlCreator(sourceViewer));	    
+	    
+	    ca.enableAutoInsert(true);
 	    
 	    return ca;
 	    
@@ -61,9 +64,17 @@ public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 	
 	public IAutoEditStrategy[] getAutoEditStrategies(ISourceViewer sourceViewer, String contentType ){		
 		if( IDocument.DEFAULT_CONTENT_TYPE.equals(contentType) ){
-						
-			return new IAutoEditStrategy[] { 
-					new TabsToSpacesConverter(),
+		    
+		    //If the TabsToSpacesConverter is not configured here the editor field in the template
+		    //preference page will not work correctly. Without this configuration the tab key
+		    //will be not work correctly and instead change the focus
+            int tabWidth= getTabWidth(sourceViewer);
+            TabsToSpacesConverter tabToSpacesConverter = new TabsToSpacesConverter();
+            tabToSpacesConverter.setLineTracker(new DefaultLineTracker());
+            tabToSpacesConverter.setNumberOfSpacesPerTab(tabWidth);		    
+		    
+		    return new IAutoEditStrategy[] { 
+					tabToSpacesConverter,
 					new DefaultIndentLineAutoEditStrategy(),
 					};
 		} else {
@@ -71,7 +82,7 @@ public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 		}
 	}
 	
-	public int getTabWidth( ISourceViewer sourceViewer ){
+	public int getTabWidth( ISourceViewer sourceViewer ){   
 		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 		return prefs.getInt(PreferenceConstants.SPACES_PER_TAB);
 	}
