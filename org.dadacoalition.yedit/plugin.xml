@@ -25,6 +25,12 @@
             id="org.dadacoalition.yedit.preferences.YEditPreferences"
             name="YEdit Preferences">
       </page>
+      <page
+            category="org.dadacoalition.yedit.preferences.YEditPreferences"
+            class="org.dadacoalition.yedit.preferences.TemplatePreferences"
+            id="org.dadacoalition.yedit.preferences.TemplatePreferences"
+            name="Templates">
+      </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
@@ -98,6 +104,14 @@
             name="YEdit editor context"
             parentId="org.eclipse.ui.textEditorScope">
       </context>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.templates">
+      <contextType
+            class="org.dadacoalition.yedit.template.YAMLContentType"
+            id="org.dadacoalition.yedit.template.yaml"
+            name="YAML Context">
+      </contextType>
    </extension>
 
 </plugin>
