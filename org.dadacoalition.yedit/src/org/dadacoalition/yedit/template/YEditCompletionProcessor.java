@@ -8,7 +8,7 @@ import org.eclipse.jface.text.templates.TemplateCompletionProcessor;
 import org.eclipse.jface.text.templates.TemplateContextType;
 import org.eclipse.swt.graphics.Image;
 
-public class YAMLCompletionProcessor extends TemplateCompletionProcessor {
+public class YEditCompletionProcessor extends TemplateCompletionProcessor {
 
     protected TemplateContextType getContextType(ITextViewer viewer, IRegion region) {
         return Activator.getDefault().getContextTypeRegistry().getContextType(YAMLContentType.YAML_CONTENT_TYPE);
