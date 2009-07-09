@@ -5,6 +5,23 @@ rangeLength: -1
 startOffset: 0
 expectedTokens:
   - type: DOCUMENT_START
-    times: 1
+  - type: WHITESPACE
   - type: DOCUMENT_END
-    times: 1
+  - type: WHITESPACE
+---
+name: Parsing document where there other tokens after document start and end
+contentFile: document-line.yaml
+rangeLength: -1
+startOffset: 0
+expectedTokens:
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: COMMENT
+  - type: DOCUMENT_END
+  - type: WHITESPACE
+  - type: COMMENT
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: TAG_PROPERTY
+  - type: WHITESPACE
+  - type: DOCUMENT_END
