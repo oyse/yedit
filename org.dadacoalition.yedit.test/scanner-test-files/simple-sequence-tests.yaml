@@ -5,6 +5,7 @@ rangeLength: -1
 startOffset: 0
 expectedTokens:
   - type: DOCUMENT_START
+  - type: WHITESPACE
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE  
   - type: SCALAR
