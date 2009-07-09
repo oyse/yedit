@@ -30,3 +30,4 @@ Export-Package: org.dadacoalition.yedit;uses:="org.eclipse.ui.plugin,org.osgi.fr
    org.yaml.snakeyaml",
  org.dadacoalition.yedit.handlers;uses:="org.eclipse.jface.text,org.eclipse.core.commands",
  org.dadacoalition.yedit.preferences;uses:="org.eclipse.jface.preference,org.eclipse.ui,org.eclipse.core.runtime.preferences"
+Import-Package: org.eclipse.ui.texteditor.templates
