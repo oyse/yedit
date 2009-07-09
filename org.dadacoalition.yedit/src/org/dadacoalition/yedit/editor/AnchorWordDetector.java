@@ -4,7 +4,7 @@ import java.util.regex.*;
 
 import org.eclipse.jface.text.rules.IWordDetector;
 
-public class WordDetector implements IWordDetector {
+public class AnchorWordDetector implements IWordDetector {
 
 	private Pattern characterPattern = Pattern.compile( "[\\w\\d]" );
 
