@@ -52,7 +52,7 @@ public class YAMLScannerTest {
 
 		String[] testfiles = { 
 				"simple-sequence-tests.yaml",
-				"empty-document-tests.yaml",
+				"document-tests.yaml",
 				"anchor-alias-tests.yaml",
 				"constant-tests.yaml",
 				"comment-tests.yaml",
