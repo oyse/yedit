@@ -1,0 +1,8 @@
+%TAG !yedit! tag:dadacoalition.org,2000
+---
+- !int 1
+- !yedit!test 'A scalar'
+- !!object
+  name: 'A name'
+  value: 10
+- !<tag:dadacoalition.org,2000> explicit

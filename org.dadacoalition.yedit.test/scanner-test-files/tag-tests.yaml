@@ -1,0 +1,40 @@
+---
+name: Parsing document with tags
+contentFile: tag.yaml
+rangeLength: -1
+startOffset: 0
+expectedTokens:
+  - type: DIRECTIVE
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: TAG_PROPERTY
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: TAG_PROPERTY
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: TAG_PROPERTY
+  - type: WHITESPACE
+  - type: KEY
+  - type: SCALAR
+  - type: WHITESPACE
+  - type: KEY
+  - type: SCALAR
+  - type: WHITESPACE
+  
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: TAG_PROPERTY
+  - type: WHITESPACE
+  - type: SCALAR

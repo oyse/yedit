@@ -56,6 +56,7 @@ public class YAMLScannerTest {
 				"anchor-alias-tests.yaml",
 				"constant-tests.yaml",
 				"comment-tests.yaml",
+				"tag-tests.yaml"
 		};
 
 		Collection<Object[]> testCases = new ArrayList<Object[]>();
