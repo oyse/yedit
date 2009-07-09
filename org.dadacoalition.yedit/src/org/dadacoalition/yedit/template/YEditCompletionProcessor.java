@@ -20,8 +20,18 @@ public class YEditCompletionProcessor extends TemplateCompletionProcessor {
         return null;
     }
 
+    /**
+     * @return All the templates for the specified context type id. All the template objects
+     * are actually YEditTemplate objects and not Template objects.
+     */
     protected Template[] getTemplates(String contextTypeId) {
-        return Activator.getDefault().getTemplateStore().getTemplates();
-    }
+        Template[] templates = Activator.getDefault().getTemplateStore().getTemplates();
+        YEditTemplate[] yeditTemplates = new YEditTemplate[templates.length]; 
+        
+        for( int i = 0; i < templates.length; i++ ){
+            yeditTemplates[i] = new YEditTemplate( templates[i] ); 
+        }
+        return yeditTemplates;
+    }       
 
 }
