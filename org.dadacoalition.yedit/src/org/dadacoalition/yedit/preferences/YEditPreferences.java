@@ -34,7 +34,7 @@ public class YEditPreferences
 		addField(new IntegerFieldEditor(PreferenceConstants.OUTLINE_SCALAR_MAX_LENGTH, "Maximum display length of scalar", getFieldEditorParent(), 4 ) );
 		addField(new BooleanFieldEditor(PreferenceConstants.OUTLINE_SHOW_TAGS, "Show tags in outline view", getFieldEditorParent() ) );
 
-        addField(new BooleanFieldEditor(PreferenceConstants.SYMFONY_COMPATIBILITY_MODE, "Symfony compatibility mode", getFieldEditorParent() ) );		
+        //addField(new BooleanFieldEditor(PreferenceConstants.SYMFONY_COMPATIBILITY_MODE, "Symfony compatibility mode", getFieldEditorParent() ) );		
 	}
 
 	/* (non-Javadoc)
