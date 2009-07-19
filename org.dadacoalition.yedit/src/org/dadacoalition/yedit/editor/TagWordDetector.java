@@ -5,6 +5,9 @@ import java.util.regex.Pattern;
 
 import org.eclipse.jface.text.rules.IWordDetector;
 
+/**
+ * Word detector used in the scanner rule for tags. 
+ */
 public class TagWordDetector implements IWordDetector {
 
     private Pattern characterPattern = Pattern.compile( "[\\w \\d ! < > \\. , :]", Pattern.COMMENTS );

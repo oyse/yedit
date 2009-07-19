@@ -4,6 +4,10 @@ import java.util.regex.*;
 
 import org.eclipse.jface.text.rules.IWordDetector;
 
+/**
+ * Word detector used by the scanner rule for anchors and in the scanner rule
+ * for aliases. 
+ */
 public class AnchorWordDetector implements IWordDetector {
 
 	private Pattern characterPattern = Pattern.compile( "[\\w\\d]" );
