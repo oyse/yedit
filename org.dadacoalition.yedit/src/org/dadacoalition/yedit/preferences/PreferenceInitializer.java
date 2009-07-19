@@ -40,7 +40,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
         store.setDefault(PreferenceConstants.ITALIC_DOCUMENT, false);
         store.setDefault(PreferenceConstants.UNDERLINE_DOCUMENT, false);        
 
-		PreferenceConverter.setDefault(store, PreferenceConstants.COLOR_SCALAR, new RGB(0,0,255));
+		PreferenceConverter.setDefault(store, PreferenceConstants.COLOR_SCALAR, new RGB(0,0,0));
         store.setDefault(PreferenceConstants.BOLD_SCALAR, false);
         store.setDefault(PreferenceConstants.ITALIC_SCALAR, false);
         store.setDefault(PreferenceConstants.UNDERLINE_SCALAR, false);        
