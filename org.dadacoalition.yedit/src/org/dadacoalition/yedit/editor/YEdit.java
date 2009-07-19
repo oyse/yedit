@@ -118,6 +118,11 @@ public class YEdit extends TextEditor {
 	}
 
 	
+	/**
+	 * Performs the syntax checking of the file using SnakeYAML.
+	 * @return Returns null if not errors are found. If an error is found it returns the exception 
+	 * thrown by the SnakeYAML parser.
+	 */
 	private YAMLException checkForErrors(){
 		
 		IDocument document = this.getDocumentProvider().getDocument(this.getEditorInput());	
@@ -147,6 +152,10 @@ public class YEdit extends TextEditor {
 		
 	}
 	
+	/**
+	 * Parses the file and adds error markers for any syntax errors found in the document.
+	 * Old error markers are removed before any new markers are added.
+	 */
 	private void markErrors() {
 					
 		IEditorInput editorInput = this.getEditorInput();
