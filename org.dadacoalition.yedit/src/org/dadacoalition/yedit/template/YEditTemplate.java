@@ -3,11 +3,8 @@ package org.dadacoalition.yedit.template;
 import org.eclipse.jface.text.templates.Template;
 
 /**
- * Implementation of templates in YEdit. On difference from normal Eclipse
+ * Implementation of templates in YEdit. One difference from normal Eclipse
  * templates is in the way that templates are matched against a prefix.
- * 
- * @author oysteto
- * 
  */
 public class YEditTemplate extends Template {
 
