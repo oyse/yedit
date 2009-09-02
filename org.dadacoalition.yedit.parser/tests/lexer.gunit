@@ -1,0 +1,11 @@
+gunit YAML;
+
+@header{
+package org.dadacoalition.yedit.parser;
+}
+
+DOCUMENT_START:
+
+  "---" OK
+  "--" FAIL  
+  
