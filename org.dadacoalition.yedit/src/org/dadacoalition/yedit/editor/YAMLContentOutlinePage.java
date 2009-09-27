@@ -46,7 +46,8 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 	        
 			IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 			if( prefs.getBoolean(PreferenceConstants.SYMFONY_COMPATIBILITY_MODE ) ){
-	            return;
+			    SymfonyCompatibilityMode sr = new SymfonyCompatibilityMode( yamlEditor.sourceViewerConfig.getScanner() );
+		        content = sr.fixScalars(document);
 	        }   			
 			
 			yamlDocuments.clear();

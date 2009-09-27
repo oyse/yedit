@@ -133,7 +133,7 @@ public class YEdit extends TextEditor {
 		IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
 		if( prefs.getBoolean(PreferenceConstants.SYMFONY_COMPATIBILITY_MODE ) ){
 		    SymfonyCompatibilityMode sr = new SymfonyCompatibilityMode( sourceViewerConfig.getScanner() );
-		    content = sr.quoteScalars(document);
+		    content = sr.fixScalars(document);
 		}		
 		
 		Yaml yamlParser = new Yaml();
