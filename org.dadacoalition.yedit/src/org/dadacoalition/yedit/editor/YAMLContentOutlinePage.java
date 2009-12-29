@@ -147,12 +147,20 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 	public void createControl(Composite parent) {
 	    
 	    super.createControl(parent);
-            
+
+        IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
+        
+        int expandLevels = TreeViewer.ALL_LEVELS;
+        if( !(prefs.getBoolean(PreferenceConstants.AUTO_EXPAND_OUTLINE) ) ){
+            expandLevels = 0;
+        }
+	    
+	    
 		TreeViewer viewer= getTreeViewer();
 		viewer.setContentProvider(new ContentProvider());
 		viewer.setLabelProvider( new YEditStyledLabelProvider( yamlEditor.getColorManager() ) );
 		viewer.addSelectionChangedListener(this);
-		viewer.setAutoExpandLevel(TreeViewer.ALL_LEVELS);
+		viewer.setAutoExpandLevel(expandLevels);
 
 		if (input != null){
 			setInput(input);
