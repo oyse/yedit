@@ -1,0 +1,26 @@
+---
+"This is a quoted scalar"
+---
+"This is a quoted scalar with some special characters ' { } [ ] ? @ ! < > & ---"
+---
+"This is a multiline
+
+scalar"
+---
+'This is single quoted scalar'
+---
+'This is a single quoated scalar with some special characters { } [ ] ? @ ! < > & --- "'
+---
+This is a scalar
+---
+That's cool
+---
+Also{}cool
+---
+Also[]cool
+---
+<bla bla>
+---
+?sdfsf
+---
+<?php code is also scalar foreach $sfdf {} [] ?>

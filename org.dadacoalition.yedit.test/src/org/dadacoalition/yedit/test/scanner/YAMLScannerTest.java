@@ -50,13 +50,14 @@ public class YAMLScannerTest {
 	@Parameters
 	public static Collection<Object[]> readTests() {
 
-		String[] testfiles = { 
+		String[] testfiles = {
 				"simple-sequence-tests.yaml",
 				"document-tests.yaml",
 				"anchor-alias-tests.yaml",
 				"constant-tests.yaml",
 				"comment-tests.yaml",
-				"tag-tests.yaml"
+				"tag-tests.yaml",
+				"scalar-test.yaml",
 		};
 
 		Collection<Object[]> testCases = new ArrayList<Object[]>();
@@ -151,14 +152,14 @@ public class YAMLScannerTest {
 		return testCases;
 
 	}
-	
+
 	private void printTokens( List<IToken> tokens ) {
-	    
+
 	    for( IToken token : tokens ){
-	        System.out.println( token );	        
+	        System.out.println( token );
 	    }
-	    
-	
+
+
 	}
 
 }

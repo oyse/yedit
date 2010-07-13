@@ -1,0 +1,80 @@
+---
+name: Parsing different types of scalars
+contentFile: scalar.yaml
+rangeLength: -1
+startOffset: 0
+expectedTokens:
+
+  # "This is a quoted scalar"
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  # "This is a quoted scalar with some special characters ' { } [ ] ? @ ! < > & ---"
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  # This is a multiline
+  #
+  # scalar"
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  # 'This is single quoted scalar'
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  # 'This is a single quoated scalar with some special characters { } [ ] ? @ ! < > & --- "'
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  # This is a scalar
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  # That's cool
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  # Also{}cool
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  # Also[]cool
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  # <bla bla>
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  # ?sdfsf
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
+
+  # <?php code is also scalar foreach $sfdf {} [] ?>
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: WHITESPACE
