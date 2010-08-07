@@ -193,7 +193,11 @@ public class YEdit extends TextEditor {
 			if( syntaxError instanceof MarkedYAMLException ){
 				MarkedYAMLException ex = (MarkedYAMLException) syntaxError;
 				marker.setAttribute(IMarker.MESSAGE, ex.getProblem() );
-				marker.setAttribute(IMarker.LINE_NUMBER, ex.getProblemMark().getLine() );
+				
+				//SnakeYAML uses a 0-based line number while IMarker uses a 1-based 
+				//line number so must add 1 to the number reported by SnakeYAML.
+				int lineNumber = ex.getProblemMark().getLine() + 1;
+				marker.setAttribute(IMarker.LINE_NUMBER, lineNumber );
 			} else {
 				marker.setAttribute(IMarker.MESSAGE, "General YAMLException from parser" );
 			}
