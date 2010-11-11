@@ -11,9 +11,11 @@ expectedTokens:
   - type: ANCHOR
   - type: WHITESPACE
   - type: KEY
+  - type: WHITESPACE
   - type: SCALAR
   - type: WHITESPACE
   - type: KEY
+  - type: WHITESPACE
   - type: SCALAR
   - type: WHITESPACE
   - type: INDICATOR_CHARACTER
@@ -27,6 +29,7 @@ expectedTokens:
   - type: COMMENT
   - type: WHITESPACE
   - type: KEY
+  - type: WHITESPACE
   - type: ALIAS
   - type: WHITESPACE  
   - type: COMMENT
