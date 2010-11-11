@@ -10,6 +10,7 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.Position;
 import org.yaml.snakeyaml.nodes.MappingNode;
 import org.yaml.snakeyaml.nodes.Node;
+import org.yaml.snakeyaml.nodes.NodeTuple;
 import org.yaml.snakeyaml.nodes.ScalarNode;
 import org.yaml.snakeyaml.nodes.SequenceNode;
 
@@ -123,10 +124,17 @@ public class YAMLOutlineElement {
 				}
 			} else if ( node instanceof MappingNode ){
 				MappingNode mNode = (MappingNode) node;
-				List<Node[]> children = mNode.getValue();
-				for( Node[] childNode : children ){
-					String key = childNode[0].getValue().toString();
-					YAMLOutlineElement child = new YAMLOutlineElement( childNode[1], this, MAPPINGITEM, document );
+				List<NodeTuple> children = mNode.getValue();
+				for( NodeTuple childNode : children ){
+					Node keyNode = childNode.getKeyNode();
+					String key;
+					if( keyNode instanceof ScalarNode ){					    
+					    key = ((ScalarNode) keyNode).getValue();
+					} else {
+					    key = keyNode.toString();
+					}
+				    
+					YAMLOutlineElement child = new YAMLOutlineElement( childNode.getValueNode(), this, MAPPINGITEM, document );
 					child.key = key;
 					this.children.add(child);
 				}
@@ -138,13 +146,21 @@ public class YAMLOutlineElement {
 				return "";
 			} else if( type == YAMLOutlineElement.MAPPINGITEM ){			    
 			    if( 0 == children.size() ){
-			        return key + ": " + node.getValue().toString();
+                    if( node instanceof ScalarNode ){
+                        return key + ": " + ((ScalarNode) node).getValue();
+                    } else {
+                        return key + ": " + node.toString();
+                    }
 			    } else {
 			        return key;
 			    }
 			} else if( type == YAMLOutlineElement.SEQUENCEITEM ){
 			    if( 0 == children.size() ) {
-			        return node.getValue().toString();
+			        if( node instanceof ScalarNode ){
+			            return ((ScalarNode) node).getValue();
+			        } else {
+			            return node.toString();
+			        }
 			    } else {
 			        return "";
 			    }			        			    
