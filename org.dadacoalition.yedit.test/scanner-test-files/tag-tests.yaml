@@ -27,9 +27,11 @@ expectedTokens:
   - type: TAG_PROPERTY
   - type: WHITESPACE
   - type: KEY
+  - type: WHITESPACE
   - type: SCALAR
   - type: WHITESPACE
   - type: KEY
+  - type: WHITESPACE
   - type: SCALAR
   - type: WHITESPACE
   
