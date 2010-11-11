@@ -1,0 +1,12 @@
+---
+simple: test
+some_other: test
+diff434 :  test
+with space: test 
+dfsf\df\er: test
+' more complex' : test
+'/other/complex/': test
+"double quoted" : test
+'{}[]$@-_+\/|.*' : test
+'' : test
+"" : test

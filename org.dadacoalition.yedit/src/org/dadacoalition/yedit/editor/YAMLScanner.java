@@ -96,6 +96,9 @@ public class YAMLScanner extends RuleBasedScanner {
 
         ArrayList<IRule> rules = new ArrayList<IRule>();
 
+        rules.add(new KeyRule(keyToken));        
+        rules.add(new SingleQuotedKeyRule(keyToken));
+        rules.add(new DoubleQuotedKeyRule(keyToken));
         rules.add(new MultiLineRule("\"", "\"", scalarToken, '\\'));
         rules.add(new MultiLineRule("'", "'", scalarToken));
         rules.add(new EndOfLineRule("#", commentToken));
@@ -105,7 +108,6 @@ public class YAMLScanner extends RuleBasedScanner {
         rules.add(new RegexRule("\\.\\.\\.", documentEndToken));
         rules.add(new IndicatorCharacterRule(indicatorCharToken));
         rules.add(new WhitespaceRule(whitespaceToken));
-        rules.add(new KeyRule(keyToken));
         rules.add(new WordPatternRule(new AnchorWordDetector(), "&", "", anchorToken));
         rules.add(new WordPatternRule(new AnchorWordDetector(), "*", "", aliasToken));
         rules.add(new WordPatternRule(new TagWordDetector(), "!", "", tagPropToken));

@@ -1,0 +1,74 @@
+---
+name: Parsing different types of keys
+contentFile: key.yaml
+rangeLength: -1
+startOffset: 0
+expectedTokens:
+
+  - type: DOCUMENT_START
+  
+  # simple: test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+  
+  # some_other: test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+  
+  # diff434 :  test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+  
+  # with space: test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+   
+  # dfsf\df\er: test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+  
+  # ' more complex' : test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+  
+  # '/other/complex/': test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+  
+  # "double quoted" : test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+  
+  # '{}[]$@-_+\/|.*' : test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+
+  # '' : test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+  
+  # "" : test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR

@@ -18,11 +18,11 @@ public class KeyRule implements IRule {
     private IToken token;
     private Pattern keyPattern;
     
-    private static String keyRegex = "(\\w[\\w\\s]*:\\s).*";
+    //private static String keyRegex = "( \\w [\\w \\s \\. \\\\ \\d]*:)\\s.*";
     
     public KeyRule( IToken token ){
         this.token = token;
-        keyPattern = Pattern.compile( keyRegex, Pattern.DOTALL );
+        keyPattern = Pattern.compile( getKeyRegex(), Pattern.DOTALL | Pattern.COMMENTS );
     }
         
     public IToken evaluate(ICharacterScanner scanner) {
@@ -60,6 +60,10 @@ public class KeyRule implements IRule {
             }
             return Token.UNDEFINED;
         }
+    }
+    
+    protected String getKeyRegex(){
+        return "(\\w [\\w \\s \\. \\\\ \\d]*:)\\s.*";
     }
 
 }

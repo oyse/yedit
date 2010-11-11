@@ -58,6 +58,7 @@ public class YAMLScannerTest {
 				"comment-tests.yaml",
 				"tag-tests.yaml",
 				"scalar-test.yaml",
+				"key-tests.yaml"
 		};
 
 		Collection<Object[]> testCases = new ArrayList<Object[]>();
