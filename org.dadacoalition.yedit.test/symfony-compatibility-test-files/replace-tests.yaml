@@ -1,47 +1,32 @@
 --- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
 name: Single scalar not quoted
 content: This is a simple test
-expectedContent: "'This is a simple test'"
+expectedContent: This is a simple test
 
 --- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
 name: Single scalar quoted
-content: 'This is a simple test'
+content: "'This is a simple test'"
 expectedContent: "'This is a simple test'"
 
 --- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
 name: One line with single %, not quoted
 content: "%somevar%"
-expectedContent: "'%somevar%'"
+expectedContent: "_somevar_"
 
 --- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
-name: One line with single %, already quoted
+name: One line with single %, quoted
 content: "'%somevar%'"
 expectedContent: "'%somevar%'"
 
 --- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
 name: One line with double %, not quoted
 content: "%%somevar%%"
-expectedContent: "'%%somevar%%'"
+expectedContent: "__somevar__"
 
 --- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
-name: One line with double %, already quoted
+name: One line with double %, quoted
 content: "'%%somevar%%'"
 expectedContent: "'%%somevar%%'"
-
---- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
-name: Several lines without %, scalars not quoted
-content: |
-  key1: a value
-  key2:
-    - 1
-    - 2
-    - 3
-expectedContent: |
-  key1: 'a value'
-  key2:
-    - '1'
-    - '2'
-    - '3'
 
 --- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
 name: Several lines with several vars
@@ -53,12 +38,12 @@ content: |
     password: secret
   has_log: %%logging%%
 expectedContent: |
-  title: '%some_config_value%'
+  title: _some_config_value_
   database:
-    dns: '%title%'
-    username: '%user%'
-    password: 'secret'
-  has_log: '%%logging%%'
+    dns: _title_
+    username: _user_
+    password: secret
+  has_log: __logging__
 
 --- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
 name: '% place as part of scalar'
@@ -81,12 +66,12 @@ expectedContent: |
 
     # symfony core
     symfony:
-      name:           'symfony'
-      path:           '%SF_SYMFONY_LIB_DIR%'
-      recursive:      'on'
-      exclude:        ['vendor']
+      name:           symfony
+      path:           _SF_SYMFONY_LIB_DIR_
+      recursive:      on
+      exclude:        [vendor]
   
     propel:
-      name:           'propel'
-      path:           '%SF_SYMFONY_LIB_DIR%/vendor/propel'
-      recursive:      'on'
+      name:           propel
+      path:           _SF_SYMFONY_LIB_DIR_/vendor/propel
+      recursive:      on

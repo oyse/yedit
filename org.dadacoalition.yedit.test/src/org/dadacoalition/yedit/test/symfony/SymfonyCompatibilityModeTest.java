@@ -86,7 +86,7 @@ public class SymfonyCompatibilityModeTest {
         
         String originalContent = testCase.getContent();
         document.set(originalContent);
-        String replacedContent = sr.quoteScalars(document);
+        String replacedContent = sr.fixScalars(document);
         
         assertEquals( testCase.getName(), testCase.getExpectedContent(), replacedContent );
         
