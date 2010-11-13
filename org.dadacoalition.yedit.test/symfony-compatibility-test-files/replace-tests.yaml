@@ -75,3 +75,19 @@ expectedContent: |
       name:           propel
       path:           _SF_SYMFONY_LIB_DIR_/vendor/propel
       recursive:      on
+
+--- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
+name: PHP code in scalar
+content: '<?php foreach($ss as $s){echo $s} ?>'
+expectedContent: '<_php foreach($ss as $s)_echo $s_ _>'
+
+--- !!org.dadacoalition.yedit.test.symfony.SymfonyTestCase
+name: PHP as part of more complex structure
+content: |
+  form:
+    display: 
+      "Traduction": [<?php foreach($ss as $s){echo $s} ?>]
+expectedContent: |
+  form:
+    display: 
+      "Traduction": [<_php foreach($ss as $s)_echo $s_ _>]
