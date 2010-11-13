@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.dadacoalition.yedit.Activator;
+import org.dadacoalition.yedit.YEditLog;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.rules.ICharacterScanner;
@@ -22,52 +23,69 @@ import org.eclipse.jface.text.rules.Token;
 public class ScalarRule implements IRule {
 
     private IToken token;
-    private String firstCharRegex = "\\w + / \\. \\ \\( \\) \\? \\@ \\$ _ < = > \\|";
-    private String otherCharRegex = "\\w \\s + - / \\. \\ \\( \\) \\? \\@ \\$ _ < = > \\|";
-    
+    private String firstCharRegex = "\\w + - / \\. \\ \\( \\) \\? \\@ \\$ _ < = > \\|";
+    private String otherCharRegex = "' \\w \\s + - / \\. \\ \\( \\) \\? \\@ \\$ _ < = > \\| \\{ \\}";
+    private String endCharRegex = "\\w + - / \\. \\ \\( \\) \\? \\@ \\$ _ < = > \\| '";
+
     public ScalarRule( IToken token ){
-        
+
         //when in Symfony compatibility mode % are allowed as part of a scalar
-        IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();        
+        IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
         if( prefs.getBoolean(PreferenceConstants.SYMFONY_COMPATIBILITY_MODE ) ){
             firstCharRegex += " %";
             otherCharRegex += " %";
-        }           
-        
+        }
+
         this.token = token;
     }
-    
-    
+
+
     public IToken evaluate(ICharacterScanner scanner) {
-     
+
+        YEditLog.logger.info("Evaluating ScalarRule");
+
         int c = scanner.read();
         String firstChar = "" + (char) c;
 
-        //the set of characters that are allowed to start a scalar are different than 
+        //the set of characters that are allowed to start a scalar are different than
         //characters that are allowed in the rest of the scalar, so do a check on the first
         //character first.
         if( !Pattern.matches( "[" + firstCharRegex + "]", firstChar)){
             scanner.unread();
             return Token.UNDEFINED;
         }
-        
-        Pattern p = Pattern.compile( "[" + otherCharRegex + "]", Pattern.COMMENTS );
-        while( c != ICharacterScanner.EOF  ){                    
-            String character = "" + (char) c;     
 
-            
+        Pattern p = Pattern.compile( "[" + otherCharRegex + "]", Pattern.COMMENTS );
+        String previousChar = "";
+        String totalString = "";
+        while( c != ICharacterScanner.EOF  ){
+            String character = "" + (char) c;
+
+
             Matcher m = p.matcher(character);
-            
+
             //do not allow this type of scalars to span multiple lines.
             //I think this will make the result more consistent when it comes
             //to parse results between single line damage/repair and whole document
-            //damage/repair            
+            //damage/repair
             if( '\n' == (char) c || '\r' == (char) c || !m.matches()){
+
+                // some characters are not allowed to end a unquoted scalar so we rewind
+                // the scanner one extra step. This is not needed for the syntax hightlighter
+                if( !Pattern.matches( "[" + endCharRegex + "]", previousChar)){
+                    YEditLog.logger.info( "Character '" + previousChar + "' is not valid end char" );
+                    scanner.unread();
+                }
+
                 scanner.unread();
                 break;
             }
-            c = scanner.read();            
-        }  
+            totalString += previousChar;
+            previousChar = character;
+            c = scanner.read();
+        }
+        
+        YEditLog.logger.info("Matched string " + totalString );
 
         return token;
     }
