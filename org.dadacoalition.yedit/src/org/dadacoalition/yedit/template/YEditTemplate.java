@@ -24,7 +24,7 @@ public class YEditTemplate extends Template {
      *         context type and the prefix matches the template name.
      */
     public boolean matches(String prefix, String contextTypeId) {
-
+        
         if (!super.matches(prefix, contextTypeId)) {
             return false;
         }
