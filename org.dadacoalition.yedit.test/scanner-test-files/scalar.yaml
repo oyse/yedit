@@ -24,3 +24,5 @@ Also[]cool
 ?sdfsf
 ---
 <?php code is also scalar foreach $sfdf {} [] ?>
+---
+{ type: integer,    notnull: true, primary: true }

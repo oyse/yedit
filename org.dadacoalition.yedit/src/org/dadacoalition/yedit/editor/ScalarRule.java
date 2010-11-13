@@ -23,9 +23,9 @@ import org.eclipse.jface.text.rules.Token;
 public class ScalarRule implements IRule {
 
     private IToken token;
-    private String firstCharRegex = "\\w + - / \\. \\ \\( \\) \\? \\@ \\$ _ < = > \\|";
-    private String otherCharRegex = "' \\w \\s + - / \\. \\ \\( \\) \\? \\@ \\$ _ < = > \\| \\{ \\}";
-    private String endCharRegex = "\\w + - / \\. \\ \\( \\) \\? \\@ \\$ _ < = > \\| '";
+    private String firstCharRegex = "\\w + - / \\. \\ \\( \\) \\? \\@ \\$ < = > \\|";
+    private String otherCharRegex = "\\[ \\] ' \\w \\s + - / \\. \\\\ \\( \\) \\? \\@ \\$ < = > \\| \\{ \\}";
+    private String endCharRegex = "\\w + - / \\. \\\\ \\( \\) \\? \\@ \\$ < = > \\| '";
 
     public ScalarRule( IToken token ){
 
@@ -55,7 +55,10 @@ public class ScalarRule implements IRule {
             return Token.UNDEFINED;
         }
 
-        Pattern p = Pattern.compile( "[" + otherCharRegex + "]", Pattern.COMMENTS );
+        
+        // for some reason it seems like something in otherCharRegex absolutely wants to match against ','
+        // so I explicitly remove the match here.
+        Pattern p = Pattern.compile( "[" + otherCharRegex + "&&[^,]]", Pattern.COMMENTS );
         String previousChar = "";
         String totalString = "";
         while( c != ICharacterScanner.EOF  ){
@@ -76,13 +79,13 @@ public class ScalarRule implements IRule {
                     YEditLog.logger.info( "Character '" + previousChar + "' is not valid end char" );
                     scanner.unread();
                 }
-
                 scanner.unread();
                 break;
             }
-            totalString += previousChar;
+            totalString += character;
             previousChar = character;
             c = scanner.read();
+            
         }
         
         YEditLog.logger.info("Matched string " + totalString );

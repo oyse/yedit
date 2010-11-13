@@ -78,3 +78,24 @@ expectedTokens:
   - type: WHITESPACE
   - type: SCALAR
   - type: WHITESPACE
+  
+  # { type: integer,    notnull: true, primary: true }
+  - type: DOCUMENT_START
+  - type: WHITESPACE
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: CONSTANT
+  - type: INDICATOR_CHARACTER
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: CONSTANT
+  - type: WHITESPACE
+  - type: INDICATOR_CHARACTER
