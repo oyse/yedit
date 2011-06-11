@@ -129,6 +129,10 @@ public class ToggleCommentHandler extends AbstractHandler {
 	 */
 	public static boolean startsWithComment( String line ){
 		
+	    if( line == null ){
+	        return false;
+	    }
+	    
 		Pattern commentPattern = Pattern.compile( "^\\s*#.*", Pattern.DOTALL );
 		
 		Matcher m = commentPattern.matcher(line);
