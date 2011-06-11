@@ -1,0 +1,6 @@
+== YEdit ==
+
+YEdit is a YAML editor for Eclipse.
+
+The source code is hosted at Github and the issue list and homepage is currently
+found at Google Code. See the homepage for more details.
