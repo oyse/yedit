@@ -9,7 +9,11 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.ISourceViewer;
@@ -28,6 +32,9 @@ public class YEdit extends TextEditor {
 	private IdleTimer idleTimer;
 	YEditSourceViewerConfiguration sourceViewerConfig;
 	private YAMLContentOutlinePage contentOutline;
+	
+	public static final String SOURCE_VIEWER_CONFIGURATION_CONTRIB_ID = 
+		Activator.PLUGIN_ID + ".sourceViewerConfigurationContribution";
 
 	public YEdit() {
 		super();
@@ -62,12 +69,35 @@ public class YEdit extends TextEditor {
 
 	protected void initializeEditor() {
 		super.initializeEditor();
+		
+		YEditSourceViewerConfiguration jsvc = null;
+		
+		/*
+		 * Check for custom YEditSourceViewerConfiguration contributed via
+		 * extension point
+		 */
+		boolean contribFound = false;
+		
+		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		IExtensionPoint point = registry.getExtensionPoint(SOURCE_VIEWER_CONFIGURATION_CONTRIB_ID);
+		IConfigurationElement[] elts = point.getConfigurationElements();
+		for(IConfigurationElement elt : elts) {
+			if("sourceViewerConfiguration".equals(elt.getName())) {
+				try {
+					jsvc = (YEditSourceViewerConfiguration) elt.createExecutableExtension("class");
+					contribFound = true;
+					break;
+				} catch (CoreException e) {}
+			}
+		}
 
-		YEditSourceViewerConfiguration jsvc = new YEditSourceViewerConfiguration();
+		// otherwise default to the base YEditSourceViewerConfiguration
+		if( !contribFound ) {
+			jsvc = new YEditSourceViewerConfiguration();
+		}
+		
 		setSourceViewerConfiguration(jsvc);
 		sourceViewerConfig = jsvc;
-
-
 	}
 
 	public void createPartControl(Composite parent) {

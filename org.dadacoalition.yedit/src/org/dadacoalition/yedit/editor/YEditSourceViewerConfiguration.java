@@ -25,8 +25,8 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
 
 public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 
-	private YAMLScanner yamlScanner;
-	private ColorManager colorManager;
+	protected YAMLScanner yamlScanner;
+	protected ColorManager colorManager;
 	
 	public YEditSourceViewerConfiguration(){
 		colorManager = new ColorManager();
