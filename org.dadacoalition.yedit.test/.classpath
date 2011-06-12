@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="SnakeYAML"/>
+	<classpathentry kind="lib" path="/org.dadacoalition.yedit/Resources/snakeyaml-1.8.jar" sourcepath="/org.dadacoalition.yedit/Resources/snakeyaml-1.8-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
