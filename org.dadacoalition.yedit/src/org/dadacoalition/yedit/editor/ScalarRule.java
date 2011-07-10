@@ -34,6 +34,7 @@ public class ScalarRule implements IRule {
         if( prefs.getBoolean(PreferenceConstants.SYMFONY_COMPATIBILITY_MODE ) ){
             firstCharRegex += " %";
             otherCharRegex += " %";
+            endCharRegex += " %";
         }
 
         this.token = token;
