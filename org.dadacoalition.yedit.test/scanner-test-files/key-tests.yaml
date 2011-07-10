@@ -72,3 +72,33 @@ expectedTokens:
   - type: KEY
   - type: WHITESPACE
   - type: SCALAR
+  
+  # -bla : test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+  
+  # bla-+_:bla : test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+  
+  # bla- : test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR
+  
+  # +bla : test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR    
+  
+  # bla+ : test
+  - type: WHITESPACE
+  - type: KEY
+  - type: WHITESPACE
+  - type: SCALAR   

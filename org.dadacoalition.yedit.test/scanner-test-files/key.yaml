@@ -10,3 +10,8 @@ dfsf\df\er: test
 '{}[]$@-_+\/|.*' : test
 '' : test
 "" : test
+-bla : test
+bla-_+bla : test
+bla- : test
++bla : test
+bla+ : test

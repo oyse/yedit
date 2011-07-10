@@ -63,7 +63,7 @@ public class KeyRule implements IRule {
     }
     
     protected String getKeyRegex(){
-        return "(\\w [\\w \\s \\. \\\\ \\d]*:)\\s.*";
+        return "([\\w \\- _ +] [\\w \\s \\. \\\\ \\- _ +]*:)\\s.*";
     }
 
 }
