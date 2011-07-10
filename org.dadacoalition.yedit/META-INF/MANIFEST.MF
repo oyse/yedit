@@ -30,4 +30,7 @@ Export-Package: org.dadacoalition.yedit;uses:="org.eclipse.ui.plugin,org.osgi.fr
    org.eclipse.ui.editors.text,
    org.yaml.snakeyaml",
  org.dadacoalition.yedit.handlers;uses:="org.eclipse.jface.text,org.eclipse.core.commands",
- org.dadacoalition.yedit.preferences;uses:="org.eclipse.jface.preference,org.eclipse.ui,org.eclipse.core.runtime.preferences"
+ org.dadacoalition.yedit.preferences;uses:="org.eclipse.jface.preference,org.eclipse.ui,org.eclipse.core.runtime.preferences",
+ org.dadacoalition.yedit.template
+Bundle-ClassPath: Resources/snakeyaml-1.8.jar,
+ .
