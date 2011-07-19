@@ -2,11 +2,12 @@
 <feature
       id="org.dadacoalition.yedit"
       label="YEdit Feature"
-      version="0.0.10"
+      version="0.0.11"
       provider-name="YEdit Project">
 
    <description>
-      YEdit is a an editor for editing YAML files. It is implemented as an Eclispe plugin.
+      YEdit is a an editor for editing YAML files. It is implemented
+as an Eclipse plugin.
    </description>
 
    <license url="http://www.eclipse.org/legal/epl-v10.html">
@@ -115,7 +116,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.dadacoalition.yedit"
          download-size="0"
          install-size="0"
-         version="0.0.10"
+         version="0.0.11"
          unpack="false"/>
 
 </feature>
