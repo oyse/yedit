@@ -7,10 +7,11 @@
       <editor
             class="org.dadacoalition.yedit.editor.YEdit"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            default="false"
+            default="true"
             extensions="yml,yaml"
             id="org.dadacoalition.yedit.editor.YEdit"
             name="YEdit YAML Editor">
+            <contentTypeBinding contentTypeId="org.dadacoalition.yedit.yamlsource" />
       </editor>
    </extension>
    <extension
@@ -114,5 +115,27 @@
             name="YAML Context">
       </contextType>
    </extension>
+   
+	<extension
+		point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			base-type="org.eclipse.core.runtime.text"
+			file-extensions="yml"
+			id="yamlsource"
+			name="Yaml Content Type"
+			priority="high">
+		</content-type>
+	</extension>
+ <extension
+       point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectorTargets">
+    <target
+          id="org.dadacoalition.yedit.yamlsource"
+          name="Yaml Editor">
+       <context
+             type="org.eclipse.ui.texteditor.ITextEditor">
+       </context>
+    </target>
+ </extension>
+   
 
 </plugin>
