@@ -59,6 +59,12 @@ public class PreferenceConstants {
 	
 	public static final String AUTO_EXPAND_OUTLINE = "autoExpandOutline";
 	
+	public static final String SYNTAX_VALIDATION_ERROR = "syntaxValidationError";
+	public static final String SYNTAX_VALIDATION_WARNING = "syntaxValidationWarning";
+	public static final String SYNTAX_VALIDATION_IGNORE = "syntaxValidationIgnore";
+	
+	public static final String VALIDATION = "validation";
+	
 	/** the number of seconds that should pass between each time the the syntax highlighter reevaluates
 	 * 	the entire YAML file. */
 	public static final String SECONDS_TO_REEVALUATE = "secondsToReevaluate";

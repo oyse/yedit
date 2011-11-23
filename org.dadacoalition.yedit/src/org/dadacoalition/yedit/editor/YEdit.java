@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.ISourceViewer;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.editors.text.TextEditor;
@@ -208,6 +209,19 @@ public class YEdit extends TextEditor {
 			YEditLog.logException(e);
 			YEditLog.logger.warning("Failed to delete markers:\n" + e.toString() );
 		}		
+		
+        IPreferenceStore prefs = Activator.getDefault().getPreferenceStore();
+        
+        String severity = prefs.getString(PreferenceConstants.VALIDATION);
+        if( PreferenceConstants.SYNTAX_VALIDATION_IGNORE.equals(severity) ){
+        	YEditLog.logger.info("Possible syntax errors ignored due to preference settings");
+            return;
+        }
+		
+        int markerSeverity = IMarker.SEVERITY_ERROR;
+        
+        if (PreferenceConstants.SYNTAX_VALIDATION_WARNING.equals(severity))
+        	markerSeverity = IMarker.SEVERITY_WARNING;
 
 		YAMLException syntaxError = checkForErrors();
 		
@@ -218,7 +232,7 @@ public class YEdit extends TextEditor {
 		
 		try {
 			IMarker marker = file.createMarker(IMarker.PROBLEM);
-			marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
+			marker.setAttribute(IMarker.SEVERITY, markerSeverity);
 			
 			if( syntaxError instanceof MarkedYAMLException ){
 				MarkedYAMLException ex = (MarkedYAMLException) syntaxError;

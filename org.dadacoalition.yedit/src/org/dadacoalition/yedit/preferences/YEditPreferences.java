@@ -37,6 +37,13 @@ public class YEditPreferences
         addField(new BooleanFieldEditor(PreferenceConstants.SYMFONY_COMPATIBILITY_MODE, "Symfony compatibility mode", getFieldEditorParent() ) );		
 	
         addField(new BooleanFieldEditor(PreferenceConstants.AUTO_EXPAND_OUTLINE, "Expand outline on open", getFieldEditorParent() ) );
+        
+        String[][] validationValues = new String[][] {
+        		{"Error", PreferenceConstants.SYNTAX_VALIDATION_ERROR}, 
+        		{"Warning", PreferenceConstants.SYNTAX_VALIDATION_WARNING}, 
+        		{"Ignore", PreferenceConstants.SYNTAX_VALIDATION_IGNORE}
+        };
+        addField(new ComboFieldEditor(PreferenceConstants.VALIDATION, "Syntax validation severity", validationValues, getFieldEditorParent()));
 	
 	}
 

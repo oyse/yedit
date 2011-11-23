@@ -79,6 +79,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(PreferenceConstants.SYMFONY_COMPATIBILITY_MODE, false);
 		
         store.setDefault(PreferenceConstants.AUTO_EXPAND_OUTLINE, true);		
+        store.setDefault(PreferenceConstants.VALIDATION, PreferenceConstants.SYNTAX_VALIDATION_ERROR);
 		
 	}
 
