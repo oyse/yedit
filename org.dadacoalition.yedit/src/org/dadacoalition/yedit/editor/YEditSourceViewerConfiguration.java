@@ -1,6 +1,7 @@
 package org.dadacoalition.yedit.editor;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
@@ -14,16 +15,17 @@ import org.eclipse.jface.text.TabsToSpacesConverter;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContentAssistant;
+import org.eclipse.jface.text.hyperlink.IHyperlinkDetector;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
 import org.eclipse.jface.text.source.DefaultAnnotationHover;
 import org.eclipse.jface.text.source.IAnnotationHover;
 import org.eclipse.jface.text.source.ISourceViewer;
-import org.eclipse.jface.text.source.SourceViewerConfiguration;
+import org.eclipse.ui.editors.text.TextSourceViewerConfiguration;
 
 
-public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
+public class YEditSourceViewerConfiguration extends TextSourceViewerConfiguration {
 
 	protected YAMLScanner yamlScanner;
 	protected ColorManager colorManager;
@@ -128,4 +130,23 @@ public class YEditSourceViewerConfiguration extends SourceViewerConfiguration {
 	}
 	
 	
+	@Override
+	protected Map getHyperlinkDetectorTargets(ISourceViewer sourceViewer) {
+
+		Map targets = super.getHyperlinkDetectorTargets(sourceViewer);
+		targets.put(ContentTypeIdForYaml.CONTENT_TYPE_ID_YAML, null);
+		return targets;
+		
+	}
+	
+	
+	@Override
+	public IHyperlinkDetector[] getHyperlinkDetectors(ISourceViewer sourceViewer) {
+
+		//TODO: create preference page to enable/disable hyperlink detection
+		// @see super.getHyperlinkDetectors();
+		return getRegisteredHyperlinkDetectors(sourceViewer);
+		
+		
+	}
 }
