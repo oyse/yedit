@@ -1,4 +1,6 @@
 .DS_Store
 org.dadacoalition.yedit.test/bin/*
 org.dadacoalition.yedit/bin/*
+org.dadacoalition.yedit/target/*
+org.dadacoalition.yedit.feature/target/*
 
