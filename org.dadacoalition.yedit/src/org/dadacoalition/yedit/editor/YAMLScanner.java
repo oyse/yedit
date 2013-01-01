@@ -11,7 +11,7 @@ import org.eclipse.jface.text.rules.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 
-public class YAMLScanner extends RuleBasedScanner {
+public class YAMLScanner extends BufferedRuleBasedScanner {
 
     private ColorManager colorManager;
 
