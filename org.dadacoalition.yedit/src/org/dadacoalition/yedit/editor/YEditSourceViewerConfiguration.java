@@ -42,7 +42,7 @@ public class YEditSourceViewerConfiguration extends TextSourceViewerConfiguratio
 	public IPresentationReconciler getPresentationReconciler( ISourceViewer sourceViewer ){
 		
 		PresentationReconciler pr = new PresentationReconciler();
-		DefaultDamagerRepairer dr = new DefaultDamagerRepairer(getScanner() );
+		DefaultDamagerRepairer dr = new YEditDamageRepairer(getScanner() );
 
 		pr.setDamager(dr, IDocument.DEFAULT_CONTENT_TYPE);
 		pr.setRepairer(dr, IDocument.DEFAULT_CONTENT_TYPE);			
