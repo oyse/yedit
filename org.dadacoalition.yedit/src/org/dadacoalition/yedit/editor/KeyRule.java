@@ -10,15 +10,11 @@ import org.eclipse.jface.text.rules.Token;
 
 /**
  * Scanner rule for matching keys in a mapping.
- * @author oysteto
- *
  */
 public class KeyRule implements IRule {
 
     private IToken token;
     private Pattern keyPattern;
-    
-    //private static String keyRegex = "( \\w [\\w \\s \\. \\\\ \\d]*:)\\s.*";
     
     public KeyRule( IToken token ){
         this.token = token;
@@ -32,21 +28,36 @@ public class KeyRule implements IRule {
         int c = scanner.read();
         int count = 1;
 
+        boolean foundColon = false;
         while( c != ICharacterScanner.EOF  ){                    
             stream += (char) c;     
             
             //a key cannot span more than one line
             if( '\n' == c || '\r' == c ){
                 break;
-            }            
+            }
+            
+            // we found a ':', so do not need to read any longer
+            if( ':' == c ){
+            	foundColon = true;
+            	stream += (char) scanner.read();
+            	count++;
+            	break;
+            }
+            
             c = scanner.read();
             count++;            
-        }      
+        }
         
+        // no colon so guaranteed that is not a key
+        if(!foundColon){
+        	rewindScanner(scanner, count);
+        	return Token.UNDEFINED;
+        }
+
         Matcher m = keyPattern.matcher( stream );
         if( m.matches() ){
             String matchedText = m.group(1);
-            
             //put the scanner back to after the matched text.
             count = count - matchedText.length();
             for( int i = 0; i < count; i++){
@@ -54,12 +65,16 @@ public class KeyRule implements IRule {
             }
             return token;
         } else {
-            //put the scanner back to the original position if no match
-            for( int i = 0; i < count; i++){
-                scanner.unread();
-            }
+            rewindScanner(scanner, count);
             return Token.UNDEFINED;
         }
+    }
+    
+    //rewind the scanner back when no match is found
+    private void rewindScanner(ICharacterScanner scanner, int stepsBack){
+        for( int i = 0; i < stepsBack; i++){
+            scanner.unread();
+        }    	
     }
     
     protected String getKeyRegex(){
