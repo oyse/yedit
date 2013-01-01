@@ -104,8 +104,8 @@ public class YAMLScanner extends BufferedRuleBasedScanner {
         rules.add(new EndOfLineRule("#", commentToken));
         rules.add(new EndOfLineRule("%TAG", directiveToken));
         rules.add(new EndOfLineRule("%YAML", directiveToken));
-        rules.add(new RegexRule("---", documentStartToken));
-        rules.add(new RegexRule("\\.\\.\\.", documentEndToken));
+        rules.add(new DocumentStartAndEndRule("---", documentStartToken));
+        rules.add(new DocumentStartAndEndRule("...", documentEndToken));
         rules.add(new IndicatorCharacterRule(indicatorCharToken));
         rules.add(new WhitespaceRule(whitespaceToken));
         rules.add(new WordPatternRule(new AnchorWordDetector(), "&", "", anchorToken));
