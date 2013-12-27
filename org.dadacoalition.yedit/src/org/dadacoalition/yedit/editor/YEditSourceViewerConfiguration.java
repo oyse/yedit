@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.dadacoalition.yedit.Activator;
+import org.dadacoalition.yedit.editor.scanner.YAMLScanner;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.dadacoalition.yedit.template.YEditCompletionProcessor;
 import org.eclipse.jface.preference.IPreferenceStore;

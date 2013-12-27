@@ -1,6 +1,6 @@
 package org.dadacoalition.yedit.test.scanner;
 
-import org.dadacoalition.yedit.editor.YAMLToken;
+import org.dadacoalition.yedit.editor.scanner.YAMLToken;
 
 public class ScannerToken {
 	

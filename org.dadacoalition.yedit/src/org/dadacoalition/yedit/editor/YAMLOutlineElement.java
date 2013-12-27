@@ -39,6 +39,8 @@ public class YAMLOutlineElement {
 		protected IDocument document;
 		protected int type;
 		
+		protected List<Integer> nodePath = new ArrayList<Integer>();
+		
 		/**
 		 * Create an DOCUMENT element. The document elements are the roots in the
 		 * outline tree
@@ -61,6 +63,11 @@ public class YAMLOutlineElement {
 			this.parent = parent;
 			this.type = type;
 			this.document = document;
+			
+			if(this.parent != null ){
+				this.nodePath = parent.nodePath;
+			}
+			this.nodePath.add(System.identityHashCode(this.node));
 			
 			parseNode( node );
 			position = getPosition( node );
@@ -119,6 +126,12 @@ public class YAMLOutlineElement {
 				SequenceNode sNode = (SequenceNode) node;
 				List<Node> children = sNode.getValue();
 				for( Node childNode : children ){
+					
+					// prevent infinite loops in case of recursive references
+					if( this.nodePath.contains(System.identityHashCode(childNode))){
+						continue;
+					}
+					
 					YAMLOutlineElement child = new YAMLOutlineElement( childNode, this, SEQUENCEITEM, document );
 					this.children.add(child);					
 				}
@@ -126,6 +139,12 @@ public class YAMLOutlineElement {
 				MappingNode mNode = (MappingNode) node;
 				List<NodeTuple> children = mNode.getValue();
 				for( NodeTuple childNode : children ){
+					
+					// prevent infinite loops in case of recursive references
+					if( this.nodePath.contains(System.identityHashCode(childNode.getValueNode()))){
+						continue;
+					}					
+					
 					Node keyNode = childNode.getKeyNode();
 					String key;
 					if( keyNode instanceof ScalarNode ){					    

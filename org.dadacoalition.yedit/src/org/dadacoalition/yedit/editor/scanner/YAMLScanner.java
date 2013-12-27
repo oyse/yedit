@@ -1,8 +1,9 @@
-package org.dadacoalition.yedit.editor;
+package org.dadacoalition.yedit.editor.scanner;
 
 import java.util.ArrayList;
 
 import org.dadacoalition.yedit.Activator;
+import org.dadacoalition.yedit.editor.ColorManager;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;

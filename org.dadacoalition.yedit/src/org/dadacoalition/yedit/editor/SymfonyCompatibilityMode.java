@@ -4,6 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.dadacoalition.yedit.YEditLog;
+import org.dadacoalition.yedit.editor.scanner.YAMLScanner;
+import org.dadacoalition.yedit.editor.scanner.YAMLToken;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.rules.IToken;

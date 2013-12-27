@@ -1,4 +1,4 @@
-package org.dadacoalition.yedit.editor;
+package org.dadacoalition.yedit.editor.scanner;
 
 import java.util.regex.Pattern;
 

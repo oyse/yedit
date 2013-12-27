@@ -3,7 +3,7 @@ package org.dadacoalition.yedit.test.scanner;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dadacoalition.yedit.editor.YAMLToken;
+import org.dadacoalition.yedit.editor.scanner.YAMLToken;
 import org.dadacoalition.yedit.test.*;
 
 public class ScannerTestCase extends YEditTestCase {

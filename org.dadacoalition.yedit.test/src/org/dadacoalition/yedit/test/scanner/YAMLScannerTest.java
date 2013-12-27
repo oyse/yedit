@@ -16,13 +16,13 @@ import org.yaml.snakeyaml.Loader;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
-
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.Token;
-
 import org.dadacoalition.yedit.editor.*;
+import org.dadacoalition.yedit.editor.scanner.YAMLScanner;
+import org.dadacoalition.yedit.editor.scanner.YAMLToken;
 import org.dadacoalition.yedit.test.TestUtils;
 
 @RunWith(Parameterized.class)
@@ -88,6 +88,7 @@ public class YAMLScannerTest {
 		if (-1 == rangeLength) {
 			rangeLength = document.getLength() - testCase.getStartOffset();
 		}
+
 		scanner.setRange(document, testCase.getStartOffset(), rangeLength);
 
 		// do the actual scanning. It is crucial to update the range of the

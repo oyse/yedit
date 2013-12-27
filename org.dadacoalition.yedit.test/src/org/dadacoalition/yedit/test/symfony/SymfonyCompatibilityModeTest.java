@@ -8,7 +8,7 @@ import java.util.Collection;
 
 import org.dadacoalition.yedit.editor.ColorManager;
 import org.dadacoalition.yedit.editor.SymfonyCompatibilityMode;
-import org.dadacoalition.yedit.editor.YAMLScanner;
+import org.dadacoalition.yedit.editor.scanner.YAMLScanner;
 import org.dadacoalition.yedit.test.TestUtils;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;

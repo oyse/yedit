@@ -1,4 +1,4 @@
-package org.dadacoalition.yedit.editor;
+package org.dadacoalition.yedit.editor.scanner;
 
 import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IRule;
