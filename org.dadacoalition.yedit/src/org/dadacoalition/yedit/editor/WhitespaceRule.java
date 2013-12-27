@@ -19,7 +19,7 @@ public class WhitespaceRule implements IRule {
 
     private IToken token;
     
-
+    private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s");
     
     public WhitespaceRule( IToken token ){
         this.token = token;
@@ -31,11 +31,11 @@ public class WhitespaceRule implements IRule {
         int c = scanner.read();
         boolean atLeastOneMatch = false;
 
-        Pattern p = Pattern.compile("\\s");
+        
         while( c != ICharacterScanner.EOF  ){                    
             String character = "" + (char) c;     
 
-            Matcher m = p.matcher(character);
+            Matcher m = WHITESPACE_PATTERN.matcher(character);
             if( !m.matches()){
                 scanner.unread();                
                 break;
