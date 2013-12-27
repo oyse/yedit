@@ -29,11 +29,11 @@ public class DocumentStartAndEndRule implements IRule {
         char c = (char) scanner.read();
         int count = 1;
 
-        String chars = "";
+        String chars = "" + c;
         while( c != ICharacterScanner.EOF && count < 3 ){                    
-        	chars += c;
 
         	c = (char) scanner.read();
+        	chars += c;        	
             count++;            
         }
         
