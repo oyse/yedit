@@ -17,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.yaml.snakeyaml.Loader;
 import org.yaml.snakeyaml.Yaml;
 
 @RunWith(Parameterized.class)
@@ -68,8 +67,7 @@ public class SymfonyCompatibilityModeTest {
 
     public static ArrayList<SymfonyTestCase> readTests(String filename) {
 
-        Loader loader = new Loader();
-        Yaml yamlParser = new Yaml(loader);       
+        Yaml yamlParser = new Yaml();       
         
         String tests = TestUtils.readFile(filename);
         ArrayList<SymfonyTestCase> testCases = new ArrayList<SymfonyTestCase>();

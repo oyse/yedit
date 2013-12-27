@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.yaml.snakeyaml.Loader;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -141,8 +140,7 @@ public class YAMLScannerTest {
 		TypeDescription tokenDesc = new TypeDescription(ScannerToken.class);
 		testCaseConstructor.addTypeDescription(tokenDesc);
 
-		Loader loader = new Loader(testCaseConstructor);
-		Yaml yamlParser = new Yaml(loader);
+		Yaml yamlParser = new Yaml(testCaseConstructor);
 
 		// read all the documents in the test file
 		String tests = TestUtils.readFile(filename);
