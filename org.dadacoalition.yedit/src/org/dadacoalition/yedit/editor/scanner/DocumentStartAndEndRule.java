@@ -23,7 +23,6 @@ public class DocumentStartAndEndRule implements IRule {
 		this.matchString = matchString;
 	}
 	
-	@Override
 	public IToken evaluate(ICharacterScanner scanner) {
 
         char c = (char) scanner.read();
