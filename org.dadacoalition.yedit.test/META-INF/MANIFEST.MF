@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: YEdit Test plugin
 Bundle-SymbolicName: org.dadacoalition.yedit.test
-Bundle-Version: 0.0.12
+Bundle-Version: 0.0.13
 Bundle-Activator: org.dadacoalition.yedit.test.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
