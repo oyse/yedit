@@ -28,7 +28,7 @@ public class YEditPreferences
 	 */
 	public void createFieldEditors() {
 		
-		addField(new IntegerFieldEditor(PreferenceConstants.SPACES_PER_TAB, "Spaces per tab", getFieldEditorParent(), 2 ) );
+		addField(new IntegerFieldEditor(PreferenceConstants.SPACES_PER_TAB, "Spaces per tab (Re-open editor to take effect.)", getFieldEditorParent(), 2 ) );
 		addField(new IntegerFieldEditor(PreferenceConstants.SECONDS_TO_REEVALUATE, "Seconds between syntax reevaluation", getFieldEditorParent(), 3 ) );
 		
 		addField(new IntegerFieldEditor(PreferenceConstants.OUTLINE_SCALAR_MAX_LENGTH, "Maximum display length of scalar", getFieldEditorParent(), 4 ) );

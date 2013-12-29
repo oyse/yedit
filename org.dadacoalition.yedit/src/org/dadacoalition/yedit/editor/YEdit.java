@@ -17,6 +17,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.ISourceViewer;
+import org.eclipse.jface.text.source.SourceViewer;
+import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.editors.text.TextEditor;
@@ -32,6 +34,8 @@ public class YEdit extends TextEditor {
 	private IdleTimer idleTimer;
 	YEditSourceViewerConfiguration sourceViewerConfig;
 	private YAMLContentOutlinePage contentOutline;
+	
+	private final IPropertyChangeListener propertyChangeListener = new PreferenceChangeListener(this);
 	
 	public static final String SOURCE_VIEWER_CONFIGURATION_CONTRIB_ID = 
 		Activator.PLUGIN_ID + ".sourceViewerConfigurationContribution";
@@ -51,6 +55,8 @@ public class YEdit extends TextEditor {
 			if (idleTimer != null) {
 				idleTimer.dispose();
 			}
+			
+			Activator.getDefault().getPreferenceStore().removePropertyChangeListener(propertyChangeListener);
 
 			super.dispose();
 		} catch (InterruptedException e) {
@@ -113,6 +119,8 @@ public class YEdit extends TextEditor {
             }
         };
         addDocumentIdleListener(listener);
+        
+        Activator.getDefault().getPreferenceStore().addPropertyChangeListener(propertyChangeListener);
 
 	}
 	
@@ -134,20 +142,38 @@ public class YEdit extends TextEditor {
 	public void doSave(IProgressMonitor monitor) {
 		super.doSave(monitor);
 		markErrors();
-		if (contentOutline != null)
-			contentOutline.update();
-		
-		
+		updateContentOutline();
 	}
 	
 	public void doSaveAs() {
 		super.doSaveAs();
 		markErrors();
-		if (contentOutline != null)
-			contentOutline.update();
+		updateContentOutline();
 	}
 
+	void updateContentOutline(){
+		if (contentOutline != null) {
+			contentOutline.update();
+		}
+	}
 	
+	/**
+	 * Re-initialize the editor after changes have been done to the preferences.
+	 */
+	void reinitialize(){
+	    
+        if( getSourceViewer() instanceof SourceViewer){
+            ((SourceViewer) getSourceViewer()).unconfigure();
+            initializeEditor();
+            getSourceViewer().configure(sourceViewerConfig);
+        } else {
+            String msg = "Expected source viewer to be of type SourceViewer, but is wasn't. ";
+            msg += "Might cause problems with preferences.";
+            YEditLog.logger.warning(msg);
+        }
+        
+	}
+		
 	/**
 	 * Performs the syntax checking of the file using SnakeYAML.
 	 * @return Returns null if not errors are found. If an error is found it returns the exception 
@@ -186,7 +212,7 @@ public class YEdit extends TextEditor {
 	 * Parses the file and adds error markers for any syntax errors found in the document.
 	 * Old error markers are removed before any new markers are added.
 	 */
-	private void markErrors() {
+	void markErrors() {
 					
 		IEditorInput editorInput = this.getEditorInput();
 		
