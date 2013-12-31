@@ -53,6 +53,11 @@
             id="org.dadacoalition.yedit.commands.toggleComment"
             name="Toggle Comment">
       </command>
+      <command
+            description="Toggle if the outline should be collapse or not"
+            id="org.dadacoalition.yedit.commands.toggleCollapse"
+            name="Toggle Collapse">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -76,12 +81,33 @@
             </visibleWhen>
          </menu>
       </menuContribution>
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.views.ContentOutline?after=additions">
+         <command
+               commandId="org.dadacoalition.yedit.commands.toggleCollapse"
+               label="Toggle collapse"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeEditorId">
+                  <equals
+                        value="org.dadacoalition.yedit.editor.YEdit">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="org.dadacoalition.yedit.handlers.ToggleCommentHandler"
             commandId="org.dadacoalition.yedit.commands.toggleComment">
+      </handler>
+      <handler
+            class="org.dadacoalition.yedit.handlers.ToggleCollapseHandler"
+            commandId="org.dadacoalition.yedit.commands.toggleCollapse">
       </handler>
    </extension>
    <extension

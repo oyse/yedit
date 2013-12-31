@@ -202,4 +202,18 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 		}		
 	}
 	
+	/**
+	 * Toggle collapse/expand state of all element in the outline view. If no elements
+	 * are expanded all will be expaned, otherwise all will be collapsed.
+	 */
+	public void toggleCollapse(){
+		TreeViewer viewer = getTreeViewer();
+		
+		if( 0 == viewer.getVisibleExpandedElements().length){
+			viewer.expandAll();
+		} else {
+			viewer.collapseAll();
+		}
+	}
+	
 }

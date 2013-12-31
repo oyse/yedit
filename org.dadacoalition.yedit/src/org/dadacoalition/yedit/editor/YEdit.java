@@ -294,4 +294,8 @@ public class YEdit extends TextEditor {
 	    return colorManager;
 	}
 	
+	public YAMLContentOutlinePage getContentOutlinePage(){
+		return contentOutline;
+	}
+	
 }
