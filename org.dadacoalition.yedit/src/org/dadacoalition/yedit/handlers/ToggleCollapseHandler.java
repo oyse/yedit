@@ -13,9 +13,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
  */
 public class ToggleCollapseHandler extends AbstractHandler {
 
-
-	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
+    public Object execute(ExecutionEvent event) throws ExecutionException {
 		
 		IEditorPart editorPart = HandlerUtil.getActiveEditor(event);
 		if( editorPart instanceof YEdit ){

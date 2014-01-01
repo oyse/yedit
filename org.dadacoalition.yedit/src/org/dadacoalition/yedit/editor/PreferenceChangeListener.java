@@ -21,7 +21,6 @@ public class PreferenceChangeListener implements IPropertyChangeListener {
         this.editor = editor;
     }
 
-    @Override
     public void propertyChange(PropertyChangeEvent event) {
         String propertyName = event.getProperty();
         if (isMarkErrorRelatedProperty(propertyName)) {
