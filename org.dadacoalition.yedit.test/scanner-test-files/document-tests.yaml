@@ -7,7 +7,6 @@ expectedTokens:
   - type: DOCUMENT_START
   - type: WHITESPACE
   - type: DOCUMENT_END
-  - type: WHITESPACE
 ---
 name: Parsing document where there other tokens after document start and end
 contentFile: document-line.yaml
