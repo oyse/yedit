@@ -12,5 +12,5 @@ Require-Bundle: org.eclipse.ui,
  org.apache.commons.io;bundle-version="2.0.1"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-ClassPath: Resources/snakeyaml-1.8.jar,
+Bundle-ClassPath: Resources/snakeyaml-1.13.jar,
  .
