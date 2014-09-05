@@ -23,5 +23,4 @@ expectedTokens:
   - type: INDICATOR_CHARACTER
   - type: WHITESPACE
   - type: SCALAR
-  - type: WHITESPACE
   
