@@ -33,6 +33,12 @@
             id="org.dadacoalition.yedit.preferences.TemplatePreferences"
             name="Templates">
       </page>
+      <page
+            category="org.dadacoalition.yedit.preferences.YEditPreferences"
+            class="org.dadacoalition.yedit.preferences.FormatterPreferencePage"
+            id="org.dadacoalition.yedit.preferences.FormatterPreferences"
+            name="Formatter preferences">
+      </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
@@ -58,6 +64,12 @@
             id="org.dadacoalition.yedit.commands.toggleCollapse"
             name="Toggle Collapse">
       </command>
+      <command
+            categoryId="org.dadacoalition.yedit.commands.category"
+            description="Format the document according to format preferences"
+            id="org.dadacoalition.yedit.command.formatDocument"
+            name="Format">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -68,6 +80,11 @@
             <command
                   commandId="org.dadacoalition.yedit.commands.toggleComment"
                   label="Toggle Comment"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.dadacoalition.yedit.command.formatDocument"
+                  label="Format"
                   style="push">
             </command>
             <visibleWhen
@@ -109,6 +126,10 @@
             class="org.dadacoalition.yedit.handlers.ToggleCollapseHandler"
             commandId="org.dadacoalition.yedit.commands.toggleCollapse">
       </handler>
+      <handler
+            class="org.dadacoalition.yedit.handlers.FormatDocumentHandler"
+            commandId="org.dadacoalition.yedit.command.formatDocument">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
@@ -123,6 +144,12 @@
             contextId="org.dadacoalition.yedit.yeditScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="Ctrl+/">
+      </key>
+      <key
+            commandId="org.dadacoalition.yedit.command.formatDocument"
+            contextId="org.dadacoalition.yedit.yeditScope"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Ctrl+Shift+F">
       </key>
    </extension>
    <extension

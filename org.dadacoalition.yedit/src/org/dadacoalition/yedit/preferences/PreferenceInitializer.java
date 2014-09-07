@@ -81,6 +81,13 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
         store.setDefault(PreferenceConstants.AUTO_EXPAND_OUTLINE, true);		
         store.setDefault(PreferenceConstants.VALIDATION, PreferenceConstants.SYNTAX_VALIDATION_ERROR);
 		
+        
+        store.setDefault(PreferenceConstants.FORMATTER_EXPLICIT_END, false);
+        store.setDefault(PreferenceConstants.FORMATTER_EXPLICIT_START, false);
+        store.setDefault(PreferenceConstants.FORMATTER_FLOW_STYLE, "BLOCK");
+        store.setDefault(PreferenceConstants.FORMATTER_SCALAR_STYLE, "PLAIN");
+        store.setDefault(PreferenceConstants.FORMATTER_PRETTY_FLOW, true);
+        store.setDefault(PreferenceConstants.FORMATTER_LINE_WIDTH, 80);
 	}
 
 }
