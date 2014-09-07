@@ -1,0 +1,12 @@
+{
+  test: {
+    sequence: [
+      This is a longer text that should force a line break some where,
+      123,
+      abc]
+    ,
+    map: {
+      maps: This is a longer text that should force a line break some where
+    }
+  }
+}

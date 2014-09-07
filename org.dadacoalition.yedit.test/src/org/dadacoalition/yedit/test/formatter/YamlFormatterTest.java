@@ -11,20 +11,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.yaml.snakeyaml.DumperOptions.FlowStyle;
 import org.yaml.snakeyaml.Yaml;
 
 @RunWith(Parameterized.class)
 public class YamlFormatterTest {
 
+    private static final String TEST_FILE_DIR = "formatter-test-files/";
+    
     private String inputFilename;
     private String outputFilename;
     
     private YamlFormatter formatter;
     
-    public YamlFormatterTest(String inputFilename){    
-        this.inputFilename = inputFilename + ".yaml";
-        outputFilename = inputFilename + "-result.yaml";
-        formatter = new YamlFormatter.Builder().explicitStart(true).explicitEnd(true).build();
+    public YamlFormatterTest(String inputFilename, YamlFormatter formatter){    
+        this.inputFilename = TEST_FILE_DIR + inputFilename + ".yaml";
+        outputFilename = TEST_FILE_DIR + inputFilename + "-result.yaml";
+        this.formatter = formatter;
     }
     
     @Test
@@ -34,7 +37,6 @@ public class YamlFormatterTest {
         Yaml yaml = new Yaml();
         Object doc = yaml.load(inputContent);
         String actual = formatter.formatDocument(doc);
-        System.out.println("\n" + actual);
         assertEquals( "Formatting " + inputFilename, outputContent, actual );
     }
     
@@ -42,10 +44,13 @@ public class YamlFormatterTest {
     public static Collection<Object[]> parameters() {
         
         Collection<Object[]> testCases = new ArrayList<Object[]>();
-        testCases.add( new String[]{ "formatter-test-files/empty-doc" } );
-        testCases.add( new String[]{ "formatter-test-files/keys-with-extra-space" } );
-        testCases.add( new String[]{ "formatter-test-files/uneven-indent" } );
-        
+        testCases.add( new Object[]{ "empty-doc", new YamlFormatter.Builder().explicitStart(true).explicitEnd(true).build() } );
+        testCases.add( new Object[]{ "keys-with-extra-space", new YamlFormatter.Builder().explicitStart(true).explicitEnd(true).build()} );
+        testCases.add( new Object[]{ "uneven-indent", new YamlFormatter.Builder().explicitStart(true).explicitEnd(true).build() } );
+        testCases.add( new Object[]{ "flow-to-block", new YamlFormatter.Builder().explicitStart(true).explicitEnd(true).build() } );
+        testCases.add( new Object[]{ "pretty-flow", new YamlFormatter.Builder().explicitStart(false).explicitEnd(false).flowStyle(FlowStyle.FLOW).prettyFlow(true).build() } );
+        testCases.add( new Object[]{ "block-to-flow", new YamlFormatter.Builder().explicitStart(false).explicitEnd(false).flowStyle(FlowStyle.FLOW).prettyFlow(false).build() } );
+
         
         return testCases;
     }
