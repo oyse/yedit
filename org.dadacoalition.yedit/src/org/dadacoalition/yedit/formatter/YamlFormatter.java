@@ -2,6 +2,7 @@ package org.dadacoalition.yedit.formatter;
 
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
+import org.yaml.snakeyaml.DumperOptions.ScalarStyle;
 import org.yaml.snakeyaml.Yaml;
 
 public class YamlFormatter {
@@ -16,6 +17,7 @@ public class YamlFormatter {
         options.setWidth(builder.lineLength);
         options.setDefaultFlowStyle(builder.flowStyle);     
         options.setPrettyFlow(builder.prettyFlow);
+        options.setDefaultScalarStyle(builder.scalarStyle);
     }
     
     public static class Builder {
@@ -25,6 +27,7 @@ public class YamlFormatter {
         private int lineLength = 80;
         private FlowStyle flowStyle = FlowStyle.BLOCK;
         private boolean prettyFlow = false;
+        private ScalarStyle scalarStyle = ScalarStyle.PLAIN;
         
         public Builder(){
             
@@ -57,6 +60,11 @@ public class YamlFormatter {
         
         public Builder prettyFlow(boolean prettyFlow){
             this.prettyFlow = prettyFlow;
+            return this;
+        }
+        
+        public Builder scalarStyle(ScalarStyle scalarStyle){
+            this.scalarStyle = scalarStyle;
             return this;
         }
         

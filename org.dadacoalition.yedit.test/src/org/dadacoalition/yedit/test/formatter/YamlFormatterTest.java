@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
+import org.yaml.snakeyaml.DumperOptions.ScalarStyle;
 import org.yaml.snakeyaml.Yaml;
 
 @RunWith(Parameterized.class)
@@ -50,6 +51,9 @@ public class YamlFormatterTest {
         testCases.add( new Object[]{ "flow-to-block", new YamlFormatter.Builder().explicitStart(true).explicitEnd(true).build() } );
         testCases.add( new Object[]{ "pretty-flow", new YamlFormatter.Builder().explicitStart(false).explicitEnd(false).flowStyle(FlowStyle.FLOW).prettyFlow(true).build() } );
         testCases.add( new Object[]{ "block-to-flow", new YamlFormatter.Builder().explicitStart(false).explicitEnd(false).flowStyle(FlowStyle.FLOW).prettyFlow(false).build() } );
+        testCases.add( new Object[]{ "to-plain-scalar", new YamlFormatter.Builder().explicitStart(false).explicitEnd(false).build() } );
+        testCases.add( new Object[]{ "to-single-quoted-scalar", new YamlFormatter.Builder().explicitStart(false).explicitEnd(false).scalarStyle(ScalarStyle.SINGLE_QUOTED).build() } );
+        testCases.add( new Object[]{ "to-double-quoted-scalar", new YamlFormatter.Builder().explicitStart(false).explicitEnd(false).scalarStyle(ScalarStyle.DOUBLE_QUOTED).build() } );        
 
         
         return testCases;
