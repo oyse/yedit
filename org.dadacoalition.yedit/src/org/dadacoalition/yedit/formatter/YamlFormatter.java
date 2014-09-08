@@ -76,11 +76,22 @@ public class YamlFormatter {
     
     
     public String formatDocument(Object document) {
-        
+                
         Yaml yaml = new Yaml(options);
         
         if( null == document ){
-            return "---" + System.lineSeparator() + "...";
+            StringBuilder sb = new StringBuilder();
+            if(options.isExplicitStart()){
+                sb.append("---");
+            }
+            
+            sb.append(System.lineSeparator());
+            
+            if(options.isExplicitEnd()){
+                sb.append("...");
+            }
+            
+            return sb.toString();
         }
         return yaml.dump(document).trim();
         
