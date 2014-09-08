@@ -81,4 +81,13 @@ public class PreferenceConstants {
 	
 	
 	public static final String SYMFONY_COMPATIBILITY_MODE = "symfonyCompatibilityMode";
+	
+	
+	public static final String FORMATTER_EXPLICIT_START = "formatterExplicitStart";
+	public static final String FORMATTER_EXPLICIT_END = "formatterExplicitEmd";
+	public static final String FORMATTER_LINE_WIDTH = "formatterLineWidth";
+	public static final String FORMATTER_FLOW_STYLE = "formatterFlowStyle";
+	public static final String FORMATTER_SCALAR_STYLE = "formatterScalarStyle";
+	public static final String FORMATTER_PRETTY_FLOW = "formatterPrettyFlow";
+	    
 }

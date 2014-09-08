@@ -4,6 +4,8 @@ import java.io.StringReader;
 
 import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.YEditLog;
+import org.dadacoalition.yedit.formatter.FormatterUtils;
+import org.dadacoalition.yedit.formatter.YamlFormatter;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -276,6 +278,27 @@ public class YEdit extends TextEditor {
 			YEditLog.logger.warning("Failed to create marker for syntax error: \n" + e.toString() );
 		
 		}
+	}
+	
+	public boolean formatDocument(){
+	    
+        IDocument document = this.getDocumentProvider().getDocument(this.getEditorInput()); 
+        String content = document.get();
+        Yaml yamlParser = new Yaml();
+        YamlFormatter formatter = FormatterUtils.preferencesToFormatter(Activator.getDefault().getPreferenceStore());
+        
+        try {           
+            
+            Iterable<Object> yamlDocuments = yamlParser.loadAll(content);
+            document.set(formatter.formatDocuments(yamlDocuments));
+
+        } catch ( YAMLException ex ) {
+            YEditLog.logger.info( "Cannot format a file when it has syntax errors." );
+            return false;
+        }           
+        
+        return true;
+	    
 	}
 	
 	/**

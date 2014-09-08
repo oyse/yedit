@@ -63,6 +63,7 @@ public class YEditLog {
 			traceLevel = Level.SEVERE;
 		} else {
 			traceLevel = VALID_LEVELS.get( traceLevelString );
+            logger.info("Setting trace level to " + traceLevel);			
 		}	
 		
 		logger.setLevel(traceLevel);

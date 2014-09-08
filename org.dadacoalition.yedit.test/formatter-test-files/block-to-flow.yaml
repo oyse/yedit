@@ -1,0 +1,9 @@
+---
+test:
+  sequence:
+  - 123
+  - 123
+  - abc
+  map:
+    maps: test
+...

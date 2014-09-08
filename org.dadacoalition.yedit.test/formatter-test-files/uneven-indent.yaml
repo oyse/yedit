@@ -1,0 +1,6 @@
+key1:
+- list1
+- list2
+- key2:
+        key3: test
+        key4: tast
