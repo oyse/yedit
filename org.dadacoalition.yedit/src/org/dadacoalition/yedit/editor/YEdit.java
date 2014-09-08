@@ -290,11 +290,7 @@ public class YEdit extends TextEditor {
         try {           
             
             Iterable<Object> yamlDocuments = yamlParser.loadAll(content);
-            StringBuilder sb = new StringBuilder();
-            for( Object yamlDoc : yamlDocuments ){
-                sb.append(formatter.formatDocument(yamlDoc));
-            }
-            document.set(sb.toString());
+            document.set(formatter.formatDocuments(yamlDocuments));
 
         } catch ( YAMLException ex ) {
             YEditLog.logger.info( "Cannot format a file when it has syntax errors." );

@@ -36,8 +36,8 @@ public class YamlFormatterTest {
         String inputContent = TestUtils.readFile(inputFilename);
         String outputContent = TestUtils.readFile(outputFilename);
         Yaml yaml = new Yaml();
-        Object doc = yaml.load(inputContent);
-        String actual = formatter.formatDocument(doc);
+        Iterable<Object> doc = yaml.loadAll(inputContent);
+        String actual = formatter.formatDocuments(doc);
         assertEquals( "Formatting " + inputFilename, outputContent, actual );
     }
     
@@ -54,6 +54,7 @@ public class YamlFormatterTest {
         testCases.add( new Object[]{ "to-plain-scalar", new YamlFormatter.Builder().explicitStart(false).explicitEnd(false).build() } );
         testCases.add( new Object[]{ "to-single-quoted-scalar", new YamlFormatter.Builder().explicitStart(false).explicitEnd(false).scalarStyle(ScalarStyle.SINGLE_QUOTED).build() } );
         testCases.add( new Object[]{ "to-double-quoted-scalar", new YamlFormatter.Builder().explicitStart(false).explicitEnd(false).scalarStyle(ScalarStyle.DOUBLE_QUOTED).build() } );        
+        testCases.add( new Object[]{ "multi-doc", new YamlFormatter.Builder().explicitStart(true).explicitEnd(true).scalarStyle(ScalarStyle.DOUBLE_QUOTED).build() } );
 
         
         return testCases;
