@@ -2,7 +2,7 @@
 <feature
       id="org.dadacoalition.yedit"
       label="YEdit Feature"
-      version="0.0.13"
+      version="1.0.14"
       provider-name="YEdit Project">
 
    <description>
@@ -111,13 +111,14 @@ This Agreement is governed by the laws of the State of New York and the intellec
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.apache.commons.lang" version="2.6.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
          id="org.dadacoalition.yedit"
          download-size="0"
          install-size="0"
-         version="0.0.13"
+         version="1.0.14"
          unpack="false"/>
 
 </feature>
