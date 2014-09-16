@@ -36,7 +36,6 @@ public class FormatterPreferencePage extends FieldEditorPreferencePage implement
 
     }
 
-    @Override
     public void init(IWorkbench workbench) {
         // TODO Auto-generated method stub
         
