@@ -12,6 +12,7 @@ import org.eclipse.jface.text.DefaultIndentLineAutoEditStrategy;
 import org.eclipse.jface.text.DefaultLineTracker;
 import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.ITextDoubleClickStrategy;
 import org.eclipse.jface.text.TabsToSpacesConverter;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
@@ -149,5 +150,10 @@ public class YEditSourceViewerConfiguration extends TextSourceViewerConfiguratio
 		return getRegisteredHyperlinkDetectors(sourceViewer);
 		
 		
+	}
+	
+	@Override
+	public ITextDoubleClickStrategy getDoubleClickStrategy(ISourceViewer sourceViewer, String contentType){
+	    return new YEditDoubleClickStrategy();
 	}
 }
