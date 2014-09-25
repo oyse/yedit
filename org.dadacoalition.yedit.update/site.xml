@@ -3,7 +3,7 @@
    <description url="http://dadacoalition.org/yedit">
       YEdit is an editor for editing YAML files. It is implemented as an Eclipse plugin.
    </description>
-   <feature url="features/org.dadacoalition.yedit_1.0.14.jar" id="org.dadacoalition.yedit" version="1.0.14">
+   <feature url="features/org.dadacoalition.yedit_1.0.15.jar" id="org.dadacoalition.yedit" version="1.0.15">
       <category name="YEdit"/>
    </feature>
    <category-def name="YEdit" label="YEdit"/>
