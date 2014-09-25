@@ -1,6 +1,20 @@
 == YEdit ==
 
-YEdit is a YAML editor for Eclipse.
+YEdit is a YAML editor for Eclipse. See the [[wiki|https://github.com/oyse/yedit/wiki]] for more details
 
-The source code is hosted at Github and the issue list and homepage is currently
-found at Google Code. See the homepage for more details.
+
+=== Installation ===
+
+Use the Eclipse Marketplace client.
+
+or
+
+Use the Eclipse update site found here: http://dadacoalition.org/yedit
+
+or
+
+
+To install, download the .jar file from https://bintray.com/oyse/generic/YEdit/ and place in the plugins directory of you Eclipse installation.
+
+
+
