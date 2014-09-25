@@ -1,6 +1,6 @@
 == YEdit ==
 
-YEdit is a YAML editor for Eclipse. See the [[wiki|https://github.com/oyse/yedit/wiki]] for more details
+YEdit is a YAML editor for Eclipse. See the [[https://github.com/oyse/yedit/wiki|wiki]] for more details
 
 
 === Installation ===
