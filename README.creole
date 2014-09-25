@@ -13,8 +13,7 @@ Use the Eclipse update site found here: http://dadacoalition.org/yedit
 
 or
 
-
-To install, download the .jar file from https://bintray.com/oyse/generic/YEdit/ and place in the plugins directory of you Eclipse installation.
+Download the .jar file from https://bintray.com/oyse/generic/YEdit/ and place in the plugins directory of you Eclipse installation.
 
 
 
