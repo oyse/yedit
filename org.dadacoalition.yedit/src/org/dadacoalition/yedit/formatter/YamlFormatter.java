@@ -3,7 +3,7 @@ package org.dadacoalition.yedit.formatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.dadacoalition.yedit.Utils;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
 import org.yaml.snakeyaml.DumperOptions.ScalarStyle;
@@ -86,7 +86,7 @@ public class YamlFormatter {
         if( formattedDocuments.isEmpty()){
             return formatDocument(null);
         } else {        
-            return StringUtils.join(formattedDocuments, System.lineSeparator());
+            return Utils.joinAsString(formattedDocuments, System.lineSeparator());
         }
     }
     
