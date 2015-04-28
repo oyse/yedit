@@ -10,6 +10,7 @@
   <modules>
     <module>org.dadacoalition.yedit</module>
     <module>org.dadacoalition.yedit.feature</module>
+    <module>org.dadacoalition.yedit.update</module>
   </modules>
 
   <repositories>
