@@ -78,6 +78,13 @@ public class YEdit extends TextEditor {
 	protected void initializeEditor() {
 		super.initializeEditor();
 		
+		YEditSourceViewerConfiguration jsvc = createSourceViewerConfiguration();
+		
+		setSourceViewerConfiguration(jsvc);
+		sourceViewerConfig = jsvc;
+	}
+
+	protected YEditSourceViewerConfiguration createSourceViewerConfiguration() {
 		YEditSourceViewerConfiguration jsvc = null;
 		
 		/*
@@ -103,9 +110,7 @@ public class YEdit extends TextEditor {
 		if( !contribFound ) {
 			jsvc = new YEditSourceViewerConfiguration();
 		}
-		
-		setSourceViewerConfiguration(jsvc);
-		sourceViewerConfig = jsvc;
+		return jsvc;
 	}
 
 	public void createPartControl(Composite parent) {
