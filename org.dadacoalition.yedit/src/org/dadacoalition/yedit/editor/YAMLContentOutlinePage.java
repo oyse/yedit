@@ -197,7 +197,7 @@ public class YAMLContentOutlinePage extends ContentOutlinePage {
 	public void update(){	    
 		TreeViewer viewer= getTreeViewer();
 
-		if (viewer != null) {
+		if (viewer != null && viewer.getControl()!=null && !viewer.getControl().isDisposed()) {
 		    viewer.setInput(input);
 		}		
 	}
