@@ -7,11 +7,10 @@
   <parent>
     <groupId>org.dadacoalition.yedit</groupId>
     <artifactId>parent</artifactId>
-    <version>0.0.12</version>
+    <version>1.0.17-SNAPSHOT</version>
   </parent>
 
   <artifactId>org.dadacoalition.yedit</artifactId>
   <packaging>eclipse-plugin</packaging>
-
 </project>
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.dadacoalition.yedit"
+      id="org.dadacoalition.yedit.feature"
       label="YEdit Feature"
-      version="1.0.16"
+      version="1.0.17.qualifier"
       provider-name="YEdit Project">
 
    <description>
@@ -118,7 +118,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.dadacoalition.yedit"
          download-size="0"
          install-size="0"
-         version="1.0.16"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
