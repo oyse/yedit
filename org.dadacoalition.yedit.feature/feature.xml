@@ -2,7 +2,7 @@
 <feature
       id="org.dadacoalition.yedit.feature"
       label="YEdit Feature"
-      version="1.0.17.qualifier"
+      version="1.0.18.qualifier"
       provider-name="YEdit Project">
 
    <description>
