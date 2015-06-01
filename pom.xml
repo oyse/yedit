@@ -18,17 +18,27 @@
      <id>indigo</id>
      <layout>p2</layout>
      <url>http://download.eclipse.org/releases/indigo</url>
-   </repository>	
+   </repository>    
    <repository>
      <id>orbit</id>
      <layout>p2</layout>
      <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20150124073747/repository/</url>
-   </repository>	
+   </repository>    
   </repositories>
 
   <properties>
     <tycho-version>0.22.0</tycho-version>
+    <p2.qualifier>SNAPSHOT</p2.qualifier>
   </properties>
+  
+  <profiles>
+    <profile>
+      <id>release</id>
+      <properties>
+        <p2.qualifier>RELEASE</p2.qualifier>
+      </properties>
+    </profile>
+  </profiles>
 
   <build>
     <plugins>
@@ -38,6 +48,15 @@
         <version>${tycho-version}</version>
         <extensions>true</extensions>
       </plugin>
+      <plugin>
+       <groupId>org.eclipse.tycho</groupId>
+         <artifactId>tycho-packaging-plugin</artifactId>
+           <version>${tycho-version}</version>
+           <configuration>
+             <format>yyyyMMddHHmm-'${p2.qualifier}'</format>
+             <archiveSite>true</archiveSite>
+           </configuration>
+        </plugin>
     </plugins>
   </build>
   
