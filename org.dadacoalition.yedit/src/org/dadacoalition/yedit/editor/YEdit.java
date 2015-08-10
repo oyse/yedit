@@ -1,6 +1,8 @@
 package org.dadacoalition.yedit.editor;
 
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.YEditLog;
@@ -149,12 +151,14 @@ public class YEdit extends TextEditor {
 	public void doSave(IProgressMonitor monitor) {
 		super.doSave(monitor);
 		markErrors();
+		locateTaskTags();
 		updateContentOutline();
 	}
 	
 	public void doSaveAs() {
 		super.doSaveAs();
 		markErrors();
+        locateTaskTags();		
 		updateContentOutline();
 	}
 
@@ -232,7 +236,7 @@ public class YEdit extends TextEditor {
 		}
 
 		IFile file = ( (IFileEditorInput) editorInput ).getFile();		
-		
+
 		//start by clearing all the old markers.
 		int depth = IResource.DEPTH_INFINITE;
 		try {
@@ -285,7 +289,60 @@ public class YEdit extends TextEditor {
 		}
 	}
 	
-	public boolean formatDocument(){
+    /**
+     * Parse the file and locate any task tags according to the task
+     * tag preferences.
+     */
+    void locateTaskTags() {
+                    
+        IEditorInput editorInput = this.getEditorInput();
+        
+        //if the file is not part of a workspace it does not seems that it is a IFileEditorInput
+        //but instead a FileStoreEditorInput. Unclear if markers are valid for such files.
+        if( !( editorInput instanceof IFileEditorInput ) ){
+            YEditLog.logError("Locating task tags are not supported for files outside of a project." );
+            YEditLog.logger.info("editorInput is not a part of a project." );
+            return;
+        }
+
+        IFile file = ( (IFileEditorInput) editorInput ).getFile();      
+
+        //start by clearing all the old markers.
+        int depth = IResource.DEPTH_INFINITE;
+        try {
+            file.deleteMarkers(IMarker.TASK, true, depth);
+        } catch (CoreException e) {
+            YEditLog.logException(e);
+            YEditLog.logger.warning("Failed to delete task markers:\n" + e.toString() );
+        }       
+        
+        List<TaskTagPreference> prefs = getTaskTagPreferences();
+        TaskTagParser ttp = new TaskTagParser(prefs, sourceViewerConfig.getScanner());
+        List<TaskTag> tags = ttp.parseTags(this.getDocumentProvider().getDocument(this.getEditorInput()));
+
+
+        for(TaskTag tag : tags) {
+            try {
+                IMarker marker = file.createMarker(IMarker.TASK);
+                marker.setAttribute(IMarker.SEVERITY, tag.getSeverity());
+                marker.setAttribute(IMarker.LINE_NUMBER, tag.getLineNumber());
+                marker.setAttribute(IMarker.MESSAGE, tag.getMessage());
+                
+            } catch (CoreException e) {
+                YEditLog.logException(e);
+            }
+        }
+    }	
+	
+	private List<TaskTagPreference> getTaskTagPreferences() {
+        List<TaskTagPreference> tagsToFind = new ArrayList<TaskTagPreference>();
+        tagsToFind.add(new TaskTagPreference("TODO", IMarker.PRIORITY_NORMAL));
+        tagsToFind.add(new TaskTagPreference("FIXME", IMarker.PRIORITY_HIGH));
+        
+        return tagsToFind;
+    }
+
+    public boolean formatDocument(){
 	    
         IDocument document = this.getDocumentProvider().getDocument(this.getEditorInput()); 
         String content = document.get();
