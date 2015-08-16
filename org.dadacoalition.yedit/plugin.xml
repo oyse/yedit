@@ -39,6 +39,12 @@
             id="org.dadacoalition.yedit.preferences.FormatterPreferences"
             name="Formatter preferences">
       </page>
+      <page
+            category="org.dadacoalition.yedit.preferences.YEditPreferences"
+            class="org.dadacoalition.yedit.preferences.TaskTagPreferencePage"
+            id="org.dadacoalition.yedit.preferences.TaskTagPreferences"
+            name="Task Tag Preferences">
+      </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">

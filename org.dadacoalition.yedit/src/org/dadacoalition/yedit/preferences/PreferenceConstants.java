@@ -89,5 +89,13 @@ public class PreferenceConstants {
 	public static final String FORMATTER_FLOW_STYLE = "formatterFlowStyle";
 	public static final String FORMATTER_SCALAR_STYLE = "formatterScalarStyle";
 	public static final String FORMATTER_PRETTY_FLOW = "formatterPrettyFlow";
+    
+	public static final String TODO_TASK_TAGS = "todoTaskTags";
+    
+	public static final String TASK_PRIORITY_HIGH = "high";
+    public static final String TASK_PRIORITY_NORMAL = "normal";
+    public static final String TASK_PRIORITY_LOW = "low";
+    public static final String TODO_TASK_PRIORITIES = "todoTaskPriorities";
+    public static final String TODO_TASK_CASE_SENSITIVE = "todoTaskCaseSensitive";
 	    
 }
