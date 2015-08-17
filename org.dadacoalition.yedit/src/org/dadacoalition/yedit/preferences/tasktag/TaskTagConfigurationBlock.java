@@ -19,6 +19,7 @@ import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.layout.PixelConverter;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.IFontProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -41,11 +42,11 @@ import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
  * UI for editing task tags.
  */
 public class TaskTagConfigurationBlock extends OptionsConfigurationBlock {
-    private static final Key PREF_TODO_TASK_TAGS = getCDTCoreKey(PreferenceConstants.TODO_TASK_TAGS);
-    private static final Key PREF_TODO_TASK_PRIORITIES = getCDTCoreKey(PreferenceConstants.TODO_TASK_PRIORITIES);
-    private static final Key PREF_TODO_TASK_CASE_SENSITIVE = getCDTCoreKey(PreferenceConstants.TODO_TASK_CASE_SENSITIVE);  
+    private static final String PREF_TODO_TASK_TAGS = PreferenceConstants.TODO_TASK_TAGS;
+    private static final String PREF_TODO_TASK_PRIORITIES = PreferenceConstants.TODO_TASK_PRIORITIES;
+    private static final String PREF_TODO_TASK_CASE_SENSITIVE = PreferenceConstants.TODO_TASK_CASE_SENSITIVE;  
 
-    private static final Key[] ALL_KEYS = new Key[] {
+    private static final String[] ALL_KEYS = new String[] {
         PREF_TODO_TASK_TAGS, PREF_TODO_TASK_PRIORITIES, PREF_TODO_TASK_CASE_SENSITIVE
     };
 
@@ -122,8 +123,8 @@ public class TaskTagConfigurationBlock extends OptionsConfigurationBlock {
     private final SelectionButtonDialogField fCaseSensitiveCheckBox;
 
 
-    public TaskTagConfigurationBlock(IStatusChangeListener context, IProject project, IWorkbenchPreferenceContainer container) {
-        super(context, project, ALL_KEYS, container);
+    public TaskTagConfigurationBlock(IStatusChangeListener context, IProject project, IWorkbenchPreferenceContainer container, IPreferenceStore preferenceStore) {
+        super(context, project, ALL_KEYS, container, preferenceStore);
                         
         TaskTagAdapter adapter = new TaskTagAdapter();
         String[] buttons = new String[] {
@@ -235,10 +236,7 @@ public class TaskTagConfigurationBlock extends OptionsConfigurationBlock {
         return composite;
     }
 
-    protected void validateSettings(Key changedKey, String oldValue, String newValue) {
-        if (!areSettingsEnabled()) {
-            return;
-        }
+    protected void validateSettings(String changedKey, String oldValue, String newValue) {
         
         if (changedKey != null) {
             if (PREF_TODO_TASK_TAGS.equals(changedKey)) {

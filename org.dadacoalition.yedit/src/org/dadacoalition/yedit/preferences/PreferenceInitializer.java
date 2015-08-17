@@ -88,6 +88,10 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
         store.setDefault(PreferenceConstants.FORMATTER_SCALAR_STYLE, "PLAIN");
         store.setDefault(PreferenceConstants.FORMATTER_PRETTY_FLOW, true);
         store.setDefault(PreferenceConstants.FORMATTER_LINE_WIDTH, 80);
+        
+        store.setDefault(PreferenceConstants.TODO_TASK_TAGS, "FIXME,TODO");
+        store.setDefault(PreferenceConstants.TODO_TASK_PRIORITIES, "high,normal");
+        store.setDefault(PreferenceConstants.TODO_TASK_CASE_SENSITIVE, false);
 	}
 
 }

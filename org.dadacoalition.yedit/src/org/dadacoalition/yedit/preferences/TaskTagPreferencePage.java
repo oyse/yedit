@@ -4,12 +4,9 @@ import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.preferences.tasktag.IStatusChangeListener;
 import org.dadacoalition.yedit.preferences.tasktag.TaskTagConfigurationBlock;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jface.preference.IPreferencePageContainer;
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbench;
@@ -33,10 +30,17 @@ public class TaskTagPreferencePage extends PreferencePage implements IWorkbenchP
     protected Control createContents(Composite parent) {
 
         Composite composite= new Composite(parent, SWT.NONE);
+        GridLayout layout= new GridLayout();
+        layout.marginHeight= 0;
+        layout.marginWidth= 0;
+        composite.setLayout(layout);
+        composite.setFont(parent.getFont());        
+        
         IWorkbenchPreferenceContainer container = (IWorkbenchPreferenceContainer) getContainer();
-        TaskTagConfigurationBlock configBlock = new TaskTagConfigurationBlock(getNewStatusChangedListener(), null, container);
+        TaskTagConfigurationBlock configBlock = new TaskTagConfigurationBlock(getNewStatusChangedListener(), null, container, getPreferenceStore());
 
-        return configBlock.createContents(composite);
+        configBlock.createContents(composite);
+        return composite;
         
     }
     
