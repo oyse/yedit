@@ -118,8 +118,6 @@ public abstract class OptionsConfigurationBlock {
     protected final IProject fProject; // project or null
     protected final String[] fAllKeys;
 
-    private IScopeContext[] fLookupOrder;
-
     private Shell fShell;
 
     private final IWorkingCopyManager fManager;
@@ -140,19 +138,6 @@ public abstract class OptionsConfigurationBlock {
             fManager= new WorkingCopyManager();
         } else {
             fManager= container.getWorkingCopyManager();
-        }
-
-        if (fProject != null) {
-            fLookupOrder= new IScopeContext[] {
-                new ProjectScope(fProject),
-                InstanceScope.INSTANCE,
-                DefaultScope.INSTANCE
-            };
-        } else {
-            fLookupOrder= new IScopeContext[] {
-                InstanceScope.INSTANCE,
-                DefaultScope.INSTANCE
-            };
         }
 
         checkIfOptionsComplete(allKeys);
@@ -614,8 +599,6 @@ public abstract class OptionsConfigurationBlock {
     }
 
     protected boolean processChanges(IWorkbenchPreferenceContainer container) {
-        IScopeContext currContext= fLookupOrder[0];
-
         List<String> changedOptions= new ArrayList<>();
         if (changedOptions.isEmpty()) {
             return true;
