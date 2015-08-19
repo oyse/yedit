@@ -8,7 +8,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *     Sergey Prigogin (Google)
- *     Øystein Idema Torget - Adaption from CDT to YEdit
+ *     ��ystein Idema Torget - Adaption from CDT to YEdit
  *******************************************************************************/
 package org.dadacoalition.yedit.preferences.tasktag;
 
@@ -42,12 +42,10 @@ import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
  * UI for editing task tags.
  */
 public class TaskTagConfigurationBlock extends OptionsConfigurationBlock {
-    private static final String PREF_TODO_TASK_TAGS = PreferenceConstants.TODO_TASK_TAGS;
-    private static final String PREF_TODO_TASK_PRIORITIES = PreferenceConstants.TODO_TASK_PRIORITIES;
-    private static final String PREF_TODO_TASK_CASE_SENSITIVE = PreferenceConstants.TODO_TASK_CASE_SENSITIVE;  
-
     private static final String[] ALL_KEYS = new String[] {
-        PREF_TODO_TASK_TAGS, PREF_TODO_TASK_PRIORITIES, PREF_TODO_TASK_CASE_SENSITIVE
+    		PreferenceConstants.TODO_TASK_TAGS,
+    		PreferenceConstants.TODO_TASK_PRIORITIES,
+    		PreferenceConstants.TODO_TASK_CASE_SENSITIVE
     };
 
     private static final String TASK_PRIORITY_HIGH = PreferenceConstants.TASK_PRIORITY_HIGH;
@@ -239,7 +237,7 @@ public class TaskTagConfigurationBlock extends OptionsConfigurationBlock {
     protected void validateSettings(String changedKey, String oldValue, String newValue) {
         
         if (changedKey != null) {
-            if (PREF_TODO_TASK_TAGS.equals(changedKey)) {
+            if (PreferenceConstants.TODO_TASK_TAGS.equals(changedKey)) {
                 fTaskTagsStatus = validateTaskTags();
             } else {
                 return;

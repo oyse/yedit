@@ -195,19 +195,6 @@ public abstract class OptionsConfigurationBlock {
         }
     }
 
-    public boolean hasProjectSpecificOptions(IProject project) {
-        if (project != null) {
-            IScopeContext projectContext= new ProjectScope(project);
-            String[] allKeys= fAllKeys;
-            for (int i= 0; i < allKeys.length; i++) {
-//                if (allKeys[i].getStoredValue(projectContext, fManager) != null) {
-//                    return true;
-//                }
-            }
-        }
-        return false;
-    }
-
     protected Shell getShell() {
         return fShell;
     }
