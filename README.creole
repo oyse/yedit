@@ -15,5 +15,7 @@ or
 
 Download the .jar file from releases page and place it in the plugins directory of you Eclipse installation.
 
+=== License ===
 
+YEdit is licensed under the Eclipse Public License (https://www.eclipse.org/legal/epl-v10.html)
 
