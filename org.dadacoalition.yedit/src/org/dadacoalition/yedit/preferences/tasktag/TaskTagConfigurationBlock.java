@@ -50,17 +50,10 @@ import org.osgi.service.prefs.BackingStoreException;
  */
 public class TaskTagConfigurationBlock {
 
-    private static final String REBUILD_COUNT_KEY= "preferences_build_requested"; //$NON-NLS-1$
-
     private IStatusChangeListener fContext;
 
     private Shell fShell;
 
-    private final IWorkingCopyManager fManager;
-    private final IWorkbenchPreferenceContainer fContainer;
-
-    private int fRebuildCount; // used to prevent multiple dialogs that ask for a rebuild
-    
     private IPreferenceStore fPreferenceStore;    
 
     private static final String[] ALL_KEYS = new String[] {
@@ -142,22 +135,14 @@ public class TaskTagConfigurationBlock {
     private final SelectionButtonDialogField fCaseSensitiveCheckBox;
 
 
-    public TaskTagConfigurationBlock(IStatusChangeListener context, IProject project, IWorkbenchPreferenceContainer container, IPreferenceStore preferenceStore) {
+    public TaskTagConfigurationBlock(IStatusChangeListener context, IPreferenceStore preferenceStore) {
 
         fPreferenceStore = preferenceStore;
         fContext= context;
-        fContainer= container;
-        if (container == null) {
-            fManager= new WorkingCopyManager();
-        } else {
-            fManager= container.getWorkingCopyManager();
-        }
 
         checkIfOptionsComplete(ALL_KEYS);
 
-        settingsUpdated();
-
-        fRebuildCount= getRebuildCount();        
+        settingsUpdated();       
         
         TaskTagAdapter adapter = new TaskTagAdapter();
         String[] buttons = new String[] {
@@ -357,15 +342,6 @@ public class TaskTagConfigurationBlock {
         }
     }
 
-    private int getRebuildCount() {
-        return fManager.getWorkingCopy(DefaultScope.INSTANCE.getNode(Activator.PLUGIN_ID)).getInt(REBUILD_COUNT_KEY, 0);
-    }
-
-    private void incrementRebuildCount() {
-        fRebuildCount++;
-        fManager.getWorkingCopy(DefaultScope.INSTANCE.getNode(Activator.PLUGIN_ID)).putInt(REBUILD_COUNT_KEY, fRebuildCount);
-    }
-
     protected void settingsUpdated() {
     }
 
@@ -406,42 +382,6 @@ public class TaskTagConfigurationBlock {
         }
         return res;
     }
-
-    public boolean performOk() {
-        return processChanges(fContainer);
-    }
-
-    private boolean processChanges(IWorkbenchPreferenceContainer container) {
-        List<String> changedOptions= new ArrayList<>();
-        if (changedOptions.isEmpty()) {
-            return true;
-        }
-
-        boolean doBuild= false;
-        if (container != null) {
-            // no need to apply the changes to the original store: will be done by the page container
-            if (doBuild) { // post build
-                incrementRebuildCount();
-                // do a re-index?
-//              container.registerUpdateJob(CoreUtility.getBuildJob(fProject));
-            }
-        } else {
-            // apply changes right away
-            try {
-                fManager.applyChanges();
-            } catch (BackingStoreException e) {
-                YEditLog.logException(e);
-                return false;
-            }
-            if (doBuild) {
-                // do a re-index?
-//              CoreUtility.getBuildJob(fProject).schedule();
-            }
-
-        }
-        return true;
-    }
-
 
     public void dispose() {
     }

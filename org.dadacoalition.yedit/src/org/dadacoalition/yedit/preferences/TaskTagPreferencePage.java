@@ -11,7 +11,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
 
 public class TaskTagPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
@@ -36,8 +35,7 @@ public class TaskTagPreferencePage extends PreferencePage implements IWorkbenchP
         composite.setLayout(layout);
         composite.setFont(parent.getFont());        
         
-        IWorkbenchPreferenceContainer container = (IWorkbenchPreferenceContainer) getContainer();
-        TaskTagConfigurationBlock configBlock = new TaskTagConfigurationBlock(getNewStatusChangedListener(), null, container, getPreferenceStore());
+        TaskTagConfigurationBlock configBlock = new TaskTagConfigurationBlock(getNewStatusChangedListener(), getPreferenceStore());
 
         configBlock.createContents(composite);
         return composite;
