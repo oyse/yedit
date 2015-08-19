@@ -8,7 +8,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *     Sergey Prigogin (Google)
- *     ��ystein Idema Torget - Adaption from CDT to YEdit
+ *     Øystein Idema Torget - Adaption from CDT to YEdit.
  *******************************************************************************/
 package org.dadacoalition.yedit.preferences.tasktag;
 
