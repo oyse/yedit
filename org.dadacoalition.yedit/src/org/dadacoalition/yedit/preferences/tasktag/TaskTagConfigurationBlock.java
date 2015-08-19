@@ -249,12 +249,12 @@ public class TaskTagConfigurationBlock {
         
         fCaseSensitiveCheckBox.doFillIntoGrid(composite, 2);
         
-        validateSettings(null, null, null);
+        validateSettings(null);
     
         return composite;
     }
 
-    private void validateSettings(String changedKey, String oldValue, String newValue) {
+    private void validateSettings(String changedKey) {
         
         if (changedKey != null) {
             if (PreferenceConstants.TODO_TASK_TAGS.equals(changedKey)) {
@@ -289,7 +289,7 @@ public class TaskTagConfigurationBlock {
             }
             setValue(PreferenceConstants.TODO_TASK_TAGS, tags.toString());
             setValue(PreferenceConstants.TODO_TASK_PRIORITIES, prios.toString());
-            validateSettings(PreferenceConstants.TODO_TASK_TAGS, null, null);
+            validateSettings(PreferenceConstants.TODO_TASK_TAGS);
         } else if (field == fCaseSensitiveCheckBox) {
             String state = String.valueOf(fCaseSensitiveCheckBox.isSelected());
             setValue(PreferenceConstants.TODO_TASK_CASE_SENSITIVE, state);
