@@ -1,11 +1,11 @@
 name: Tests for document with tags
 expectedTags:
   - tag: TODO
-    severity: 1
+    severity: normal
     lineNumber: 2
     message: is found here
   - tag: TODO
-    severity: 1
+    severity: normal
     lineNumber: 5
     message: number two
  

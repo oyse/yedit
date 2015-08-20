@@ -334,7 +334,7 @@ public class YEdit extends TextEditor {
         for(TaskTag tag : tags) {
             try {
                 IMarker marker = file.createMarker(IMarker.TASK);
-                marker.setAttribute(IMarker.SEVERITY, tag.getSeverity());
+                marker.setAttribute(IMarker.SEVERITY, tagToMarkerSeverity(tag));
                 marker.setAttribute(IMarker.LINE_NUMBER, tag.getLineNumber());
                 marker.setAttribute(IMarker.MESSAGE, tag.getMessage());
                 
@@ -343,13 +343,22 @@ public class YEdit extends TextEditor {
             }
         }
     }	
+    
+    private int tagToMarkerSeverity(TaskTag tag){
+    	switch(tag.getSeverity()){
+    		case "high":
+    			return 2;
+    		case "normal":
+    			return 1;
+    		case "low":
+    			return 0;
+    		default:
+    			return 1;
+    	}
+    }
 	
 	private List<TaskTagPreference> getTaskTagPreferences() {
-        List<TaskTagPreference> tagsToFind = new ArrayList<TaskTagPreference>();
-        tagsToFind.add(new TaskTagPreference("TODO", IMarker.PRIORITY_NORMAL));
-        tagsToFind.add(new TaskTagPreference("FIXME", IMarker.PRIORITY_HIGH));
-        
-        return tagsToFind;
+		return TaskTagPreference.getTaskTagPreferences(Activator.getDefault().getPreferenceStore());
     }
 
     public boolean formatDocument(){

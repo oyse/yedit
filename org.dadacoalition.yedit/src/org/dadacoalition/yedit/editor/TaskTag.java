@@ -5,7 +5,7 @@ package org.dadacoalition.yedit.editor;
  */
 public class TaskTag {
     private String tag;
-    private int severity;
+    private String severity;
     private int lineNumber;
     private String message;
     
@@ -13,7 +13,7 @@ public class TaskTag {
         
     }
     
-    public TaskTag(String tag, int severity, int lineNumber, String message){
+    public TaskTag(String tag, String severity, int lineNumber, String message){
         this.setTag(tag);
         this.setSeverity(severity);
         this.setLineNumber(lineNumber);
@@ -30,9 +30,9 @@ public class TaskTag {
         TaskTag that = (TaskTag) a;
         
         if( !this.tag.equals(that.tag) 
-                || this.severity != that.severity 
+                || !this.severity.equals(that.severity) 
                 || this.lineNumber != that.lineNumber
-                || !this.message.equals(message)){
+                || !this.message.equals(that.message)){
             return false;
         }
         return true;
@@ -64,11 +64,11 @@ public class TaskTag {
         this.tag = tag;
     }
 
-    public int getSeverity() {
+    public String getSeverity() {
         return severity;
     }
 
-    public void setSeverity(int severity) {
+    public void setSeverity(String severity) {
         this.severity = severity;
     }
 

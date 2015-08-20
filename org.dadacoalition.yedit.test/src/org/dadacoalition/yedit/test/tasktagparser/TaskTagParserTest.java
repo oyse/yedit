@@ -40,8 +40,8 @@ public class TaskTagParserTest {
         testCaseFilename = TEST_FILE_DIR + inputFilename + "-result.yaml";
         
         List<TaskTagPreference> tagsToFind = new ArrayList<TaskTagPreference>();
-        tagsToFind.add(new TaskTagPreference("TODO", IMarker.PRIORITY_NORMAL));
-        tagsToFind.add(new TaskTagPreference("FIXME", IMarker.PRIORITY_HIGH));
+        tagsToFind.add(new TaskTagPreference("TODO", "normal"));
+        tagsToFind.add(new TaskTagPreference("FIXME", "high"));
         YAMLScanner scanner = new YAMLScanner(new ColorManager());
         parser = new TaskTagParser(tagsToFind, scanner);
     }

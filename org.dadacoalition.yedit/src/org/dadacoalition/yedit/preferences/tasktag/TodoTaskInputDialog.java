@@ -14,8 +14,8 @@ package org.dadacoalition.yedit.preferences.tasktag;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dadacoalition.yedit.editor.TaskTagPreference;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
-import org.dadacoalition.yedit.preferences.tasktag.TaskTagConfigurationBlock.TodoTask;
 import org.eclipse.jface.dialogs.StatusDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
@@ -41,14 +41,14 @@ public class TodoTaskInputDialog extends StatusDialog {
     
     private final List<String> fExistingNames;
         
-    public TodoTaskInputDialog(Shell parent, TodoTask task, List<TodoTask> existingEntries) {
+    public TodoTaskInputDialog(Shell parent, TaskTagPreference task, List<TaskTagPreference> existingEntries) {
         super(parent);
         
         fExistingNames = new ArrayList<String>(existingEntries.size());
         for (int i = 0; i < existingEntries.size(); i++) {
-            TodoTask curr = existingEntries.get(i);
+            TaskTagPreference curr = existingEntries.get(i);
             if (!curr.equals(task)) {
-                fExistingNames.add(curr.name);
+                fExistingNames.add(curr.tag);
             }
         }
         
@@ -64,7 +64,7 @@ public class TodoTaskInputDialog extends StatusDialog {
         fNameDialogField.setLabelText("Name"); 
         fNameDialogField.setDialogFieldListener(adapter);
         
-        fNameDialogField.setText((task != null) ? task.name : ""); //$NON-NLS-1$
+        fNameDialogField.setText((task != null) ? task.tag : ""); //$NON-NLS-1$
         
         String[] items = new String[] {
             "High", 
@@ -76,9 +76,9 @@ public class TodoTaskInputDialog extends StatusDialog {
         fPriorityDialogField.setLabelText("Priority"); 
         fPriorityDialogField.setItems(items);
         if (task != null) {
-            if (PreferenceConstants.TASK_PRIORITY_HIGH.equals(task.priority)) {
+            if (PreferenceConstants.TASK_PRIORITY_HIGH.equals(task.severity)) {
                 fPriorityDialogField.selectItem(0);
-            } else if (PreferenceConstants.TASK_PRIORITY_NORMAL.equals(task.priority)) {
+            } else if (PreferenceConstants.TASK_PRIORITY_NORMAL.equals(task.severity)) {
                 fPriorityDialogField.selectItem(1);
             } else {
                 fPriorityDialogField.selectItem(2);
@@ -88,18 +88,18 @@ public class TodoTaskInputDialog extends StatusDialog {
         }
     }
     
-    public TodoTask getResult() {
-        TodoTask task = new TodoTask();
-        task.name = fNameDialogField.getText().trim();
+    public TaskTagPreference getResult() {
+        TaskTagPreference task = new TaskTagPreference();
+        task.tag = fNameDialogField.getText().trim();
         switch (fPriorityDialogField.getSelectionIndex()) {
         case 0:
-            task.priority = PreferenceConstants.TASK_PRIORITY_HIGH;
+            task.severity = PreferenceConstants.TASK_PRIORITY_HIGH;
             break;
         case 1:
-            task.priority = PreferenceConstants.TASK_PRIORITY_NORMAL;
+            task.severity = PreferenceConstants.TASK_PRIORITY_NORMAL;
             break;
         default:
-            task.priority = PreferenceConstants.TASK_PRIORITY_LOW;
+            task.severity = PreferenceConstants.TASK_PRIORITY_LOW;
             break;              
         }
         return task;

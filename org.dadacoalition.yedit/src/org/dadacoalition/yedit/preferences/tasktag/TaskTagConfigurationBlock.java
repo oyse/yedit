@@ -18,6 +18,7 @@ import java.util.StringTokenizer;
 
 import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.YEditLog;
+import org.dadacoalition.yedit.editor.TaskTagPreference;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
@@ -66,11 +67,6 @@ public class TaskTagConfigurationBlock {
     private static final String TASK_PRIORITY_NORMAL = PreferenceConstants.TASK_PRIORITY_NORMAL;
     private static final String TASK_PRIORITY_LOW = PreferenceConstants.TASK_PRIORITY_LOW;
     
-    public static class TodoTask {
-        public String name;
-        public String priority;
-    }
-    
     private class TodoTaskLabelProvider extends LabelProvider implements ITableLabelProvider, IFontProvider {
 
         public TodoTaskLabelProvider() {
@@ -91,26 +87,26 @@ public class TaskTagConfigurationBlock {
         }
 
         public String getColumnText(Object element, int columnIndex) {
-            TodoTask task = (TodoTask) element;
+            TaskTagPreference task = (TaskTagPreference) element;
             if (columnIndex == 0) {
-                String name = task.name;
+                String name = task.tag;
                 if (isDefaultTask(task)) {
                     name = name + " (default)"; 
                 }
                 return name;
             }
-            if (TASK_PRIORITY_HIGH.equals(task.priority)) {
+            if (TASK_PRIORITY_HIGH.equals(task.severity)) {
                 return "High"; 
-            } else if (TASK_PRIORITY_NORMAL.equals(task.priority)) {
+            } else if (TASK_PRIORITY_NORMAL.equals(task.severity)) {
                 return "Normal"; 
-            } else if (TASK_PRIORITY_LOW.equals(task.priority)) {
+            } else if (TASK_PRIORITY_LOW.equals(task.severity)) {
                 return "Low"; 
             }
             return ""; //$NON-NLS-1$    
         }
 
         public Font getFont(Object element) {
-            if (isDefaultTask((TodoTask) element)) {
+            if (isDefaultTask((TaskTagPreference) element)) {
                 return JFaceResources.getFontRegistry().getBold(JFaceResources.DIALOG_FONT);
             }
             return null;
@@ -121,7 +117,7 @@ public class TaskTagConfigurationBlock {
         @SuppressWarnings("unchecked")
         @Override
         public int compare(Viewer viewer, Object e1, Object e2) {
-            return getComparator().compare(((TodoTask) e1).name, ((TodoTask) e2).name);
+            return getComparator().compare(((TaskTagPreference) e1).tag, ((TaskTagPreference) e2).tag);
         }
     }
 
@@ -131,7 +127,7 @@ public class TaskTagConfigurationBlock {
     private static final int IDX_DEFAULT = 4;
     
     private IStatus fTaskTagsStatus;
-    private final ListDialogField<TodoTask> fTodoTasksList;
+    private final ListDialogField<TaskTagPreference> fTodoTasksList;
     private final SelectionButtonDialogField fCaseSensitiveCheckBox;
 
 
@@ -150,9 +146,9 @@ public class TaskTagConfigurationBlock {
             "Edit", 
             "Remove", 
             null,
-            "Set default" 
+            "Set default"  
         };
-        fTodoTasksList = new ListDialogField<TodoTask>(adapter, buttons, new TodoTaskLabelProvider());
+        fTodoTasksList = new ListDialogField<TaskTagPreference>(adapter, buttons, new TodoTaskLabelProvider());
         fTodoTasksList.setDialogFieldListener(adapter);
         fTodoTasksList.setRemoveButtonIndex(IDX_REMOVE);
         
@@ -184,38 +180,38 @@ public class TaskTagConfigurationBlock {
         fCaseSensitiveCheckBox.setEnabled(isEnabled);
     }
     
-    final boolean isDefaultTask(TodoTask task) {
+    final boolean isDefaultTask(TaskTagPreference task) {
         return fTodoTasksList.getIndexOfElement(task) == 0;
     }
     
-    private void setToDefaultTask(TodoTask task) {
-        List<TodoTask> elements = fTodoTasksList.getElements();
+    private void setToDefaultTask(TaskTagPreference task) {
+        List<TaskTagPreference> elements = fTodoTasksList.getElements();
         elements.remove(task);
         elements.add(0, task);
         fTodoTasksList.setElements(elements);
         fTodoTasksList.enableButton(IDX_DEFAULT, false);
     }
     
-    public class TaskTagAdapter implements IListAdapter<TodoTask>, IDialogFieldListener {
-        private boolean canEdit(List<TodoTask> selectedElements) {
+    public class TaskTagAdapter implements IListAdapter<TaskTagPreference>, IDialogFieldListener {
+        private boolean canEdit(List<TaskTagPreference> selectedElements) {
             return selectedElements.size() == 1;
         }
         
-        private boolean canSetToDefault(List<TodoTask> selectedElements) {
+        private boolean canSetToDefault(List<TaskTagPreference> selectedElements) {
             return selectedElements.size() == 1 && !isDefaultTask(selectedElements.get(0));
         }
 
-        public void customButtonPressed(ListDialogField<TodoTask> field, int index) {
+        public void customButtonPressed(ListDialogField<TaskTagPreference> field, int index) {
             doTodoButtonPressed(index);
         }
 
-        public void selectionChanged(ListDialogField<TodoTask> field) {
-            List<TodoTask> selectedElements = field.getSelectedElements();
+        public void selectionChanged(ListDialogField<TaskTagPreference> field) {
+            List<TaskTagPreference> selectedElements = field.getSelectedElements();
             field.enableButton(IDX_EDIT, canEdit(selectedElements));
             field.enableButton(IDX_DEFAULT, canSetToDefault(selectedElements));
         }
             
-        public void doubleClicked(ListDialogField<TodoTask> field) {
+        public void doubleClicked(ListDialogField<TaskTagPreference> field) {
             if (canEdit(field.getSelectedElements())) {
                 doTodoButtonPressed(IDX_EDIT);
             }
@@ -277,15 +273,15 @@ public class TaskTagConfigurationBlock {
         if (field == fTodoTasksList) {
             StringBuffer tags = new StringBuffer();
             StringBuffer prios = new StringBuffer();
-            List<TodoTask> list = fTodoTasksList.getElements();
+            List<TaskTagPreference> list = fTodoTasksList.getElements();
             for (int i = 0; i < list.size(); i++) {
                 if (i > 0) {
                     tags.append(',');
                     prios.append(',');
                 }
-                TodoTask elem = list.get(i);
-                tags.append(elem.name);
-                prios.append(elem.priority);
+                TaskTagPreference elem = list.get(i);
+                tags.append(elem.tag);
+                prios.append(elem.severity);
             }
             setValue(PreferenceConstants.TODO_TASK_TAGS, tags.toString());
             setValue(PreferenceConstants.TODO_TASK_PRIORITIES, prios.toString());
@@ -301,13 +297,7 @@ public class TaskTagConfigurationBlock {
         String currPrios = getValue(PreferenceConstants.TODO_TASK_PRIORITIES);
         String[] tags = getTokens(currTags, ","); //$NON-NLS-1$
         String[] prios = getTokens(currPrios, ","); //$NON-NLS-1$
-        ArrayList<TodoTask> elements = new ArrayList<TodoTask>(tags.length);
-        for (int i = 0; i < tags.length; i++) {
-            TodoTask task = new TodoTask();
-            task.name = tags[i].trim();
-            task.priority = (i < prios.length) ? prios[i] : TASK_PRIORITY_NORMAL;
-            elements.add(task);
-        }
+        List<TaskTagPreference> elements = TaskTagPreference.getTaskTagPreferences(fPreferenceStore);
         fTodoTasksList.setElements(elements);
         
         boolean isCaseSensitive = getBooleanValue(PreferenceConstants.TODO_TASK_CASE_SENSITIVE);
@@ -315,7 +305,7 @@ public class TaskTagConfigurationBlock {
     }
     
     private void doTodoButtonPressed(int index) {
-        TodoTask edited = null;
+        TaskTagPreference edited = null;
         if (index != IDX_ADD) {
             edited = fTodoTasksList.getSelectedElements().get(0);
         }
