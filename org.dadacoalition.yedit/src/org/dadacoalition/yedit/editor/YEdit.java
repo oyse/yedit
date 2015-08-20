@@ -11,7 +11,6 @@
 package org.dadacoalition.yedit.editor;
 
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.dadacoalition.yedit.Activator;

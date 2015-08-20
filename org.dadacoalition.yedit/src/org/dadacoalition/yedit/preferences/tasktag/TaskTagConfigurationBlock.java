@@ -12,17 +12,12 @@
  *******************************************************************************/
 package org.dadacoalition.yedit.preferences.tasktag;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
-import org.dadacoalition.yedit.Activator;
 import org.dadacoalition.yedit.YEditLog;
 import org.dadacoalition.yedit.editor.TaskTagPreference;
 import org.dadacoalition.yedit.preferences.PreferenceConstants;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.JFaceResources;
@@ -40,10 +35,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
-import org.eclipse.ui.preferences.IWorkingCopyManager;
-import org.eclipse.ui.preferences.WorkingCopyManager;
-import org.osgi.service.prefs.BackingStoreException;
 
 
 /**
@@ -293,10 +284,6 @@ public class TaskTagConfigurationBlock {
     }
     
     private void unpackTodoTasks() {
-        String currTags = getValue(PreferenceConstants.TODO_TASK_TAGS);    
-        String currPrios = getValue(PreferenceConstants.TODO_TASK_PRIORITIES);
-        String[] tags = getTokens(currTags, ","); //$NON-NLS-1$
-        String[] prios = getTokens(currPrios, ","); //$NON-NLS-1$
         List<TaskTagPreference> elements = TaskTagPreference.getTaskTagPreferences(fPreferenceStore);
         fTodoTasksList.setElements(elements);
         
@@ -359,18 +346,6 @@ public class TaskTagConfigurationBlock {
         String oldValue= getValue(key);        
         fPreferenceStore.setValue(key, value);
         return oldValue;
-    }
-
-
-
-    private String[] getTokens(String text, String separator) {
-        StringTokenizer tok= new StringTokenizer(text, separator); 
-        int nTokens= tok.countTokens();
-        String[] res= new String[nTokens];
-        for (int i= 0; i < res.length; i++) {
-            res[i]= tok.nextToken().trim();
-        }
-        return res;
     }
 
     public void dispose() {
