@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: YEdit YAML editor
 Bundle-SymbolicName: org.dadacoalition.yedit;singleton:=true
-Bundle-Version: 1.0.18.qualifier
+Bundle-Version: 1.0.19.qualifier
 Bundle-Activator: org.dadacoalition.yedit.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -11,8 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.views,
  org.eclipse.core.resources,
  org.eclipse.ui.ide,
- org.eclipse.ui.workbench.texteditor,
- org.eclipse.ui.forms;bundle-version="3.6.200"
+ org.eclipse.ui.workbench.texteditor
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.dadacoalition.yedit;uses:="org.eclipse.ui.plugin,org.osgi.framework",
