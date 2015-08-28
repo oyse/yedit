@@ -80,11 +80,7 @@ public class TaskTagConfigurationBlock {
         public String getColumnText(Object element, int columnIndex) {
             TaskTagPreference task = (TaskTagPreference) element;
             if (columnIndex == 0) {
-                String name = task.tag;
-                if (isDefaultTask(task)) {
-                    name = name + " (default)"; 
-                }
-                return name;
+                return task.tag;
             }
             if (TASK_PRIORITY_HIGH.equals(task.severity)) {
                 return "High"; 
@@ -97,9 +93,6 @@ public class TaskTagConfigurationBlock {
         }
 
         public Font getFont(Object element) {
-            if (isDefaultTask((TaskTagPreference) element)) {
-                return JFaceResources.getFontRegistry().getBold(JFaceResources.DIALOG_FONT);
-            }
             return null;
         }
     }
@@ -115,7 +108,6 @@ public class TaskTagConfigurationBlock {
     private static final int IDX_ADD = 0;
     private static final int IDX_EDIT = 1;
     private static final int IDX_REMOVE = 2;
-    private static final int IDX_DEFAULT = 4;
     
     private IStatus fTaskTagsStatus;
     private final ListDialogField<TaskTagPreference> fTodoTasksList;
@@ -137,7 +129,6 @@ public class TaskTagConfigurationBlock {
             "Edit", 
             "Remove", 
             null,
-            "Set default"  
         };
         fTodoTasksList = new ListDialogField<TaskTagPreference>(adapter, buttons, new TodoTaskLabelProvider());
         fTodoTasksList.setDialogFieldListener(adapter);
@@ -160,7 +151,6 @@ public class TaskTagConfigurationBlock {
             fTodoTasksList.selectFirstElement();
         } else {
             fTodoTasksList.enableButton(IDX_EDIT, false);
-            fTodoTasksList.enableButton(IDX_DEFAULT, false);
         }
         
         fTaskTagsStatus = new StatusInfo();     
@@ -170,27 +160,12 @@ public class TaskTagConfigurationBlock {
         fTodoTasksList.setEnabled(isEnabled);
         fCaseSensitiveCheckBox.setEnabled(isEnabled);
     }
-    
-    final boolean isDefaultTask(TaskTagPreference task) {
-        return fTodoTasksList.getIndexOfElement(task) == 0;
-    }
-    
-    private void setToDefaultTask(TaskTagPreference task) {
-        List<TaskTagPreference> elements = fTodoTasksList.getElements();
-        elements.remove(task);
-        elements.add(0, task);
-        fTodoTasksList.setElements(elements);
-        fTodoTasksList.enableButton(IDX_DEFAULT, false);
-    }
-    
+        
     public class TaskTagAdapter implements IListAdapter<TaskTagPreference>, IDialogFieldListener {
         private boolean canEdit(List<TaskTagPreference> selectedElements) {
             return selectedElements.size() == 1;
         }
         
-        private boolean canSetToDefault(List<TaskTagPreference> selectedElements) {
-            return selectedElements.size() == 1 && !isDefaultTask(selectedElements.get(0));
-        }
 
         public void customButtonPressed(ListDialogField<TaskTagPreference> field, int index) {
             doTodoButtonPressed(index);
@@ -199,7 +174,6 @@ public class TaskTagConfigurationBlock {
         public void selectionChanged(ListDialogField<TaskTagPreference> field) {
             List<TaskTagPreference> selectedElements = field.getSelectedElements();
             field.enableButton(IDX_EDIT, canEdit(selectedElements));
-            field.enableButton(IDX_DEFAULT, canSetToDefault(selectedElements));
         }
             
         public void doubleClicked(ListDialogField<TaskTagPreference> field) {
@@ -305,8 +279,6 @@ public class TaskTagConfigurationBlock {
                     fTodoTasksList.addElement(dialog.getResult());
                 }
             }
-        } else if (index == IDX_DEFAULT) {
-            setToDefaultTask(edited);
         }
     }
     
