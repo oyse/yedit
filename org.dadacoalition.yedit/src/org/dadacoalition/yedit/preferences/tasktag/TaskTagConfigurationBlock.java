@@ -20,7 +20,6 @@ import org.dadacoalition.yedit.preferences.PreferenceConstants;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.IFontProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
