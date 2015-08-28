@@ -33,7 +33,7 @@ public class TaskTagParserTest {
     
     private TaskTagParser parser;
     
-    public TaskTagParserTest(String inputFilename){    
+    public TaskTagParserTest(String inputFilename, boolean caseSensitive){    
         this.inputFilename = TEST_FILE_DIR + inputFilename + ".yaml";
         testCaseFilename = TEST_FILE_DIR + inputFilename + "-result.yaml";
         
@@ -41,7 +41,7 @@ public class TaskTagParserTest {
         tagsToFind.add(new TaskTagPreference("TODO", "normal"));
         tagsToFind.add(new TaskTagPreference("FIXME", "high"));
         YAMLScanner scanner = new YAMLScanner(new ColorManager());
-        parser = new TaskTagParser(tagsToFind, scanner);
+        parser = new TaskTagParser(tagsToFind, scanner, caseSensitive);
     }
     
     @Test
@@ -60,10 +60,11 @@ public class TaskTagParserTest {
     public static Collection<Object[]> parameters() {
         
         Collection<Object[]> testCases = new ArrayList<Object[]>();
-        testCases.add( new Object[]{ "empty-doc" } );
-        testCases.add( new Object[]{ "no-todo" } );
-        testCases.add( new Object[]{ "multi-todo" } );
-        testCases.add( new Object[]{ "todo-in-scalar" } );
+        testCases.add( new Object[]{ "empty-doc", false } );
+        testCases.add( new Object[]{ "no-todo", false } );
+        testCases.add( new Object[]{ "multi-todo", false } );
+        testCases.add( new Object[]{ "todo-in-scalar", false } );
+        testCases.add( new Object[]{ "case-sensitive", true } );
 
         
         return testCases;

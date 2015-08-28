@@ -1,0 +1,8 @@
+name: Tests for document with a tag in wrong case
+expectedTags:
+  - tag: TODO
+    severity: normal
+    lineNumber: 5
+    message: number two
+ 
+    

@@ -326,7 +326,8 @@ public class YEdit extends TextEditor {
         }       
         
         List<TaskTagPreference> prefs = getTaskTagPreferences();
-        TaskTagParser ttp = new TaskTagParser(prefs, sourceViewerConfig.getScanner());
+        boolean caseSensitiveTags = Boolean.valueOf(Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.TODO_TASK_CASE_SENSITIVE));
+        TaskTagParser ttp = new TaskTagParser(prefs, sourceViewerConfig.getScanner(), caseSensitiveTags);
         List<TaskTag> tags = ttp.parseTags(this.getDocumentProvider().getDocument(this.getEditorInput()));
 
 

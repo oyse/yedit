@@ -24,11 +24,15 @@ public class TaskTagParser {
     
     private final Pattern tagPattern;
     
-    public TaskTagParser(List<TaskTagPreference> tagsToFind, YAMLScanner scanner){
+    public TaskTagParser(List<TaskTagPreference> tagsToFind, YAMLScanner scanner, boolean caseSensitive){
         this.tagsToFind = tagsToFind;
         this.scanner = scanner;
         
-        tagPattern = Pattern.compile(constructTagPattern(tagsToFind));
+        if(caseSensitive){
+        	tagPattern = Pattern.compile(constructTagPattern(tagsToFind));
+        } else {
+        	tagPattern = Pattern.compile(constructTagPattern(tagsToFind), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
+        }
         
     }
     
@@ -122,8 +126,9 @@ public class TaskTagParser {
 
     private TaskTagPreference getFoundTagType(String comment){
         
+    	comment = comment.toLowerCase();
         for(TaskTagPreference ttp : tagsToFind){
-            if(comment.indexOf(ttp.tag) > 0){
+            if(comment.indexOf(ttp.tag.toLowerCase()) > 0){
                 return ttp;
             }
         }
