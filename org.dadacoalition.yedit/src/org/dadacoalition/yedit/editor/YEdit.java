@@ -29,8 +29,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.ISourceViewer;
+import org.eclipse.jface.text.source.IVerticalRuler;
 import org.eclipse.jface.text.source.SourceViewer;
+import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
+import org.eclipse.jface.text.source.projection.ProjectionSupport;
+import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -41,6 +46,7 @@ import org.eclipse.ui.IFileEditorInput;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.error.*;
 
+
 public class YEdit extends TextEditor {
 
 	private ColorManager colorManager;
@@ -49,6 +55,9 @@ public class YEdit extends TextEditor {
 	private YAMLContentOutlinePage contentOutline;
 	
 	private final IPropertyChangeListener propertyChangeListener = new PreferenceChangeListener(this);
+	
+	private ProjectionSupport projectionSupport;
+	private ProjectionAnnotationModel annotationModel;
 	
 	public static final String SOURCE_VIEWER_CONFIGURATION_CONTRIB_ID = 
 		Activator.PLUGIN_ID + ".sourceViewerConfigurationContribution";
@@ -93,6 +102,18 @@ public class YEdit extends TextEditor {
 		
 		setSourceViewerConfiguration(jsvc);
 		sourceViewerConfig = jsvc;
+	}
+	
+	@Override
+	protected ISourceViewer createSourceViewer(Composite parent, IVerticalRuler ruler, int styles){
+		
+        ISourceViewer viewer = new ProjectionViewer(parent, ruler, getOverviewRuler(), isOverviewRulerVisible(), styles);
+
+    	// ensure decoration support has been created and configured.
+    	getSourceViewerDecorationSupport(viewer);
+    	
+    	return viewer;
+		
 	}
 
 	protected YEditSourceViewerConfiguration createSourceViewerConfiguration() {
@@ -139,6 +160,16 @@ public class YEdit extends TextEditor {
         addDocumentIdleListener(listener);
         
         Activator.getDefault().getPreferenceStore().addPropertyChangeListener(propertyChangeListener);
+        
+        ProjectionViewer viewer =(ProjectionViewer)getSourceViewer();
+        
+        projectionSupport = new ProjectionSupport(viewer,getAnnotationAccess(),getSharedColors());
+		projectionSupport.install();
+		
+		//turn projection mode on
+		viewer.doOperation(ProjectionViewer.TOGGLE);
+		
+		annotationModel = viewer.getProjectionAnnotationModel();        
 
 	}
 	
@@ -360,6 +391,10 @@ public class YEdit extends TextEditor {
 	private List<TaskTagPreference> getTaskTagPreferences() {
 		return TaskTagPreference.getTaskTagPreferences(Activator.getDefault().getPreferenceStore());
     }
+	
+	public void updateSourceFolding(){
+		
+	}
 
     public boolean formatDocument(){
 	    

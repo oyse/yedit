@@ -1,0 +1,4 @@
+name: Tests for simple list
+expectedPositions:
+  - offset: 0
+    length: 37
