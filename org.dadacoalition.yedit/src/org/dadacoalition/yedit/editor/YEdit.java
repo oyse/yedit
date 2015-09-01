@@ -11,6 +11,8 @@
 package org.dadacoalition.yedit.editor;
 
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.dadacoalition.yedit.Activator;
@@ -29,10 +31,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
 import org.eclipse.jface.text.source.SourceViewer;
+import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
@@ -45,7 +49,6 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.error.*;
-
 
 public class YEdit extends TextEditor {
 
@@ -61,6 +64,10 @@ public class YEdit extends TextEditor {
 	
 	public static final String SOURCE_VIEWER_CONFIGURATION_CONTRIB_ID = 
 		Activator.PLUGIN_ID + ".sourceViewerConfigurationContribution";
+	
+	private SourceFoldingModel sourceFoldingModel = new SourceFoldingModel();
+	
+	private List<Annotation> currentFoldingAnnotations = new ArrayList<Annotation>();
 
 	public YEdit() {
 		super();
@@ -193,6 +200,7 @@ public class YEdit extends TextEditor {
 		markErrors();
 		locateTaskTags();
 		updateContentOutline();
+		updateSourceFolding();
 	}
 	
 	public void doSaveAs() {
@@ -200,6 +208,7 @@ public class YEdit extends TextEditor {
 		markErrors();
         locateTaskTags();		
 		updateContentOutline();
+		updateSourceFolding();
 	}
 
 	void updateContentOutline(){
@@ -393,7 +402,28 @@ public class YEdit extends TextEditor {
     }
 	
 	public void updateSourceFolding(){
-		
+
+	    IDocument doc = this.getDocumentProvider().getDocument(this.getEditorInput());
+	    List<Position> positions = sourceFoldingModel.structureToFoldingPositions(doc);
+        List<Annotation> annotations = new ArrayList<>(positions.size());
+        
+        //this will hold the new annotations along
+        //with their corresponding positions
+        HashMap<ProjectionAnnotation, Position> newAnnotations = new HashMap<>();
+        
+        for(Position p : positions){
+            ProjectionAnnotation annotation = new ProjectionAnnotation();
+            
+            newAnnotations.put(annotation,p);
+            
+            annotations.add(annotation);
+        }
+        
+        Annotation[] a = (Annotation[]) currentFoldingAnnotations.toArray(new Annotation[currentFoldingAnnotations.size()]);
+        annotationModel.modifyAnnotations(a,newAnnotations,null);
+        
+        currentFoldingAnnotations=annotations;   
+	    
 	}
 
     public boolean formatDocument(){
