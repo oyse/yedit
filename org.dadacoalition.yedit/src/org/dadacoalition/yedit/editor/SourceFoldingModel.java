@@ -46,6 +46,10 @@ public class SourceFoldingModel {
 		List<Position> positions = new ArrayList<>();
 		
 		seenNodes.add(System.identityHashCode(node));
+
+		if(!relevantPosition(node)){
+			return positions;
+		}
 		
 		if( node instanceof ScalarNode ){
 			//scalar nodes require no further action
@@ -55,6 +59,7 @@ public class SourceFoldingModel {
 			
 			
 			SequenceNode sNode = (SequenceNode) node;
+			
 			List<Node> children = sNode.getValue();
 			for( Node childNode : children ){
 				
@@ -86,31 +91,32 @@ public class SourceFoldingModel {
 		return positions;
 	}
 	
+	private boolean relevantPosition(Node node){
+		int startLine = node.getStartMark().getLine();
+		int endLine = node.getEndMark().getLine();
+		
+		return startLine < endLine;
+	}
+	
 	/**
-	 * Get the position of the node within the document containing the YAML text.
-	 * This position is necessary to associate clicking on the element in the
-	 * outline view with moving the caret to the right position in the document.
+	 * Get the position of the node within the document. Since we are using the position for
+	 * the source folding we measure positions from the start of the line where the
+	 * node begins to the end of the line where the node stops.
 	 * @param node The SnakeYAML node of the current element.
 	 * @return
 	 */
 	private Position getPosition( Node node, IDocument document ){
 		
 		int startLine = node.getStartMark().getLine();
-		int startColumn = node.getStartMark().getColumn();
 		int endLine = node.getEndMark().getLine();
-		int endColumn = node.getEndMark().getColumn();
 		Position p = null;
 		try {
-			int offset = document.getLineOffset(startLine);
-			offset += startColumn;
+			int startOffset = document.getLineOffset(startLine);
+			int endOffset = document.getLineOffset(endLine);
+			int endLineLength = document.getLineLength(endLine);
 		
-			int length;
-			if( startLine < endLine ){
-				length = document.getLineLength( startLine ) - startColumn;
-			} else {
-				length = endColumn - startColumn;
-			}
-			p = new Position( offset, length ); 
+			int length = endOffset - startOffset + endLineLength;
+			p = new Position( startOffset, length ); 
 		} catch( BadLocationException e) {
 			YEditLog.logger.warning( e.toString() );
 		}
