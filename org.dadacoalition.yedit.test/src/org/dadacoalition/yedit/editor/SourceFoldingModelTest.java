@@ -53,10 +53,10 @@ public class SourceFoldingModelTest {
     public static Collection<Object[]> parameters() {
         
         Collection<Object[]> testCases = new ArrayList<Object[]>();
-//        testCases.add( new Object[]{ "empty-doc" } );
-//        testCases.add( new Object[]{ "scalar-only" } );
-//        testCases.add( new Object[]{ "simple-list" } );
-//        testCases.add( new Object[]{ "simple-map" } );
+        testCases.add( new Object[]{ "empty-doc" } );
+        testCases.add( new Object[]{ "scalar-only" } );
+        testCases.add( new Object[]{ "simple-list" } );
+        testCases.add( new Object[]{ "simple-map" } );
         testCases.add( new Object[]{ "nested-structures" } );
         
         return testCases;

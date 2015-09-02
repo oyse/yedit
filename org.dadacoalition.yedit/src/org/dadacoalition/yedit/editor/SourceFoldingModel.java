@@ -23,6 +23,25 @@ public class SourceFoldingModel {
 	
 	private Set<Integer> seenNodes;
 	
+	private enum NodeType {
+		SCALAR, SEQUENCE, MAPPING
+	}
+	
+	private class SourceFoldingNode {
+		protected int startLine;
+		protected int endLine;
+		protected NodeType nodeType;
+		
+		protected List<SourceFoldingNode> children = new ArrayList<>();
+		
+		protected SourceFoldingNode(int startLine,int endLine, NodeType nodeType){
+			this.startLine = startLine;
+			this.endLine = endLine;
+			this.nodeType = nodeType;
+		}
+		
+	}
+	
 	protected SourceFoldingModel(){
 		seenNodes = new HashSet<>();
 	}
@@ -32,31 +51,86 @@ public class SourceFoldingModel {
 		seenNodes.clear();
 		
 		String content = document.get();
-		List<Position> positions = new ArrayList<>();
-		
+		List<SourceFoldingNode> foldingNodes = new ArrayList<>();
 		for( Node rootNode : yamlParser.composeAll( new StringReader( content ) ) ){
-			positions.addAll(nodeToPositions(rootNode, document));
+			foldingNodes.add(yamlToFoldingNode(rootNode, document));				
 		}		
+		
+		int highestAllowedEndLine = document.getNumberOfLines() - 1;
+		for(int i = foldingNodes.size(); i > 0; i-- ){
+			SourceFoldingNode node = foldingNodes.get(i - 1);
+			highestAllowedEndLine = fixEndLineErrors(node, highestAllowedEndLine);
+		}
+		
+		List<Position> positions = new ArrayList<>();
+		try {
+			for(int i = foldingNodes.size(); i > 0; i-- ){
+				SourceFoldingNode node = foldingNodes.get(i - 1);
+				positions.addAll(foldingNodeToPosition(node, document));
+			}
+		} catch (BadLocationException ex){
+			YEditLog.logException(ex , "Failed to translate from document model to positions");
+		}
 
 		return positions;
 	}
 	
-	private List<Position> nodeToPositions(Node node, IDocument document){
+	private List<Position> foldingNodeToPosition(SourceFoldingNode node, IDocument document) throws BadLocationException {
 		
 		List<Position> positions = new ArrayList<>();
-		
-		seenNodes.add(System.identityHashCode(node));
-
-		if(!relevantPosition(node)){
+		if(node.startLine == node.endLine || node.nodeType == NodeType.SCALAR){
 			return positions;
 		}
 		
+		positions.add(getPosition(node, document));
+		for(SourceFoldingNode child : node.children){
+			positions.addAll(foldingNodeToPosition(child, document));
+		}
+		
+		
+		return positions;
+		
+	}
+	
+	/**
+	 * The Yaml parser some times reports the wrong end line for a node so we need to fix that.
+	 * 
+	 * We cannot expect that this will be fixed in the Yaml parser since we are really abusing internal
+	 * structures to get this to work.
+	 * @param node The node to process
+	 * @param highestAllowedEndLine The highest number that is allowed for the end line.
+	 * 
+	 * @return The new highest allowed end line for subsequent calls
+	 */
+	private int fixEndLineErrors(SourceFoldingNode node, int highestAllowedEndLine){
+		
+		int updatedHighest = highestAllowedEndLine;
+		
+		// traverse in reverse order of appearance in the document
+		for(int i = node.children.size(); i > 0; i-- ){
+			SourceFoldingNode child = node.children.get(i - 1);
+			updatedHighest = fixEndLineErrors(child, updatedHighest);
+		}
+		
+		if(node.endLine > highestAllowedEndLine){
+			node.endLine = highestAllowedEndLine;
+		}
+		
+		return node.startLine - 1;
+		
+	}
+
+	private SourceFoldingNode yamlToFoldingNode(Node node, IDocument document){
+		
+		
+		seenNodes.add(System.identityHashCode(node));
+		
 		if( node instanceof ScalarNode ){
+			return new SourceFoldingNode(node.getStartMark().getLine(), node.getEndMark().getLine(), NodeType.SCALAR);
 			//scalar nodes require no further action
 		} else if( node instanceof SequenceNode ){
 			
-			positions.add(getPosition(node, document));
-			
+			SourceFoldingNode parent = new SourceFoldingNode(node.getStartMark().getLine(), node.getEndMark().getLine(), NodeType.SEQUENCE);
 			
 			SequenceNode sNode = (SequenceNode) node;
 			
@@ -68,11 +142,12 @@ public class SourceFoldingModel {
 					continue;
 				}
 				
-				positions.addAll(nodeToPositions(childNode, document));
+				parent.children.add(yamlToFoldingNode(childNode, document));
 			}
+			return parent;
 		} else if ( node instanceof MappingNode ){
 
-			positions.add(getPosition(node, document));			
+			SourceFoldingNode parent = new SourceFoldingNode(node.getStartMark().getLine(), node.getEndMark().getLine(), NodeType.MAPPING);
 			
 			MappingNode mNode = (MappingNode) node;
 			List<NodeTuple> children = mNode.getValue();
@@ -83,45 +158,24 @@ public class SourceFoldingModel {
 					continue;
 				}					
 				
-				positions.addAll(nodeToPositions(childNode.getValueNode(), document));
+				parent.children.add(yamlToFoldingNode(childNode.getValueNode(), document));
 			}
+			
+			return parent;
 		}					
 		
-		
-		return positions;
+		throw new IllegalArgumentException("Invalid node type: " + node.getType());
 	}
 	
-	private boolean relevantPosition(Node node){
-		int startLine = node.getStartMark().getLine();
-		int endLine = node.getEndMark().getLine();
+	// translate from the model to document positions
+	private Position getPosition( SourceFoldingNode node, IDocument document ) throws BadLocationException {
 		
-		return startLine < endLine;
-	}
+		int startOffset = document.getLineOffset(node.startLine);
+		int endOffset = document.getLineOffset(node.endLine);
+		int endLineLength = document.getLineLength(node.endLine);
 	
-	/**
-	 * Get the position of the node within the document. Since we are using the position for
-	 * the source folding we measure positions from the start of the line where the
-	 * node begins to the end of the line where the node stops.
-	 * @param node The SnakeYAML node of the current element.
-	 * @return
-	 */
-	private Position getPosition( Node node, IDocument document ){
-		
-		int startLine = node.getStartMark().getLine();
-		int endLine = node.getEndMark().getLine();
-		Position p = null;
-		try {
-			int startOffset = document.getLineOffset(startLine);
-			int endOffset = document.getLineOffset(endLine);
-			int endLineLength = document.getLineLength(endLine);
-		
-			int length = endOffset - startOffset + endLineLength;
-			p = new Position( startOffset, length ); 
-		} catch( BadLocationException e) {
-			YEditLog.logger.warning( e.toString() );
-		}
-		return p; 			
-		
+		int length = endOffset - startOffset + endLineLength;
+		return new Position( startOffset, length ); 
 	}
 		
 }
