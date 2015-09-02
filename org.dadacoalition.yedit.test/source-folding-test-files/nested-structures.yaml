@@ -1,0 +1,10 @@
+- a
+- nested:
+    structure:
+      - a
+      - b
+      - c
+- nested2:
+    a: 1
+    b: 2
+    c: 3

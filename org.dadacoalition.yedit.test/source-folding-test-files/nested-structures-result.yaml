@@ -1,0 +1,12 @@
+name: Tests for nested structures
+expectedPositions:
+  - offset: 0
+    length: 96
+  - offset: 4
+    length: 55
+  - offset: 14
+    length: 45
+  - offset: 29
+    length: 29
+  - offset: 59
+    length: 37
