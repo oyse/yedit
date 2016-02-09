@@ -137,19 +137,19 @@
             commandId="org.dadacoalition.yedit.commands.toggleComment"
             contextId="org.dadacoalition.yedit.yeditScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="Ctrl+Shift+C">
+            sequence="M1+M2+C">
       </key>
       <key
             commandId="org.dadacoalition.yedit.commands.toggleComment"
             contextId="org.dadacoalition.yedit.yeditScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="Ctrl+/">
+            sequence="M1+/">
       </key>
       <key
             commandId="org.dadacoalition.yedit.command.formatDocument"
             contextId="org.dadacoalition.yedit.yeditScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="Ctrl+Shift+F">
+            sequence="M1+M2+F">
       </key>
    </extension>
    <extension
